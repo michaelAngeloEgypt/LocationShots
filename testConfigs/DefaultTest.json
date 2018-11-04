@@ -1,0 +1,114 @@
+{
+  "Ticker": "AMD, GOOGL, AAPL",
+  "DaysToExpiration": 30,
+  "TestLength": "TestLength.TwoYear",
+  "InitialActions": [
+    {
+      "ElementType": "Button",
+      "ElementId": "Strategy.Call",
+      "ElementContent": ""
+    },
+    {
+      "ElementType": "Button",
+      "ElementId": "LongOrShort.Long",
+      "ElementContent": ""
+    },
+    {
+      "ElementType": "Button",
+      "ElementId": "EarningsHandling.NothingSpecial",
+      "ElementContent": ""
+    },
+    {
+      "ElementType": "Button",
+      "ElementId": "OpenTradeWhen.NormalTime",
+      "ElementContent": ""
+    },
+    {
+      "ElementType": "TextBox",
+      "ElementId": "CloseTradeWhen.GainsAbove",
+      "ElementContent": "50"
+    },
+    {
+      "ElementType": "TextBox",
+      "ElementId": "CloseTradeWhen.LossesAbove",
+      "ElementContent": "50"
+    },
+    {
+      "ElementType": "Button",
+      "ElementId": "AndOpenNextTrade.AtNormalTime",
+      "ElementContent": ""
+    }
+  ],
+  "TestActions": [
+    {
+      "ElementType": "Button",
+      "ElementId": "Strategy.Put",
+      "ElementContent": ""
+    },
+    {
+      "ElementType": "Button",
+      "ElementId": "Strategy.CoveredCall",
+      "ElementContent": ""
+    },
+    {
+      "ElementType": "Button",
+      "ElementId": "Strategy.CallSpread",
+      "ElementContent": ""
+    },
+    {
+      "ElementType": "Button",
+      "ElementId": "Strategy.PutSpread",
+      "ElementContent": ""
+    },
+    {
+      "ElementType": "Button",
+      "ElementId": "Strategy.Straddle",
+      "ElementContent": ""
+    },
+    {
+      "ElementType": "Button",
+      "ElementId": "Strategy.Strangle",
+      "ElementContent": ""
+    },
+    {
+      "ElementType": "Button",
+      "ElementId": "Strategy.RiskReversal",
+      "ElementContent": ""
+    },
+    {
+      "ElementType": "Button",
+      "ElementId": "Strategy.IronCondor",
+      "ElementContent": ""
+    },
+    {
+      "ElementType": "Button",
+      "ElementId": "LongOrShort.Short",
+      "ElementContent": ""
+    },
+    {
+      "ElementType": "Button",
+      "ElementId": "EarningsHandling.NeverTradeEarnings",
+      "ElementContent": ""
+    },
+    {
+      "ElementType": "Button",
+      "ElementId": "EarningsHandling.OnlyTradeEarnings",
+      "ElementContent": ""
+    },
+    {
+      "ElementType": "Button",
+      "ElementId": "OpenTradeWhen.BullSqueeze",
+      "ElementContent": ""
+    },
+    {
+      "ElementType": "Button",
+      "ElementId": "OpenTradeWhen.BearSqueeze",
+      "ElementContent": ""
+    },
+    {
+      "ElementType": "Button",
+      "ElementId": "AndOpenNextTrade.Immediately",
+      "ElementContent": ""
+    }
+  ]
+}

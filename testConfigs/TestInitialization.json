@@ -1,0 +1,19 @@
+{
+  "NumberOfContracts": 5,
+  "StartDate": "2015-12-20",
+  "EndDate": "2015-12-19",
+  "ExecutionFillType": "Halfway Between Mid and Market",
+
+  "TradingFees": {
+    "SocketTicketFee": "$1.00",
+    "PerShareFee": "$0.50",
+    "OptionTicketFee": "$0.50",
+    "PerContractFee": "$0.25"
+  },
+
+  "StrategyDeltas": {
+    "UseMyOwnDeltas": true,
+    "List1Deltas": [ 60, 50, 40, 30, 20 ],
+    "List2Deltas": [ 40, 20, 20, 10, 10 ]
+  }
+}
