@@ -53,7 +53,7 @@ namespace LocationShots.BLL
 
                 currentStep = "Loading Homepage";
                 CallUpdateStatus(currentStep);
-                Selenium.LoadSite(Config.Inputs.Url);
+                Selenium.LoadSite(Config.Inputs.Url, Identifiers.Buttons["Home.Search"]);
 
                 currentStep = "Applying Search in LocationShots";
                 CallUpdateStatus(currentStep);
@@ -93,6 +93,45 @@ namespace LocationShots.BLL
                 //if (!File.Exists(Variables.OutputSheetPath))
                 //    WriteOutputs(Variables.OutputSheetPath);
             }
+        }
+
+        public static bool DoTaskScreenshot()
+        {
+            try
+            {
+                currentStep = "Starting browser";
+                CallUpdateStatus(currentStep);
+                Selenium.SetCurrentDriver(Config.Inputs.Browser);
+                Selenium.HideDriverWindow();
+
+                currentStep = "Loading Homepage";
+                CallUpdateStatus(currentStep);
+                Selenium.LoadSite("https://www.yellowpages.com.eg/en", Identifiers.Buttons["YP.Search"]);
+
+
+                currentStep = "Taking Screenshot";
+                CallUpdateStatus(currentStep);
+                string filePath = Path.Combine(Environment.CurrentDirectory, "screenshot.png");
+                filePath.DeleteFile();
+                Selenium.TakeScreenshot(filePath);
+
+                Variables.ExecutionTime.Stop();
+                CallMarkCompleted(string.Concat(MSG.OperationPassed, Variables.ExecutionTime.Elapsed.ToStandardElapsedFormat()));
+                return true;
+            }
+            catch (Exception x)
+            {
+                if (!x.Data.Contains("currentStep")) x.Data.Add("currentStep", currentStep);
+                Variables.ExecutionTime.Stop();
+                throw;
+            }
+            finally
+            {
+                //Selenium.EndSession();
+                //if (!File.Exists(Variables.OutputSheetPath))
+                //    WriteOutputs(Variables.OutputSheetPath);
+            }
+
         }
 
         private static void CompareWithPreviousExecution(string previousExecWorkbook, out string comparisonWorkbookName)

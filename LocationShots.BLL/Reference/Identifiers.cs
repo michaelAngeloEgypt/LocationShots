@@ -24,6 +24,7 @@ namespace LocationShots.BLL
         private static void AddButtonIds()
         {
             Buttons.Add("Home.Search", By.Id("BCCSearchnullButton_label"));
+            Buttons.Add("YP.Search", By.Id("search-what"));
 
             Buttons.Add("TestLength.SixMonths", By.Id("test_length_6m"));
             Buttons.Add("TestLength.OneYear", By.Id("test_length_1y"));

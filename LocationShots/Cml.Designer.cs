@@ -54,6 +54,8 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txtResult = new System.Windows.Forms.RichTextBox();
             this.loadingCircle1 = new GetBusiness.LoadingCircle();
+            this.rbTakeScreenshot = new System.Windows.Forms.RadioButton();
+            this.rbCityPlan = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -326,11 +328,35 @@
             this.loadingCircle1.TabIndex = 11;
             this.loadingCircle1.Text = "loadingCircle1";
             // 
+            // rbTakeScreenshot
+            // 
+            this.rbTakeScreenshot.AutoSize = true;
+            this.rbTakeScreenshot.Checked = true;
+            this.rbTakeScreenshot.Location = new System.Drawing.Point(280, 359);
+            this.rbTakeScreenshot.Name = "rbTakeScreenshot";
+            this.rbTakeScreenshot.Size = new System.Drawing.Size(107, 17);
+            this.rbTakeScreenshot.TabIndex = 23;
+            this.rbTakeScreenshot.TabStop = true;
+            this.rbTakeScreenshot.Text = "Take Screenshot";
+            this.rbTakeScreenshot.UseVisualStyleBackColor = true;
+            // 
+            // rbCityPlan
+            // 
+            this.rbCityPlan.AutoSize = true;
+            this.rbCityPlan.Location = new System.Drawing.Point(280, 336);
+            this.rbCityPlan.Name = "rbCityPlan";
+            this.rbCityPlan.Size = new System.Drawing.Size(63, 17);
+            this.rbCityPlan.TabIndex = 24;
+            this.rbCityPlan.Text = "CityPlan";
+            this.rbCityPlan.UseVisualStyleBackColor = true;
+            // 
             // Cml
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(678, 480);
+            this.Controls.Add(this.rbCityPlan);
+            this.Controls.Add(this.rbTakeScreenshot);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.loadingCircle1);
             this.Controls.Add(this.btnStartStop);
@@ -347,6 +373,7 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -378,5 +405,7 @@
         private System.Windows.Forms.TextBox txtStreet;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtStreetNo;
+        private System.Windows.Forms.RadioButton rbTakeScreenshot;
+        private System.Windows.Forms.RadioButton rbCityPlan;
     }
 }

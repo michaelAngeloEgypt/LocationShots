@@ -54,12 +54,12 @@ namespace LocationShots.BLL
         }
 
         #region Locations
-        internal static void LoadSite(string url)
+        internal static void LoadSite(string url, By waitElement)
         {
             try
             {
                 CurrentDriver.Navigate().GoToUrl(url);
-                IWebElement userField = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(Identifiers.Buttons["Home.Search"]));
+                IWebElement userField = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(waitElement));
             }
             catch (Exception x)
             {
@@ -80,6 +80,17 @@ namespace LocationShots.BLL
                 XLogger.Error(x);
             }
         }
+        internal static void TakeScreenshot(string filePath)
+        {
+            Screenshot ss = ((ITakesScreenshot)CurrentDriver).GetScreenshot();
+
+            //Use it as you want now
+            string screenshot = ss.AsBase64EncodedString;
+            byte[] screenshotAsByteArray = ss.AsByteArray;
+            ss.SaveAsFile(filePath, ScreenshotImageFormat.Png); //use any of the built in image formating
+            //ss.ToString();//same as string screenshot = ss.AsBase64EncodedString;
+        }
+
         #endregion Locations
 
         /// <summary>
@@ -146,6 +157,8 @@ namespace LocationShots.BLL
                 //options.AddArgument("--start-maximized");
                 options.AddArgument("--start-minimized");
                 options.AddArgument("no-sandbox");
+                options.AddArgument("--disable-notifications");
+                options.Proxy = null;
 
                 IWebDriver driver = new ChromeDriver(service, options);
 

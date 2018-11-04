@@ -290,8 +290,16 @@ namespace LocationShots
                 Engine.Variables.OutputSheetPath = Path.Combine(Engine.Config.Outputs.OutputFolder, Engine.Variables.OutputSheetPath);
                 UpdateOutputSheetPath(Engine.Variables.OutputSheetPath);
 
-                if (!Engine.DoTaskCml())
-                    throw new ApplicationException("Some error occurred");
+                if (rbCityPlan.Checked)
+                {
+                    if (!Engine.DoTaskCml())
+                        throw new ApplicationException("Some error occurred");
+                }
+                else if (rbTakeScreenshot.Checked)
+                {
+                    if (!Engine.DoTaskScreenshot())
+                        throw new ApplicationException("Some error occurred");
+                }
 
                 //MarkCompleted("done.please check results");
                 var elapsed = timer.Elapsed.ToStandardElapsedFormat();
@@ -414,6 +422,11 @@ namespace LocationShots
         private void rbBrowser_CheckedChanged(object sender, EventArgs e)
         {
             Engine.Config.Inputs.Browser = myUI.Browser;
+        }
+
+        private void btnTakeScreenshot_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
