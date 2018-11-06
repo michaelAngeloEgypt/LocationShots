@@ -289,6 +289,7 @@ namespace LocationShots
 
                 Engine.Variables.OutputSheetPath = Path.Combine(Engine.Config.Outputs.OutputFolder, Engine.Variables.OutputSheetPath);
                 UpdateOutputSheetPath(Engine.Variables.OutputSheetPath);
+                Engine.Config = myUI.BuildConfig();
 
                 if (rbCityPlan.Checked)
                 {
