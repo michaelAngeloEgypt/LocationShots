@@ -16,7 +16,7 @@ namespace LocationShots.BLL
     /// <summary>
     /// <see cref="http://yizeng.me/2014/03/05/hide-command-prompt-window-in-selenium-webdriver-net-binding/"/>
     /// </summary>
-    public static class Selenium
+    public static partial class Selenium
     {
         private static IWebDriver CurrentDriver = null;
         public static IWebDriver SetCurrentDriver(Lookups.Browser browser)
@@ -54,18 +54,6 @@ namespace LocationShots.BLL
         }
 
         #region Locations
-        internal static void LoadSite(string url, By waitElement)
-        {
-            try
-            {
-                CurrentDriver.Navigate().GoToUrl(url);
-                IWebElement userField = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(waitElement));
-            }
-            catch (Exception x)
-            {
-                XLogger.Error(x);
-            }
-        }
         internal static void SearchLocation(string suburb, string street, string streetNo)
         {
             try
@@ -521,6 +509,18 @@ namespace LocationShots.BLL
         #endregion API
 
         #region Generic
+        internal static void LoadSite(string url, By waitElement)
+        {
+            try
+            {
+                CurrentDriver.Navigate().GoToUrl(url);
+                IWebElement userField = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(waitElement));
+            }
+            catch (Exception x)
+            {
+                XLogger.Error(x);
+            }
+        }
         /// <summary>
         /// https://stackoverflow.com/questions/25929195/webdriver-element-is-not-clickable-chrome
         /// </summary>

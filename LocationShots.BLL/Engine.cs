@@ -95,6 +95,36 @@ namespace LocationShots.BLL
             }
         }
 
+        public static bool DoTaskRedland()
+        {
+            try
+            {
+                currentStep = "Starting browser";
+                CallUpdateStatus(currentStep);
+                Selenium.SetCurrentDriver(Config.Inputs.Browser);
+                Selenium.HideDriverWindow();
+
+                currentStep = "Loading Homepage";
+                CallUpdateStatus(currentStep);
+                Selenium.LoadSite(Config.Inputs.Url, Identifiers.Buttons["Home.Search"]);
+
+                Variables.ExecutionTime.Stop();
+                CallMarkCompleted(string.Concat(MSG.OperationPassed, Variables.ExecutionTime.Elapsed.ToStandardElapsedFormat()));
+                return true;
+            }
+            catch (Exception x)
+            {
+                if (!x.Data.Contains("currentStep")) x.Data.Add("currentStep", currentStep);
+                Variables.ExecutionTime.Stop();
+                throw;
+            }
+            finally
+            {
+                //Selenium.EndSession();
+                //if (!File.Exists(Variables.OutputSheetPath))
+                //    WriteOutputs(Variables.OutputSheetPath);
+            }
+        }
         public static bool DoTaskScreenshot()
         {
             try

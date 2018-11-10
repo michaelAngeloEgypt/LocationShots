@@ -108,10 +108,11 @@
     <Compile Include="Reference\ConfigKeys.cs" />
     <Compile Include="Reference\Lookups.cs" />
     <Compile Include="Reference\MSG.cs" />
+    <Compile Include="Sites\Redland.cs" />
     <Compile Include="Utils\AutomationUtils.cs" />
     <Compile Include="Utils\HtmlAgility.cs" />
     <Compile Include="Utils\MyExtensions.cs" />
-    <Compile Include="Utils\Selenium.cs" />
+    <Compile Include="Sites\Selenium.cs" />
     <Compile Include="XLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

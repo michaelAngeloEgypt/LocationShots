@@ -56,6 +56,7 @@
             this.loadingCircle1 = new GetBusiness.LoadingCircle();
             this.rbTakeScreenshot = new System.Windows.Forms.RadioButton();
             this.rbCityPlan = new System.Windows.Forms.RadioButton();
+            this.rbRedland = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -350,11 +351,22 @@
             this.rbCityPlan.Text = "CityPlan";
             this.rbCityPlan.UseVisualStyleBackColor = true;
             // 
+            // rbRedland
+            // 
+            this.rbRedland.AutoSize = true;
+            this.rbRedland.Location = new System.Drawing.Point(189, 336);
+            this.rbRedland.Name = "rbRedland";
+            this.rbRedland.Size = new System.Drawing.Size(65, 17);
+            this.rbRedland.TabIndex = 25;
+            this.rbRedland.Text = "Redland";
+            this.rbRedland.UseVisualStyleBackColor = true;
+            // 
             // Cml
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(678, 480);
+            this.Controls.Add(this.rbRedland);
             this.Controls.Add(this.rbCityPlan);
             this.Controls.Add(this.rbTakeScreenshot);
             this.Controls.Add(this.groupBox3);
@@ -407,5 +419,6 @@
         private System.Windows.Forms.TextBox txtStreetNo;
         private System.Windows.Forms.RadioButton rbTakeScreenshot;
         private System.Windows.Forms.RadioButton rbCityPlan;
+        private System.Windows.Forms.RadioButton rbRedland;
     }
 }

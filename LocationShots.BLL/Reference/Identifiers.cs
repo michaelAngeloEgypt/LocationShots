@@ -4,6 +4,32 @@ using System.Collections.Generic;
 
 namespace LocationShots.BLL
 {
+    public static class Redland
+    {
+        static SiteIDs IDs = new SiteIDs();
+
+        public Redland()
+        {
+
+        }
+    }
+
+    public class SiteIDs
+    {
+
+        public static Dictionary<String, By> Buttons { get; private set; }
+        public static Dictionary<String, By> Combos { get; private set; }
+        public static Dictionary<String, By> TextFields { get; private set; }
+
+
+        public SiteIDs()
+        {
+            Buttons = new Dictionary<string, By>();
+            Combos = new Dictionary<string, By>();
+            TextFields = new Dictionary<string, By>();
+        }
+
+    }
     public static class Identifiers
     {
         public static Dictionary<String, By> Buttons { get; private set; }
@@ -20,6 +46,8 @@ namespace LocationShots.BLL
             AddCombos();
             AddTextFieldsIds();
         }
+
+  
 
         private static void AddButtonIds()
         {
