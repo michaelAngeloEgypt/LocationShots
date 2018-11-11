@@ -28,17 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtUsername = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtPassword = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.txtStreetNo = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtSuburb = new System.Windows.Forms.TextBox();
-            this.txtStreet = new System.Windows.Forms.TextBox();
             this.rbFirefox = new System.Windows.Forms.RadioButton();
             this.rbChrome = new System.Windows.Forms.RadioButton();
             this.txtUrl = new System.Windows.Forms.TextBox();
@@ -57,65 +47,22 @@
             this.rbTakeScreenshot = new System.Windows.Forms.RadioButton();
             this.rbCityPlan = new System.Windows.Forms.RadioButton();
             this.rbRedland = new System.Windows.Forms.RadioButton();
+            this.tcSites = new System.Windows.Forms.TabControl();
+            this.tpCityPlan = new System.Windows.Forms.TabPage();
+            this.tpRedland = new System.Windows.Forms.TabPage();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.tcSites.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // txtUsername
-            // 
-            this.txtUsername.Location = new System.Drawing.Point(85, 58);
-            this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(102, 20);
-            this.txtUsername.TabIndex = 0;
-            this.txtUsername.Text = "01685903000116";
-            this.txtUsername.Visible = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 61);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Username";
-            this.label1.Visible = false;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 87);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Password";
-            this.label2.Visible = false;
-            // 
-            // txtPassword
-            // 
-            this.txtPassword.Location = new System.Drawing.Point(85, 84);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(102, 20);
-            this.txtPassword.TabIndex = 3;
-            this.txtPassword.Text = "energia10";
-            this.txtPassword.Visible = false;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.txtStreetNo);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.txtSuburb);
-            this.groupBox1.Controls.Add(this.txtStreet);
+            this.groupBox1.Controls.Add(this.tcSites);
             this.groupBox1.Controls.Add(this.rbFirefox);
             this.groupBox1.Controls.Add(this.rbChrome);
             this.groupBox1.Controls.Add(this.txtUrl);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.txtUsername);
-            this.groupBox1.Controls.Add(this.txtPassword);
             this.groupBox1.Location = new System.Drawing.Point(13, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(639, 208);
@@ -123,61 +70,10 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Inputs";
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(219, 113);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(52, 13);
-            this.label8.TabIndex = 16;
-            this.label8.Text = "Street No";
-            // 
-            // txtStreetNo
-            // 
-            this.txtStreetNo.Location = new System.Drawing.Point(292, 110);
-            this.txtStreetNo.Name = "txtStreetNo";
-            this.txtStreetNo.Size = new System.Drawing.Size(102, 20);
-            this.txtStreetNo.TabIndex = 15;
-            this.txtStreetNo.Text = "45";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(219, 61);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(41, 13);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "Suburb";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(219, 87);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(35, 13);
-            this.label7.TabIndex = 14;
-            this.label7.Text = "Street";
-            // 
-            // txtSuburb
-            // 
-            this.txtSuburb.Location = new System.Drawing.Point(292, 58);
-            this.txtSuburb.Name = "txtSuburb";
-            this.txtSuburb.Size = new System.Drawing.Size(102, 20);
-            this.txtSuburb.TabIndex = 11;
-            this.txtSuburb.Text = "YERONGA";
-            // 
-            // txtStreet
-            // 
-            this.txtStreet.Location = new System.Drawing.Point(292, 84);
-            this.txtStreet.Name = "txtStreet";
-            this.txtStreet.Size = new System.Drawing.Size(102, 20);
-            this.txtStreet.TabIndex = 13;
-            this.txtStreet.Text = "Osterley Road";
-            // 
             // rbFirefox
             // 
             this.rbFirefox.AutoSize = true;
-            this.rbFirefox.Location = new System.Drawing.Point(555, 79);
+            this.rbFirefox.Location = new System.Drawing.Point(555, 10);
             this.rbFirefox.Margin = new System.Windows.Forms.Padding(2);
             this.rbFirefox.Name = "rbFirefox";
             this.rbFirefox.Size = new System.Drawing.Size(56, 17);
@@ -190,7 +86,7 @@
             // 
             this.rbChrome.AutoSize = true;
             this.rbChrome.Checked = true;
-            this.rbChrome.Location = new System.Drawing.Point(550, 57);
+            this.rbChrome.Location = new System.Drawing.Point(484, 10);
             this.rbChrome.Margin = new System.Windows.Forms.Padding(2);
             this.rbChrome.Name = "rbChrome";
             this.rbChrome.Size = new System.Drawing.Size(61, 17);
@@ -202,7 +98,7 @@
             // 
             // txtUrl
             // 
-            this.txtUrl.Location = new System.Drawing.Point(83, 25);
+            this.txtUrl.Location = new System.Drawing.Point(83, 32);
             this.txtUrl.Name = "txtUrl";
             this.txtUrl.Size = new System.Drawing.Size(528, 20);
             this.txtUrl.TabIndex = 8;
@@ -211,7 +107,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 28);
+            this.label3.Location = new System.Drawing.Point(12, 35);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(23, 13);
             this.label3.TabIndex = 7;
@@ -361,6 +257,35 @@
             this.rbRedland.Text = "Redland";
             this.rbRedland.UseVisualStyleBackColor = true;
             // 
+            // tcSites
+            // 
+            this.tcSites.Controls.Add(this.tpCityPlan);
+            this.tcSites.Controls.Add(this.tpRedland);
+            this.tcSites.Location = new System.Drawing.Point(15, 57);
+            this.tcSites.Name = "tcSites";
+            this.tcSites.SelectedIndex = 0;
+            this.tcSites.Size = new System.Drawing.Size(599, 145);
+            this.tcSites.TabIndex = 17;
+            // 
+            // tpCityPlan
+            // 
+            this.tpCityPlan.Location = new System.Drawing.Point(4, 22);
+            this.tpCityPlan.Name = "tpCityPlan";
+            this.tpCityPlan.Padding = new System.Windows.Forms.Padding(3);
+            this.tpCityPlan.Size = new System.Drawing.Size(591, 119);
+            this.tpCityPlan.TabIndex = 0;
+            this.tpCityPlan.Text = "CityPlan";
+            this.tpCityPlan.UseVisualStyleBackColor = true;
+            // 
+            // tpRedland
+            // 
+            this.tpRedland.Location = new System.Drawing.Point(4, 22);
+            this.tpRedland.Name = "tpRedland";
+            this.tpRedland.Padding = new System.Windows.Forms.Padding(3);
+            this.tpRedland.Size = new System.Drawing.Size(192, 74);
+            this.tpRedland.TabIndex = 1;
+            this.tpRedland.Text = "Redland";
+            // 
             // Cml
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -384,17 +309,13 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
+            this.tcSites.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox txtUsername;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox txtUrl;
         private System.Windows.Forms.Label label3;
@@ -411,14 +332,11 @@
         private System.Windows.Forms.TextBox txtOutputFolder;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnOutputFolder;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtSuburb;
-        private System.Windows.Forms.TextBox txtStreet;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox txtStreetNo;
         private System.Windows.Forms.RadioButton rbTakeScreenshot;
         private System.Windows.Forms.RadioButton rbCityPlan;
         private System.Windows.Forms.RadioButton rbRedland;
+        private System.Windows.Forms.TabControl tcSites;
+        private System.Windows.Forms.TabPage tpCityPlan;
+        private System.Windows.Forms.TabPage tpRedland;
     }
 }

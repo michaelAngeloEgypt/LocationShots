@@ -67,6 +67,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sites\CityPlan.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Sites\CityPlan.Designer.cs">
+      <DependentUpon>CityPlan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Sites\Redland.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Sites\Redland.Designer.cs">
+      <DependentUpon>Redland.cs</DependentUpon>
+    </Compile>
     <Compile Include="Tests.cs" />
     <EmbeddedResource Include="Cml.resx">
       <DependentUpon>Cml.cs</DependentUpon>
@@ -81,6 +93,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Sites\CityPlan.resx">
+      <DependentUpon>CityPlan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sites\Redland.resx">
+      <DependentUpon>Redland.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

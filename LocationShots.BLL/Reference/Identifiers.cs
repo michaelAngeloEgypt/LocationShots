@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
+txtUnitNoSearch
 
 namespace LocationShots.BLL
 {
@@ -24,6 +25,25 @@ namespace LocationShots.BLL
                 { "Home.Search", By.Id("imgFind")},
                 { "Search.Property", By.XPath("//button[text()='Property']")},
             };
+
+            Redland.JsButtons = new Dictionary<string, string>()
+            {
+                { "Home.Search", "imgFind_onclick(this);"},
+            };
+
+            Redland.TextFields = new Dictionary<string, By>()
+            {
+                { "Search.UnitNo", By.Id("txtUnitNoSearch")},
+                { "Search.HouseNo", By.Id("txtHouseNoSearch")},
+                { "Search.StreetNo", By.Id("txtStreetNameSearch")},
+                { "Search.LotNo", By.Id("txtLotSearch")},
+            };
+
+            Redland.Combos = new Dictionary<string, By>()
+            {
+                { "Search.PlanNo", By.Id("ddlPlanDescSearch")},
+            };
+
         }
     }
 
@@ -31,6 +51,7 @@ namespace LocationShots.BLL
     {
 
         public Dictionary<String, By> Buttons { get; set; }
+        public Dictionary<String, String> JsButtons { get; set; }
         public Dictionary<String, By> Combos { get; set; }
         public Dictionary<String, By> TextFields { get; set; }
 

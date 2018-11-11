@@ -527,6 +527,19 @@ namespace LocationShots.BLL
                 throw;
             }
         }
+        public static void ClickByJavascript(string js)
+        {
+            try
+            {
+                WebDriverWait wait = new WebDriverWait(CurrentDriver, TimeSpan.FromSeconds(300));
+
+                wait.Until(d => ((IJavaScriptExecutor)CurrentDriver).ExecuteScript(js).Equals("complete"));
+            }
+            catch (Exception x)
+            {
+                XLogger.Error(x);
+            }
+        }
         public static void EditTextField(By id, string value)
         {
             try

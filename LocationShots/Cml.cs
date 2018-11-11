@@ -23,10 +23,8 @@ namespace LocationShots
         {
             public Cml o;
             public string Url { get { return o.txtUrl.Text; } set { o.txtUrl.Text = value; } }
-            public string Username { get { return o.txtUsername.Text; } set { o.txtUsername.Text = value; } }
-            public string Password { get { return o.txtPassword.Text; } set { o.txtPassword.Text = value; } }
 
-            public string Suburb { get { return o.txtSuburb.Text; } set { o.txtSuburb.Text = value; } }
+            public string Suburb { get { return o.tpCityPlan.txtSuburb.Text; } set { o.txtSuburb.Text = value; } }
             public string Street { get { return o.txtStreet.Text; } set { o.txtStreet.Text = value; } }
             public string StreetNo { get { return o.txtStreetNo.Text; } set { o.txtStreetNo.Text = value; } }
             public Lookups.Browser Browser { get { return o.rbChrome.Checked ? Lookups.Browser.Chrome : Lookups.Browser.Firefox; } }
