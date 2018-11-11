@@ -54,30 +54,6 @@ namespace LocationShots.BLL
         }
 
         #region Locations
-        internal static void SearchLocation(string suburb, string street, string streetNo)
-        {
-            try
-            {
-                IWebElement userField = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(Identifiers.Buttons["Home.Search"]));
-                userField.Click();
-
-                Selenium.EditTextField(Identifiers.Combos["Search.Suburb"], suburb);
-            }
-            catch (Exception x)
-            {
-                XLogger.Error(x);
-            }
-        }
-        internal static void TakeScreenshot(string filePath)
-        {
-            Screenshot ss = ((ITakesScreenshot)CurrentDriver).GetScreenshot();
-
-            //Use it as you want now
-            string screenshot = ss.AsBase64EncodedString;
-            byte[] screenshotAsByteArray = ss.AsByteArray;
-            ss.SaveAsFile(filePath, ScreenshotImageFormat.Png); //use any of the built in image formating
-            //ss.ToString();//same as string screenshot = ss.AsBase64EncodedString;
-        }
 
         #endregion Locations
 
@@ -592,6 +568,16 @@ namespace LocationShots.BLL
                 x.Data.Add("id", id.ToString());
                 throw;
             }
+        }
+        internal static void TakeScreenshot(string filePath)
+        {
+            Screenshot ss = ((ITakesScreenshot)CurrentDriver).GetScreenshot();
+
+            //Use it as you want now
+            string screenshot = ss.AsBase64EncodedString;
+            byte[] screenshotAsByteArray = ss.AsByteArray;
+            ss.SaveAsFile(filePath, ScreenshotImageFormat.Png); //use any of the built in image formating
+                                                                //ss.ToString();//same as string screenshot = ss.AsBase64EncodedString;
         }
         #endregion Generic
 

@@ -296,6 +296,11 @@ namespace LocationShots
                     if (!Engine.DoTaskCml())
                         throw new ApplicationException("Some error occurred");
                 }
+                else if (rbRedland.Checked)
+                {
+                    if (!Engine.DoTaskRedland())
+                        throw new ApplicationException("Some error occurred");
+                }
                 else if (rbTakeScreenshot.Checked)
                 {
                     if (!Engine.DoTaskScreenshot())

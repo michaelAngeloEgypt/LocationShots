@@ -4,22 +4,35 @@ using System.Collections.Generic;
 
 namespace LocationShots.BLL
 {
-    public static class Redland
+    public static class IDs
     {
-        static SiteIDs IDs = new SiteIDs();
+        /// <summary>
+        /// <see cref="http://gis.redland.qld.gov.au/pdonlinemap/"/>
+        /// </summary>
+        public static SiteIDs Redland { get; set; }
 
-        public Redland()
+        static IDs()
         {
+            initRedland();
+        }
 
+        private static void initRedland()
+        {
+            Redland = new SiteIDs();
+            Redland.Buttons = new Dictionary<string, By>()
+            {
+                { "Home.Search", By.Id("imgFind")},
+                { "Search.Property", By.XPath("//button[text()='Property']")},
+            };
         }
     }
 
     public class SiteIDs
     {
 
-        public static Dictionary<String, By> Buttons { get; private set; }
-        public static Dictionary<String, By> Combos { get; private set; }
-        public static Dictionary<String, By> TextFields { get; private set; }
+        public Dictionary<String, By> Buttons { get; set; }
+        public Dictionary<String, By> Combos { get; set; }
+        public Dictionary<String, By> TextFields { get; set; }
 
 
         public SiteIDs()
@@ -47,7 +60,7 @@ namespace LocationShots.BLL
             AddTextFieldsIds();
         }
 
-  
+
 
         private static void AddButtonIds()
         {

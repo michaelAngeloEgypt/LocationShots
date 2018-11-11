@@ -57,7 +57,7 @@ namespace LocationShots.BLL
 
                 currentStep = "Applying Search in LocationShots";
                 CallUpdateStatus(currentStep);
-                Selenium.SearchLocation(Config.Inputs.Suburb, Config.Inputs.Street, Config.Inputs.StreetNo);
+                Selenium.CityPlan.SearchLocation(Config.Inputs.Suburb, Config.Inputs.Street, Config.Inputs.StreetNo);
 
                 /*
                 currentStep = "Initializing test";
@@ -106,7 +106,11 @@ namespace LocationShots.BLL
 
                 currentStep = "Loading Homepage";
                 CallUpdateStatus(currentStep);
-                Selenium.LoadSite(Config.Inputs.Url, Identifiers.Buttons["Home.Search"]);
+                Selenium.LoadSite(Config.Inputs.Url, IDs.Redland.Buttons["Home.Search"]);
+
+                currentStep = "Applying Search in Redland";
+                CallUpdateStatus(currentStep);
+                Selenium.Redland.SearchLocation(Config.Inputs.Suburb, Config.Inputs.Street, Config.Inputs.StreetNo);
 
                 Variables.ExecutionTime.Stop();
                 CallMarkCompleted(string.Concat(MSG.OperationPassed, Variables.ExecutionTime.Elapsed.ToStandardElapsedFormat()));
@@ -164,27 +168,8 @@ namespace LocationShots.BLL
 
         }
 
-        private static void CompareWithPreviousExecution(string previousExecWorkbook, out string comparisonWorkbookName)
-        {
-            comparisonWorkbookName = null;
-            try
-            {
-                var outputDir = Path.GetDirectoryName(Variables.OutputSheetPath);
-                comparisonWorkbookName = Path.Combine(outputDir, $"tm_automation_comparison_{Variables.ActiveTest}_{Variables.FilenameTimestamp}.xlsx");
-                var currentResults = Lookups.GetCurrentExecutionResults();
-                var previousResults = SingleExecutionResult.GetExecutionResults(previousExecWorkbook);
 
-                List<ComparisonResult> comparisons = null;
-                var comparisonSummary = SingleExecutionResult.CompareResults(previousResults, currentResults, out comparisons);
-                ComparisonResult.WriteComparisonResults(comparisonWorkbookName, comparisonSummary, comparisons);
-            }
-            catch (Exception x)
-            {
-                x.Data.Add("previousExecWorkbook", previousExecWorkbook);
-                x.Data.Add("comparisonWorkbookName", comparisonWorkbookName);
-                throw;
-            }
-        }
+
 
         public static bool DoTaskCml_OLD()
         {
