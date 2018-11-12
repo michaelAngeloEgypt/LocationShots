@@ -12,6 +12,9 @@ namespace LocationShots.Sites
 {
     public partial class Redland : UserControl
     {
+        public string HouseNo { get { return txtHouseNo.Text; } set { txtHouseNo.Text = value; } }
+        public string StreetName { get { return txtStreetName.Text; } set { txtStreetName.Text = value; } }
+
         public Redland()
         {
             InitializeComponent();

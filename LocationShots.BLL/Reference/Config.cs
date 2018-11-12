@@ -14,9 +14,20 @@ namespace LocationShots.BLL
             public string Url { get; set; }
             public string Username { get; set; }
             public string Password { get; set; }
-            public string Suburb { get; set; }
-            public string Street { get; set; }
-            public string StreetNo { get; set; }
+
+            public class CityPlan
+            {
+                public string Suburb { get; set; }
+                public string Street { get; set; }
+                public string StreetNo { get; set; }
+            }
+ 
+            public class Redland
+            {
+                public string HouseNo { get; set; }
+                public string StreetName { get; set; }
+            }
+
             public Lookups.Browser Browser { get; set; }
         }
         public class ConfOutputs
