@@ -35,7 +35,7 @@ namespace LocationShots.BLL
             {
                 { "Search.UnitNo", By.Id("txtUnitNoSearch")},
                 { "Search.HouseNo", By.Id("txtHouseNoSearch")},
-                { "Search.StreetNo", By.Id("txtStreetNameSearch")},
+                { "Search.StreetName", By.Id("txtStreetNameSearch")},
                 { "Search.LotNo", By.Id("txtLotSearch")},
             };
 

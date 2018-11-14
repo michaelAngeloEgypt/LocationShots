@@ -12,13 +12,13 @@ namespace LocationShots.BLL
                 {
                     //ClickByJavascript(IDs.Redland.JsButtons["Home.Search"]);
                     ClickField(IDs.Redland.Buttons["Home.Search"]);
-                    ClickField(IDs.Redland.Buttons["Search.Property"]);
-
+                    //ClickField(IDs.Redland.Buttons["Search.Property"]);
+                    EditTextField(IDs.Redland.TextFields["Search.HouseNo"], houseNo);
+                    EditTextField(IDs.Redland.TextFields["Search.StreetName"], streetName);
 
                     //IWebElement userField = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(Identifiers.Buttons["Home.Search"]));
                     //userField.Click();
 
-                    //Selenium.EditTextField(Identifiers.Combos["Search.Suburb"], suburb);
                 }
                 catch (Exception x)
                 {

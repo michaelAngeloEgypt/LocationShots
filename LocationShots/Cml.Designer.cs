@@ -316,10 +316,6 @@
             // cityPlan1
             // 
             this.cityPlan1.Dock = System.Windows.Forms.DockStyle.Fill;
-            cityPlan3.Street = "Osterley Road";
-            cityPlan3.StreetNo = "45";
-            cityPlan3.Suburb = "YERONGA";
-            this.cityPlan1.Inputs = cityPlan3;
             this.cityPlan1.Location = new System.Drawing.Point(4, 5);
             this.cityPlan1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cityPlan1.Name = "cityPlan1";
@@ -336,7 +332,6 @@
             redland2.HouseNo = "";
             redland2.StreetName = "";
             redland2.UnitNo = null;
-            this.redland1.Inputs = redland2;
             this.redland1.Location = new System.Drawing.Point(4, 5);
             this.redland1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.redland1.Name = "redland1";

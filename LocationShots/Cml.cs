@@ -67,18 +67,8 @@ namespace LocationShots
                     Url = Url,
                     //Username = Username,
                     //Password = Password,
-                    CityPlanInputs = new Config.ConfInputs.CityPlan()
-                    {
-                        //Suburb = Suburb,
-                        //Street = Street,
-                        //StreetNo = StreetNo,
-                    },
-                    RedlandInputs = new Config.ConfInputs.Redland()
-                    {
-                        //UnitNo = ,
-                        //HouseNo = ,
-                        //StreetName = ,
-                    },
+                    CityPlanInputs = cityPlanInputs,
+                    RedlandInputs = redlandInputs,
                     Browser = Browser,
                 };
                 //conf.Outputs = new Config.ConfOutputs()
@@ -299,7 +289,7 @@ namespace LocationShots
                 Engine.Variables.ExecutionTime.Start();
                 Stopwatch timer = Stopwatch.StartNew();
                 XLogger.Info("BEGIN:\t Task Execution");
-
+           
                 //Engine.Variables.OutputSheetPath = Path.Combine(Engine.EngineConfig.Outputs.OutputFolder, Engine.Variables.OutputSheetPath);
                 //UpdateOutputSheetPath(Engine.Variables.OutputSheetPath);
                 Engine.EngineConfig = myUI.BuildConfig();
