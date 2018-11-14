@@ -15,6 +15,9 @@ namespace LocationShots.BLL
             public string Username { get; set; }
             public string Password { get; set; }
 
+            public CityPlan CityPlanInputs { get; set; }
+            public Redland RedlandInputs { get; set; }
+
             public class CityPlan
             {
                 public string Suburb { get; set; }
@@ -24,6 +27,7 @@ namespace LocationShots.BLL
  
             public class Redland
             {
+                public string UnitNo { get; set; }
                 public string HouseNo { get; set; }
                 public string StreetName { get; set; }
             }

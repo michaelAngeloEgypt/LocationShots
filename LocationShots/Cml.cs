@@ -22,15 +22,19 @@ namespace LocationShots
         class UI
         {
             public Cml o;
+
+                public Lookups.Browser Browser { get { return o.rbChrome.Checked ? Lookups.Browser.Chrome : Lookups.Browser.Firefox; } }
+
             public string Url { get { return o.txtUrl.Text; } set { o.txtUrl.Text = value; } }
+            public Config.ConfInputs.CityPlan cityPlanInputs => (o.tpCityPlan.Controls[0] as Sites.CityPlan).Inputs;
+            public Config.ConfInputs.Redland redlandInputs => (o.tpRedland.Controls[0] as Sites.Redland).Inputs;
 
-            public Lookups.Browser Browser { get { return o.rbChrome.Checked ? Lookups.Browser.Chrome : Lookups.Browser.Firefox; } }
+            
+            //public string Suburb { get { return o.tpCityPlan.Suburb; } set { o.txtOutputFolder.Text = value; } }
+            //public string OutputFolder { get { return o.txtOutputFolder.Text; } set { o.txtOutputFolder.Text = value; } }
 
-            public string Suburb { get { return o.tpCityPlan.Suburb; } set { o.txtOutputFolder.Text = value; } }
-            public string OutputFolder { get { return o.txtOutputFolder.Text; } set { o.txtOutputFolder.Text = value; } }
-
-            public string OutputFolder { get { return o.txtOutputFolder.Text; } set { o.txtOutputFolder.Text = value; } }
-            public string OutputSheetPath { get { return o.txtOutputSheetPath.Text; } set { o.txtOutputSheetPath.Text = value; } }
+            //public string OutputFolder { get { return o.txtOutputFolder.Text; } set { o.txtOutputFolder.Text = value; } }
+            //public string OutputSheetPath { get { return o.txtOutputSheetPath.Text; } set { o.txtOutputSheetPath.Text = value; } }
 
             public string Result { get { return o.txtResult.Text; } set { o.txtResult.Text = value; } }
 
@@ -61,24 +65,26 @@ namespace LocationShots
                 conf.Inputs = new Config.ConfInputs()
                 {
                     Url = Url,
-                    Username = Username,
-                    Password = Password,
-                    CityPlan = new Config.ConfInputs.CityPlan()
+                    //Username = Username,
+                    //Password = Password,
+                    CityPlanInputs = new Config.ConfInputs.CityPlan()
                     {
-                        Suburb = Suburb,
-                        Street = Street,
-                        StreetNo = StreetNo,
+                        //Suburb = Suburb,
+                        //Street = Street,
+                        //StreetNo = StreetNo,
                     },
-                    Redland = new Config.ConfInputs.Redland()
+                    RedlandInputs = new Config.ConfInputs.Redland()
                     {
-
-                    }
+                        //UnitNo = ,
+                        //HouseNo = ,
+                        //StreetName = ,
+                    },
                     Browser = Browser,
                 };
-                conf.Outputs = new Config.ConfOutputs()
-                {
-                    OutputFolder = OutputFolder
-                };
+                //conf.Outputs = new Config.ConfOutputs()
+                //{
+                //    OutputFolder = OutputFolder
+                //};
                 return conf;
             }
         }
@@ -115,21 +121,21 @@ namespace LocationShots
                 else
                     missingKeys.Add(ConfigKeys.Inputs.Url);
                 //------------------------------------------------------------------------------------------
-                if (config.AppSettings.Settings.AllKeys.Contains(ConfigKeys.Inputs.Username))
-                    myUI.Username = ConfigurationManager.AppSettings[ConfigKeys.Inputs.Username];
-                else
-                    missingKeys.Add(ConfigKeys.Inputs.Username);
+                //if (config.AppSettings.Settings.AllKeys.Contains(ConfigKeys.Inputs.Username))
+                //    myUI.Username = ConfigurationManager.AppSettings[ConfigKeys.Inputs.Username];
+                //else
+                //    missingKeys.Add(ConfigKeys.Inputs.Username);
                 //------------------------------------------------------------------------------------------
-                if (config.AppSettings.Settings.AllKeys.Contains(ConfigKeys.Inputs.Password))
-                    myUI.Password = ConfigurationManager.AppSettings[ConfigKeys.Inputs.Password];
-                else
-                    missingKeys.Add(ConfigKeys.Inputs.Password);
+                //if (config.AppSettings.Settings.AllKeys.Contains(ConfigKeys.Inputs.Password))
+                //    myUI.Password = ConfigurationManager.AppSettings[ConfigKeys.Inputs.Password];
+                //else
+                //    missingKeys.Add(ConfigKeys.Inputs.Password);
                 //------------------------------------------------------------------------------------------
                 //------------------------------------------------------------------------------------------
-                if (config.AppSettings.Settings.AllKeys.Contains(ConfigKeys.Outputs.OutputFolder))
-                    myUI.OutputFolder = ConfigurationManager.AppSettings[ConfigKeys.Outputs.OutputFolder];
-                else
-                    missingKeys.Add(ConfigKeys.Outputs.OutputFolder);
+                //if (config.AppSettings.Settings.AllKeys.Contains(ConfigKeys.Outputs.OutputFolder))
+                //    myUI.OutputFolder = ConfigurationManager.AppSettings[ConfigKeys.Outputs.OutputFolder];
+                //else
+                //    missingKeys.Add(ConfigKeys.Outputs.OutputFolder);
                 //------------------------------------------------------------------------------------------
 
                 if (missingKeys.Count > 0)
@@ -153,21 +159,21 @@ namespace LocationShots
                 else
                     config.AppSettings.Settings[ConfigKeys.Inputs.Url].Value = myUI.Url;
                 //------------------------------------------------------------------------------------------
-                if (!config.AppSettings.Settings.AllKeys.Contains(ConfigKeys.Inputs.Username))
-                    config.AppSettings.Settings.Add(ConfigKeys.Inputs.Username, myUI.Username);
-                else
-                    config.AppSettings.Settings[ConfigKeys.Inputs.Username].Value = myUI.Username;
+                //if (!config.AppSettings.Settings.AllKeys.Contains(ConfigKeys.Inputs.Username))
+                //    config.AppSettings.Settings.Add(ConfigKeys.Inputs.Username, myUI.Username);
+                //else
+                //    config.AppSettings.Settings[ConfigKeys.Inputs.Username].Value = myUI.Username;
                 //------------------------------------------------------------------------------------------
-                if (!config.AppSettings.Settings.AllKeys.Contains(ConfigKeys.Inputs.Password))
-                    config.AppSettings.Settings.Add(ConfigKeys.Inputs.Password, myUI.Password);
-                else
-                    config.AppSettings.Settings[ConfigKeys.Inputs.Password].Value = myUI.Password;
+                //if (!config.AppSettings.Settings.AllKeys.Contains(ConfigKeys.Inputs.Password))
+                //    config.AppSettings.Settings.Add(ConfigKeys.Inputs.Password, myUI.Password);
+                //else
+                //    config.AppSettings.Settings[ConfigKeys.Inputs.Password].Value = myUI.Password;
                 //------------------------------------------------------------------------------------------
                 //------------------------------------------------------------------------------------------
-                if (!config.AppSettings.Settings.AllKeys.Contains(ConfigKeys.Outputs.OutputFolder))
-                    config.AppSettings.Settings.Add(ConfigKeys.Outputs.OutputFolder, myUI.OutputFolder);
-                else
-                    config.AppSettings.Settings[ConfigKeys.Outputs.OutputFolder].Value = myUI.OutputFolder;
+                //if (!config.AppSettings.Settings.AllKeys.Contains(ConfigKeys.Outputs.OutputFolder))
+                //    config.AppSettings.Settings.Add(ConfigKeys.Outputs.OutputFolder, myUI.OutputFolder);
+                //else
+                //    config.AppSettings.Settings[ConfigKeys.Outputs.OutputFolder].Value = myUI.OutputFolder;
                 //------------------------------------------------------------------------------------------
 
                 config.Save(ConfigurationSaveMode.Modified);
@@ -221,6 +227,7 @@ namespace LocationShots
             btnStartStop.Text = "START";
             btnStartStop.Enabled = true;
         }
+        /*
         private void UpdateOutputSheetPath(String thePath)
         {
             if (this.txtOutputSheetPath.InvokeRequired)
@@ -233,6 +240,7 @@ namespace LocationShots
                 myUI.OutputSheetPath = thePath;
             }
         }
+        */
 
         /// <summary>
         /// <see cref="https://www.codeproject.com/Articles/20627/BackgroundWorker-Threads-and-Supporting-Cancel"/>
@@ -269,9 +277,9 @@ namespace LocationShots
         {
             err = "";
 
-            if (String.IsNullOrEmpty(err) &&
-                    (String.IsNullOrWhiteSpace(myUI.Url) || String.IsNullOrWhiteSpace(myUI.Username) || String.IsNullOrWhiteSpace(myUI.Password) || String.IsNullOrWhiteSpace(myUI.OutputFolder)))
-                err = "Please fill all the inputs";
+            //if (String.IsNullOrEmpty(err) &&
+            //        (String.IsNullOrWhiteSpace(myUI.Url) || String.IsNullOrWhiteSpace(myUI.Username) || String.IsNullOrWhiteSpace(myUI.Password) || String.IsNullOrWhiteSpace(myUI.OutputFolder)))
+            //    err = "Please fill all the inputs";
 
             if (String.IsNullOrEmpty(err) && !HtmlAgility.UrlIsValid(myUI.Url))
                 err = "The Url is invalid or down, please enter a valid Url";
@@ -292,9 +300,9 @@ namespace LocationShots
                 Stopwatch timer = Stopwatch.StartNew();
                 XLogger.Info("BEGIN:\t Task Execution");
 
-                Engine.Variables.OutputSheetPath = Path.Combine(Engine.Config.Outputs.OutputFolder, Engine.Variables.OutputSheetPath);
-                UpdateOutputSheetPath(Engine.Variables.OutputSheetPath);
-                Engine.Config = myUI.BuildConfig();
+                //Engine.Variables.OutputSheetPath = Path.Combine(Engine.EngineConfig.Outputs.OutputFolder, Engine.Variables.OutputSheetPath);
+                //UpdateOutputSheetPath(Engine.Variables.OutputSheetPath);
+                Engine.EngineConfig = myUI.BuildConfig();
 
                 if (rbCityPlan.Checked)
                 {
@@ -394,18 +402,19 @@ namespace LocationShots
             if (!LoadSettings(out exeVersion))
                 MessageBox.Show(@"Unable to read app settings. Please check the log file");
 
-            Engine.Config = myUI.BuildConfig();
-            Engine.Config.ExeVersion = exeVersion;
+            Engine.EngineConfig = myUI.BuildConfig();
+            Engine.EngineConfig.ExeVersion = exeVersion;
             Engine.Variables = new ExecutionVariables();
             Engine.Variables.BeginTimestamp = DateTime.Now;
             Engine.Variables.ActiveTest = "DefaultTest";
             Engine.Variables.OutputSheetPath =
                 $"tm_automation_output_{Engine.Variables.ActiveTest}_{Engine.Variables.FilenameTimestamp}.xlsx";
 
-            XLogger.Application = String.Format("LocationShots||{0}||{1}", Engine.Config.ExeVersion, Engine.Variables.ExecutionTimestamp);
-            this.Text = "LocationShots||" + Engine.Config.ExeVersion;
+            XLogger.Application = String.Format("LocationShots||{0}||{1}", Engine.EngineConfig.ExeVersion, Engine.Variables.ExecutionTimestamp);
+            this.Text = "LocationShots||" + Engine.EngineConfig.ExeVersion;
         }
 
+        /*
         private void btnOutputFolder_Click(object sender, EventArgs e)
         {
             try
@@ -430,9 +439,10 @@ namespace LocationShots
                 XLogger.Error(x);
             }
         }
+        */
         private void rbBrowser_CheckedChanged(object sender, EventArgs e)
         {
-            Engine.Config.Inputs.Browser = myUI.Browser;
+            Engine.EngineConfig.Inputs.Browser = myUI.Browser;
         }
 
         private void btnTakeScreenshot_Click(object sender, EventArgs e)

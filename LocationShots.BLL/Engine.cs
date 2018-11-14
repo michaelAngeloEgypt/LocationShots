@@ -11,7 +11,7 @@ namespace LocationShots.BLL
     {
         #region PROP
         //public static IWebDriver CurrentDriver { get; private set; }
-        public static Config Config { get; set; }
+        public static Config EngineConfig { get; set; }
         public static ExecutionStatus Status { get; set; }
         public static ExecutionVariables Variables { get; set; }
         #endregion PROP
@@ -22,7 +22,7 @@ namespace LocationShots.BLL
 
         static Engine()
         {
-            Config = new Config();
+            EngineConfig = new Config();
         }
 
         #region DLG
@@ -48,16 +48,16 @@ namespace LocationShots.BLL
             {
                 currentStep = "Starting browser";
                 CallUpdateStatus(currentStep);
-                Selenium.SetCurrentDriver(Config.Inputs.Browser);
+                Selenium.SetCurrentDriver(EngineConfig.Inputs.Browser);
                 Selenium.HideDriverWindow();
 
                 currentStep = "Loading Homepage";
                 CallUpdateStatus(currentStep);
-                Selenium.LoadSite(Config.Inputs.Url, Identifiers.Buttons["Home.Search"]);
+                Selenium.LoadSite(EngineConfig.Inputs.Url, Identifiers.Buttons["Home.Search"]);
 
                 currentStep = "Applying Search in LocationShots";
                 CallUpdateStatus(currentStep);
-                Selenium.CityPlan.SearchLocation(Config.Inputs.Suburb, Config.Inputs.Street, Config.Inputs.StreetNo);
+                Selenium.CityPlan.SearchLocation(EngineConfig.Inputs.CityPlanInputs.Suburb, EngineConfig.Inputs.CityPlanInputs.Street, EngineConfig.Inputs.CityPlanInputs.StreetNo);
 
                 /*
                 currentStep = "Initializing test";
@@ -101,16 +101,16 @@ namespace LocationShots.BLL
             {
                 currentStep = "Starting browser";
                 CallUpdateStatus(currentStep);
-                Selenium.SetCurrentDriver(Config.Inputs.Browser);
+                Selenium.SetCurrentDriver(EngineConfig.Inputs.Browser);
                 Selenium.HideDriverWindow();
 
                 currentStep = "Loading Homepage";
                 CallUpdateStatus(currentStep);
-                Selenium.LoadSite(Config.Inputs.Url, IDs.Redland.Buttons["Home.Search"]);
+                Selenium.LoadSite(EngineConfig.Inputs.Url, IDs.Redland.Buttons["Home.Search"]);
 
                 currentStep = "Applying Search in Redland";
                 CallUpdateStatus(currentStep);
-                Selenium.Redland.SearchLocation(Config.Inputs.Suburb, Config.Inputs.Street, Config.Inputs.StreetNo);
+                Selenium.Redland.SearchLocation(EngineConfig.Inputs.RedlandInputs.UnitNo, EngineConfig.Inputs.RedlandInputs.HouseNo, EngineConfig.Inputs.RedlandInputs.StreetName);
 
                 Variables.ExecutionTime.Stop();
                 CallMarkCompleted(string.Concat(MSG.OperationPassed, Variables.ExecutionTime.Elapsed.ToStandardElapsedFormat()));
@@ -135,7 +135,7 @@ namespace LocationShots.BLL
             {
                 currentStep = "Starting browser";
                 CallUpdateStatus(currentStep);
-                Selenium.SetCurrentDriver(Config.Inputs.Browser);
+                Selenium.SetCurrentDriver(EngineConfig.Inputs.Browser);
                 Selenium.HideDriverWindow();
 
                 currentStep = "Loading Homepage";
@@ -178,12 +178,12 @@ namespace LocationShots.BLL
             {
                 currentStep = "Starting browser";
                 CallUpdateStatus(currentStep);
-                Selenium.SetCurrentDriver(Config.Inputs.Browser);
+                Selenium.SetCurrentDriver(EngineConfig.Inputs.Browser);
                 Selenium.HideDriverWindow();
 
                 currentStep = "Logging-in to CML";
                 CallUpdateStatus(currentStep);
-                Selenium.LoginToCml(Config.Inputs.Username, Config.Inputs.Password, Config.Inputs.Url);
+                Selenium.LoginToCml(EngineConfig.Inputs.Username, EngineConfig.Inputs.Password, EngineConfig.Inputs.Url);
 
                 currentStep = "Initializing test";
                 CallUpdateStatus(currentStep);
