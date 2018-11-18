@@ -97,37 +97,8 @@ namespace LocationShots.BLL
 
         public static bool DoTaskRedland()
         {
-            try
-            {
-                currentStep = "Starting browser";
-                CallUpdateStatus(currentStep);
-                Selenium.SetCurrentDriver(EngineConfig.Inputs.Browser);
-                Selenium.HideDriverWindow();
-
-                currentStep = "Loading Homepage";
-                CallUpdateStatus(currentStep);
-                Selenium.LoadSite(EngineConfig.Inputs.Url, IDs.Redland.Buttons["Home.Search"]);
-
-                currentStep = "Applying Search in Redland";
-                CallUpdateStatus(currentStep);
-                Selenium.Redland.SearchLocation(EngineConfig.Inputs.RedlandInputs.UnitNo, EngineConfig.Inputs.RedlandInputs.HouseNo, EngineConfig.Inputs.RedlandInputs.StreetName);
-
-                Variables.ExecutionTime.Stop();
-                CallMarkCompleted(string.Concat(MSG.OperationPassed, Variables.ExecutionTime.Elapsed.ToStandardElapsedFormat()));
-                return true;
-            }
-            catch (Exception x)
-            {
-                if (!x.Data.Contains("currentStep")) x.Data.Add("currentStep", currentStep);
-                Variables.ExecutionTime.Stop();
-                throw;
-            }
-            finally
-            {
-                //Selenium.EndSession();
-                //if (!File.Exists(Variables.OutputSheetPath))
-                //    WriteOutputs(Variables.OutputSheetPath);
-            }
+            //return DoTaskRedland_standard();
+            return DoTaskRedland_direct();
         }
         public static bool DoTaskScreenshot()
         {
@@ -167,7 +138,78 @@ namespace LocationShots.BLL
             }
 
         }
+        private static bool DoTaskRedland_direct()
+        {
+            try
+            {
+                currentStep = "Starting browser";
+                CallUpdateStatus(currentStep);
+                Selenium.SetCurrentDriver(EngineConfig.Inputs.Browser);
+                Selenium.HideDriverWindow();
 
+                currentStep = "Loading Home Page";
+                CallUpdateStatus(currentStep);
+                Selenium.LoadSite(IDs.Redland.Urls["HomePage"], IDs.Redland.Buttons["SearchFrame.Find"]);
+
+                currentStep = "Switching to Search Page";
+                CallUpdateStatus(currentStep);
+                Selenium.LoadSite(IDs.Redland.Urls["SearchFrame"], IDs.Redland.Buttons["SearchFrame.Find"]);
+
+                currentStep = "Applying Search in Redland";
+                CallUpdateStatus(currentStep);
+                Selenium.Redland.SearchLocation(EngineConfig.Inputs.RedlandInputs.UnitNo, EngineConfig.Inputs.RedlandInputs.HouseNo, EngineConfig.Inputs.RedlandInputs.StreetName);
+
+                Variables.ExecutionTime.Stop();
+                CallMarkCompleted(string.Concat(MSG.OperationPassed, Variables.ExecutionTime.Elapsed.ToStandardElapsedFormat()));
+                return true;
+            }
+            catch (Exception x)
+            {
+                if (!x.Data.Contains("currentStep")) x.Data.Add("currentStep", currentStep);
+                Variables.ExecutionTime.Stop();
+                throw;
+            }
+            finally
+            {
+                //Selenium.EndSession();
+                //if (!File.Exists(Variables.OutputSheetPath))
+                //    WriteOutputs(Variables.OutputSheetPath);
+            }
+        }
+        private static bool DoTaskRedland_standard()
+        {
+            try
+            {
+                currentStep = "Starting browser";
+                CallUpdateStatus(currentStep);
+                Selenium.SetCurrentDriver(EngineConfig.Inputs.Browser);
+                Selenium.HideDriverWindow();
+
+                currentStep = "Loading Homepage";
+                CallUpdateStatus(currentStep);
+                Selenium.LoadSite(EngineConfig.Inputs.Url, IDs.Redland.Buttons["Home.Search"]);
+
+                currentStep = "Applying Search in Redland";
+                CallUpdateStatus(currentStep);
+                Selenium.Redland.SearchLocation(EngineConfig.Inputs.RedlandInputs.UnitNo, EngineConfig.Inputs.RedlandInputs.HouseNo, EngineConfig.Inputs.RedlandInputs.StreetName);
+
+                Variables.ExecutionTime.Stop();
+                CallMarkCompleted(string.Concat(MSG.OperationPassed, Variables.ExecutionTime.Elapsed.ToStandardElapsedFormat()));
+                return true;
+            }
+            catch (Exception x)
+            {
+                if (!x.Data.Contains("currentStep")) x.Data.Add("currentStep", currentStep);
+                Variables.ExecutionTime.Stop();
+                throw;
+            }
+            finally
+            {
+                //Selenium.EndSession();
+                //if (!File.Exists(Variables.OutputSheetPath))
+                //    WriteOutputs(Variables.OutputSheetPath);
+            }
+        }
 
 
 

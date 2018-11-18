@@ -1,4 +1,6 @@
-﻿using System;
+﻿using OpenQA.Selenium;
+using System;
+using System.Linq;
 
 namespace LocationShots.BLL
 {
@@ -11,13 +13,22 @@ namespace LocationShots.BLL
                 try
                 {
                     //ClickByJavascript(IDs.Redland.JsButtons["Home.Search"]);
-                    ClickField(IDs.Redland.Buttons["Home.Search"]);
+                    //ClickField(IDs.Redland.Buttons["Home.Search"]);  ---> only used in Standard search
+                    //CurrentDriver.SwitchTo().Window(CurrentDriver.WindowHandles.Last());
+                    //var size = CurrentDriver.FindElements(By.TagName("iframe")).Count();
+
+                    //CurrentDriver.SwitchTo().Frame("iframeCommon");
+                    //var frame = CurrentDriver.SwitchTo().Frame(0);
                     //ClickField(IDs.Redland.Buttons["Search.Property"]);
-                    EditTextField(IDs.Redland.TextFields["Search.HouseNo"], houseNo);
+
+                    //only for Standard search
+                    //ExecuteJavascript("document.getElementById('iframeSearchResults').src='searchpropertysimple.aspx'");
+                    
+                    //EditTextField(IDs.Redland.TextFields["Search.HouseNo"], houseNo);
                     EditTextField(IDs.Redland.TextFields["Search.StreetName"], streetName);
 
-                    //IWebElement userField = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(Identifiers.Buttons["Home.Search"]));
-                    //userField.Click();
+                    IWebElement userField = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(IDs.Redland.Buttons["SearchFrame.Find"]));
+                    userField.Click();
 
                 }
                 catch (Exception x)

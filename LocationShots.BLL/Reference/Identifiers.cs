@@ -20,10 +20,18 @@ namespace LocationShots.BLL
         private static void initRedland()
         {
             Redland = new SiteIDs();
+            Redland.Urls = new Dictionary<string, string>()
+            {
+                { "HomePage", "http://gis.redland.qld.gov.au/pdonlinemap/"},
+                { "SearchFrame" , "http://gis.redland.qld.gov.au/pdonlinemap/searchpropertysimple.aspx" },
+                { "SearchResultPrefix" , "http://gis.redland.qld.gov.au/pdonlinemap/default.aspx?Basemap=image_base&UseBasemap=False&ServiceShow=land%2ccity_plan&ServiceVis=land%2ccity_plan&Service=land&Layers=101011001011&ActiveLayer=Current+Land&Query=LANDNO%"}
+            };
+
             Redland.Buttons = new Dictionary<string, By>()
             {
                 { "Home.Search", By.Id("imgFind")},
                 { "Search.Property", By.XPath("//button[text()='Property']")},
+                { "SearchFrame.Find", By.CssSelector("input#btnFind")},
             };
 
             Redland.JsButtons = new Dictionary<string, string>()
@@ -50,6 +58,7 @@ namespace LocationShots.BLL
     public class SiteIDs
     {
 
+        public Dictionary<String, String> Urls { get; set; }
         public Dictionary<String, By> Buttons { get; set; }
         public Dictionary<String, String> JsButtons { get; set; }
         public Dictionary<String, By> Combos { get; set; }
@@ -58,6 +67,7 @@ namespace LocationShots.BLL
 
         public SiteIDs()
         {
+            Urls = new Dictionary<string, string>();
             Buttons = new Dictionary<string, By>();
             Combos = new Dictionary<string, By>();
             TextFields = new Dictionary<string, By>();

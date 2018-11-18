@@ -485,6 +485,19 @@ namespace LocationShots.BLL
         #endregion API
 
         #region Generic
+        public static void ExecuteJavascript(string js)
+        {
+            try
+            {
+                WebDriverWait wait = new WebDriverWait(CurrentDriver, TimeSpan.FromSeconds(300));
+
+                wait.Until(d => ((IJavaScriptExecutor)CurrentDriver).ExecuteScript(js).Equals("complete"));
+            }
+            catch (Exception x)
+            {
+                XLogger.Error(x);
+            }
+        }
         internal static void LoadSite(string url, By waitElement)
         {
             try
