@@ -29,6 +29,7 @@ namespace LocationShots.BLL
 
             Redland.Buttons = new Dictionary<string, By>()
             {
+                { "Home.Logo", By.CssSelector("img#imgLogo")},
                 { "Home.Search", By.Id("imgFind")},
                 { "Search.Property", By.XPath("//button[text()='Property']")},
                 { "SearchFrame.Find", By.CssSelector("input#btnFind")},
@@ -52,6 +53,10 @@ namespace LocationShots.BLL
                 { "Search.PlanNo", By.Id("ddlPlanDescSearch")},
             };
 
+            Redland.Tables = new Dictionary<string, By>()
+            {
+                { "Search.Results", By.CssSelector("table#DataGrid1")}
+            };
         }
     }
 
@@ -63,6 +68,7 @@ namespace LocationShots.BLL
         public Dictionary<String, String> JsButtons { get; set; }
         public Dictionary<String, By> Combos { get; set; }
         public Dictionary<String, By> TextFields { get; set; }
+        public Dictionary<String, By> Tables { get; set; }
 
 
         public SiteIDs()
@@ -71,6 +77,7 @@ namespace LocationShots.BLL
             Buttons = new Dictionary<string, By>();
             Combos = new Dictionary<string, By>();
             TextFields = new Dictionary<string, By>();
+            Tables = new Dictionary<string, By>();
         }
 
     }

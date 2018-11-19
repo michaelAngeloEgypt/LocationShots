@@ -149,7 +149,7 @@ namespace LocationShots.BLL
 
                 currentStep = "Loading Home Page";
                 CallUpdateStatus(currentStep);
-                Selenium.LoadSite(IDs.Redland.Urls["HomePage"], IDs.Redland.Buttons["SearchFrame.Find"]);
+                Selenium.LoadSite(IDs.Redland.Urls["HomePage"], IDs.Redland.Buttons["Home.Search"]);
 
                 currentStep = "Switching to Search Page";
                 CallUpdateStatus(currentStep);

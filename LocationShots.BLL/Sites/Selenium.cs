@@ -8,6 +8,7 @@ using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using HAP = HtmlAgilityPack;
 
@@ -595,7 +596,7 @@ namespace LocationShots.BLL
                 throw;
             }
         }
-        internal static void TakeScreenshot(string filePath)
+        public static void TakeScreenshot(string filePath)
         {
             Screenshot ss = ((ITakesScreenshot)CurrentDriver).GetScreenshot();
 
@@ -604,6 +605,20 @@ namespace LocationShots.BLL
             byte[] screenshotAsByteArray = ss.AsByteArray;
             ss.SaveAsFile(filePath, ScreenshotImageFormat.Png); //use any of the built in image formating
                                                                 //ss.ToString();//same as string screenshot = ss.AsBase64EncodedString;
+        }
+        public static List<string> GetTableColumnValues(By id, int colIndex)
+        {
+            var res = new List<string>();
+            IWebElement tableElement = CurrentDriver.FindElement(id);
+            IList<IWebElement> tableRow = tableElement.FindElements(By.TagName("tr"));
+            IList<IWebElement> rowTD;
+            foreach (IWebElement row in tableRow.Skip(1))
+            {
+                rowTD = row.FindElements(By.TagName("td"));
+                res.Add(rowTD[colIndex].Text);
+            }
+
+            return res;
         }
         #endregion Generic
 
