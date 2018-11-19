@@ -24,7 +24,7 @@ namespace LocationShots.BLL
             {
                 { "HomePage", "http://gis.redland.qld.gov.au/pdonlinemap/"},
                 { "SearchFrame" , "http://gis.redland.qld.gov.au/pdonlinemap/searchpropertysimple.aspx" },
-                { "SearchResultPrefix" , "http://gis.redland.qld.gov.au/pdonlinemap/default.aspx?Basemap=image_base&UseBasemap=False&ServiceShow=land%2ccity_plan&ServiceVis=land%2ccity_plan&Service=land&Layers=101011001011&ActiveLayer=Current+Land&Query=LANDNO%"}
+                { "SearchResultPrefix" , "http://gis.redland.qld.gov.au/pdonlinemap/default.aspx?Basemap=image_base&UseBasemap=False&ServiceShow=land%2ccity_plan&ServiceVis=land%2ccity_plan&Service=land&Layers=101011001011&ActiveLayer=Current+Land&Query=LANDNO%3d"}
             };
 
             Redland.Buttons = new Dictionary<string, By>()

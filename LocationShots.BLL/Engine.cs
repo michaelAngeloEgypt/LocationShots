@@ -157,7 +157,16 @@ namespace LocationShots.BLL
 
                 currentStep = "Applying Search in Redland";
                 CallUpdateStatus(currentStep);
-                Selenium.Redland.SearchLocation(EngineConfig.Inputs.RedlandInputs.UnitNo, EngineConfig.Inputs.RedlandInputs.HouseNo, EngineConfig.Inputs.RedlandInputs.StreetName);
+                var searchResults = Selenium.Redland.SearchLocation(EngineConfig.Inputs.RedlandInputs.UnitNo, EngineConfig.Inputs.RedlandInputs.HouseNo, EngineConfig.Inputs.RedlandInputs.StreetName);
+
+                
+                for (int i = 0; i < searchResults.Count; i++)
+                {
+                    var searchResult = searchResults[i];
+                    currentStep = $"Fetching search result {i+1} of {searchResults.Count}";
+                    CallUpdateStatus(currentStep);
+                    Selenium.Redland.ExamineSearchResult(searchResult);
+                }
 
                 Variables.ExecutionTime.Stop();
                 CallMarkCompleted(string.Concat(MSG.OperationPassed, Variables.ExecutionTime.Elapsed.ToStandardElapsedFormat()));

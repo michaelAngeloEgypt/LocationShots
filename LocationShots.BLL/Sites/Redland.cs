@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace LocationShots.BLL
@@ -8,8 +9,9 @@ namespace LocationShots.BLL
     {
         public static class Redland
         {
-            internal static void SearchLocation(string unitNo, string houseNo, string streetName)
+            internal static List<string> SearchLocation(string unitNo, string houseNo, string streetName)
             {
+                var res = new List<string>();
                 try
                 {
                     //ClickByJavascript(IDs.Redland.JsButtons["Home.Search"]);
@@ -30,13 +32,29 @@ namespace LocationShots.BLL
                     IWebElement userField = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(IDs.Redland.Buttons["SearchFrame.Find"]));
                     userField.Click();
 
-                    var results = GetTableColumnTags(IDs.Redland.Tables["Search.Results"], 0);
+                    if (!CurrentDriver.PageSource.Contains("DataGrid1"))
+                        return res;
 
+                    var results = GetTableColumnTags(IDs.Redland.Tables["Search.Results"], 0);
+                    var fixedResults = new List<String>();
+                    foreach (var raw in results.Where(r => r.Contains("Query=LANDNO")))
+                    {
+                        var fixedRes = String.Concat(IDs.Redland.Urls["SearchResultPrefix"],
+                            raw.Between("LANDNO=", "'"));
+                        fixedResults.Add(fixedRes);
+                    }
+                    return fixedResults.Distinct().ToList();
                 }
                 catch (Exception x)
                 {
                     XLogger.Error(x);
+                    return res;
                 }
+            }
+            internal static void ExamineSearchResult(string resultUrl)
+            {
+                CurrentDriver.Navigate().GoToUrl(resultUrl);
+                Selenium.LoadSite(resultUrl, IDs.Redland.Buttons["Home.Search"]);
             }
         }
     }
