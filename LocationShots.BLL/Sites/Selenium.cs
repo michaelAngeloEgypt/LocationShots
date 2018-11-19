@@ -620,6 +620,21 @@ namespace LocationShots.BLL
 
             return res;
         }
+        public static List<string> GetTableColumnTags(By id, int colIndex)
+        {
+            var res = new List<string>();
+            IWebElement tableElement = CurrentDriver.FindElement(id);
+            IList<IWebElement> tableRow = tableElement.FindElements(By.TagName("tr"));
+            IList<IWebElement> rowTD;
+            foreach (IWebElement row in tableRow.Skip(1))
+            {
+                rowTD = row.FindElements(By.TagName("td"));
+                res.Add(rowTD[colIndex].GetAttribute("innerHTML"));
+            }
+
+            return res;
+        }
+
         #endregion Generic
 
         #region UTL

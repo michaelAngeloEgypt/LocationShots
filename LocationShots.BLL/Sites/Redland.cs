@@ -30,7 +30,7 @@ namespace LocationShots.BLL
                     IWebElement userField = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(IDs.Redland.Buttons["SearchFrame.Find"]));
                     userField.Click();
 
-                    var results = GetTableColumnValues(IDs.Redland.Tables["Search.Results"], 0);
+                    var results = GetTableColumnTags(IDs.Redland.Tables["Search.Results"], 0);
 
                 }
                 catch (Exception x)
