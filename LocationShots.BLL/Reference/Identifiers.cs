@@ -26,7 +26,10 @@ namespace LocationShots.BLL
                 { "SearchFrame" , "http://gis.redland.qld.gov.au/pdonlinemap/searchpropertysimple.aspx" },
                 { "SearchResultPrefix" , "http://gis.redland.qld.gov.au/pdonlinemap/default.aspx?Basemap=image_base&UseBasemap=False&ServiceShow=land%2ccity_plan&ServiceVis=land%2ccity_plan&Service=land&Layers=101011001011&ActiveLayer=Current+Land&Query=LANDNO%3d"}
             };
-
+            Redland.CheckBoxes = new Dictionary<string, By>()
+            {
+                { "Layers.Aerial", By.Id("chkBasemapVis") }
+            };
             Redland.Buttons = new Dictionary<string, By>()
             {
                 { "Home.Logo", By.CssSelector("img#imgLogo")},
@@ -34,12 +37,10 @@ namespace LocationShots.BLL
                 { "Search.Property", By.XPath("//button[text()='Property']")},
                 { "SearchFrame.Find", By.CssSelector("input#btnFind")},
             };
-
             Redland.JsButtons = new Dictionary<string, string>()
             {
                 { "Home.Search", "imgFind_onclick(this);"},
             };
-
             Redland.TextFields = new Dictionary<string, By>()
             {
                 { "Search.UnitNo", By.Id("txtUnitNoSearch")},
@@ -47,12 +48,10 @@ namespace LocationShots.BLL
                 { "Search.StreetName", By.Id("txtStreetNameSearch")},
                 { "Search.LotNo", By.Id("txtLotSearch")},
             };
-
             Redland.Combos = new Dictionary<string, By>()
             {
                 { "Search.PlanNo", By.Id("ddlPlanDescSearch")},
             };
-
             Redland.Tables = new Dictionary<string, By>()
             {
                 { "Search.Results", By.CssSelector("table#DataGrid1")}
@@ -64,6 +63,7 @@ namespace LocationShots.BLL
     {
 
         public Dictionary<String, String> Urls { get; set; }
+        public Dictionary<String, By> CheckBoxes { get; set; }
         public Dictionary<String, By> Buttons { get; set; }
         public Dictionary<String, String> JsButtons { get; set; }
         public Dictionary<String, By> Combos { get; set; }
@@ -74,6 +74,7 @@ namespace LocationShots.BLL
         public SiteIDs()
         {
             Urls = new Dictionary<string, string>();
+            CheckBoxes = new Dictionary<string, By>();
             Buttons = new Dictionary<string, By>();
             Combos = new Dictionary<string, By>();
             TextFields = new Dictionary<string, By>();

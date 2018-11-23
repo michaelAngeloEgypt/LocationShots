@@ -55,6 +55,7 @@ namespace LocationShots.BLL
             {
                 CurrentDriver.Navigate().GoToUrl(resultUrl);
                 Selenium.LoadSite(resultUrl, IDs.Redland.Buttons["Home.Search"]);
+                ClickField(IDs.Redland.CheckBoxes["Layers.Aerial"]);
             }
         }
     }
