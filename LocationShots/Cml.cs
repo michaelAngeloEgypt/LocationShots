@@ -91,7 +91,7 @@ namespace LocationShots
 
 
             myUI.o = this;
-            this.TopMost = true;
+            //this.TopMost = true;
         }
 
         private bool LoadSettings(out string exeVersion)

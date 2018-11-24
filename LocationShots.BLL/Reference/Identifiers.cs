@@ -1,6 +1,6 @@
-﻿using OpenQA.Selenium;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using OpenQA.Selenium;
 
 
 namespace LocationShots.BLL
@@ -28,7 +28,21 @@ namespace LocationShots.BLL
             };
             Redland.CheckBoxes = new Dictionary<string, By>()
             {
-                { "Layers.Aerial", By.Id("chkBasemapVis") }
+                { "Layers.Aerial", By.Id("chkBasemapVis") },
+                { "Layers.CityAndSurrounds", By.Id("chkLayerVis_20") },
+                { "Layers.PriorityDevelopment", By.Id("chkLayerVis_18") },
+                { "Layers.Suburbs", By.Id("chkLayerVis_16") },
+                { "Layers.CouncilElectoral", By.Id("chkLayerVis_13") },
+                { "Layers.CurrentLand", By.Id("chkLayerVis_9") },
+                { "Layers.HouseUnitNumbers", By.Id("chkLayerVis_1") },
+                { "Layers.LandLayers", By.Id("chkServiceVis_land") },
+                //
+                { "LayerGroup.CityPlanV1", By.Id("chkServiceVis_city_plan") },
+            };
+            Redland.RadioButtons = new Dictionary<string, By>()
+            {
+                { "LayerGroup.Land", By.Id("rbn_land") },
+                { "LayerGroup.CityPlanV1", By.Id("rbn_city_plan") },
             };
             Redland.Buttons = new Dictionary<string, By>()
             {
@@ -36,6 +50,8 @@ namespace LocationShots.BLL
                 { "Home.Search", By.Id("imgFind")},
                 { "Search.Property", By.XPath("//button[text()='Property']")},
                 { "SearchFrame.Find", By.CssSelector("input#btnFind")},
+                //
+                { "LayerGroup.CloseLayers", By.CssSelector("img#closeCrossTOC")}
             };
             Redland.JsButtons = new Dictionary<string, string>()
             {
@@ -64,6 +80,7 @@ namespace LocationShots.BLL
 
         public Dictionary<String, String> Urls { get; set; }
         public Dictionary<String, By> CheckBoxes { get; set; }
+        public Dictionary<String, By> RadioButtons { get; set; }
         public Dictionary<String, By> Buttons { get; set; }
         public Dictionary<String, String> JsButtons { get; set; }
         public Dictionary<String, By> Combos { get; set; }
@@ -75,6 +92,7 @@ namespace LocationShots.BLL
         {
             Urls = new Dictionary<string, string>();
             CheckBoxes = new Dictionary<string, By>();
+            RadioButtons = new Dictionary<string, By>();
             Buttons = new Dictionary<string, By>();
             Combos = new Dictionary<string, By>();
             TextFields = new Dictionary<string, By>();

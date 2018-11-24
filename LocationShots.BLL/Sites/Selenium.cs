@@ -718,10 +718,10 @@ namespace LocationShots.BLL
             {
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(300));
                 string script1 = "if (document != undefined && document.readyState) { return document.readyState;} else { return 'undefined';}";
-                string script2 = "return jQuery.active";
+                //string script2 = "return jQuery.active";
 
                 wait.Until(d => ((IJavaScriptExecutor)driver).ExecuteScript(script1).Equals("complete"));
-                wait.Until(d => (long)((IJavaScriptExecutor)driver).ExecuteScript(script2) == 0);
+                //wait.Until(d => (long)((IJavaScriptExecutor)driver).ExecuteScript(script2) == 0);
             }
             catch (Exception)
             {

@@ -55,7 +55,34 @@ namespace LocationShots.BLL
             {
                 CurrentDriver.Navigate().GoToUrl(resultUrl);
                 Selenium.LoadSite(resultUrl, IDs.Redland.Buttons["Home.Search"]);
+                //
+                ClickField(IDs.Redland.RadioButtons["LayerGroup.Land"]);
+                Selenium.ConfirmChartsLoaded();
                 ClickField(IDs.Redland.CheckBoxes["Layers.Aerial"]);
+                Selenium.ConfirmChartsLoaded();
+                ClickField(IDs.Redland.CheckBoxes["LayerGroup.CityPlanV1"]);
+                Selenium.ConfirmChartsLoaded();
+                ClickField(IDs.Redland.Buttons["LayerGroup.CloseLayers"]);
+                Selenium.ConfirmChartsLoaded();
+
+                /*
+                ClickField(IDs.Redland.CheckBoxes["Layers.CityAndSurrounds"]);
+                Selenium.ConfirmChartsLoaded();
+                ClickField(IDs.Redland.CheckBoxes["Layers.PriorityDevelopment"]);
+                Selenium.ConfirmChartsLoaded();
+                ClickField(IDs.Redland.CheckBoxes["Layers.Suburbs"]);
+                Selenium.ConfirmChartsLoaded();
+                ClickField(IDs.Redland.CheckBoxes["Layers.CouncilElectoral"]);
+                Selenium.ConfirmChartsLoaded();
+                ClickField(IDs.Redland.CheckBoxes["Layers.CurrentLand"]);
+                Selenium.ConfirmChartsLoaded();
+                ClickField(IDs.Redland.CheckBoxes["Layers.HouseUnitNumbers"]);
+                Selenium.ConfirmChartsLoaded();
+                ClickField(IDs.Redland.CheckBoxes["Layers.LandLayers"]);
+                Selenium.ConfirmChartsLoaded();
+                */
+
+
             }
         }
     }
