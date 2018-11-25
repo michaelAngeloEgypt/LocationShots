@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            LocationShots.BLL.Config.ConfInputs.CityPlan cityPlan3 = new LocationShots.BLL.Config.ConfInputs.CityPlan();
-            LocationShots.BLL.Config.ConfInputs.Redland redland2 = new LocationShots.BLL.Config.ConfInputs.Redland();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tcSites = new System.Windows.Forms.TabControl();
             this.tpCityPlan = new System.Windows.Forms.TabPage();
+            this.cityPlan1 = new LocationShots.Sites.CityPlan();
             this.tpRedland = new System.Windows.Forms.TabPage();
+            this.redland1 = new LocationShots.Sites.Redland();
             this.rbFirefox = new System.Windows.Forms.RadioButton();
             this.rbChrome = new System.Windows.Forms.RadioButton();
             this.txtUrl = new System.Windows.Forms.TextBox();
@@ -42,8 +42,6 @@
             this.btnOutputFolder = new System.Windows.Forms.Button();
             this.txtOutputFolder = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtOutputSheetPath = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.btnStartStop = new System.Windows.Forms.Button();
             this.bgwProcess = new System.ComponentModel.BackgroundWorker();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -52,8 +50,6 @@
             this.rbTakeScreenshot = new System.Windows.Forms.RadioButton();
             this.rbCityPlan = new System.Windows.Forms.RadioButton();
             this.rbRedland = new System.Windows.Forms.RadioButton();
-            this.cityPlan1 = new LocationShots.Sites.CityPlan();
-            this.redland1 = new LocationShots.Sites.Redland();
             this.groupBox1.SuspendLayout();
             this.tcSites.SuspendLayout();
             this.tpCityPlan.SuspendLayout();
@@ -101,6 +97,18 @@
             this.tpCityPlan.Text = "CityPlan";
             this.tpCityPlan.UseVisualStyleBackColor = true;
             // 
+            // cityPlan1
+            // 
+            this.cityPlan1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cityPlan1.Location = new System.Drawing.Point(4, 5);
+            this.cityPlan1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cityPlan1.Name = "cityPlan1";
+            this.cityPlan1.Size = new System.Drawing.Size(882, 180);
+            this.cityPlan1.Street = "Osterley Road";
+            this.cityPlan1.StreetNo = "45";
+            this.cityPlan1.Suburb = "YERONGA";
+            this.cityPlan1.TabIndex = 0;
+            // 
             // tpRedland
             // 
             this.tpRedland.Controls.Add(this.redland1);
@@ -111,6 +119,17 @@
             this.tpRedland.Size = new System.Drawing.Size(890, 190);
             this.tpRedland.TabIndex = 1;
             this.tpRedland.Text = "Redland";
+            // 
+            // redland1
+            // 
+            this.redland1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.redland1.HouseNo = "";
+            this.redland1.Location = new System.Drawing.Point(4, 5);
+            this.redland1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.redland1.Name = "redland1";
+            this.redland1.Size = new System.Drawing.Size(882, 180);
+            this.redland1.StreetName = "";
+            this.redland1.TabIndex = 0;
             // 
             // rbFirefox
             // 
@@ -160,17 +179,14 @@
             this.groupBox2.Controls.Add(this.btnOutputFolder);
             this.groupBox2.Controls.Add(this.txtOutputFolder);
             this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.txtOutputSheetPath);
-            this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Location = new System.Drawing.Point(24, 348);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox2.Size = new System.Drawing.Size(958, 143);
+            this.groupBox2.Size = new System.Drawing.Size(958, 96);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Output";
-            this.groupBox2.Visible = false;
             // 
             // btnOutputFolder
             // 
@@ -181,6 +197,7 @@
             this.btnOutputFolder.TabIndex = 12;
             this.btnOutputFolder.Text = "Browse";
             this.btnOutputFolder.UseVisualStyleBackColor = true;
+            this.btnOutputFolder.Click += new System.EventHandler(this.btnOutputFolder_Click);
             // 
             // txtOutputFolder
             // 
@@ -201,28 +218,9 @@
             this.label5.TabIndex = 10;
             this.label5.Text = "Output Folder:";
             // 
-            // txtOutputSheetPath
-            // 
-            this.txtOutputSheetPath.Location = new System.Drawing.Point(128, 89);
-            this.txtOutputSheetPath.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtOutputSheetPath.Name = "txtOutputSheetPath";
-            this.txtOutputSheetPath.ReadOnly = true;
-            this.txtOutputSheetPath.Size = new System.Drawing.Size(787, 26);
-            this.txtOutputSheetPath.TabIndex = 8;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(18, 94);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(93, 20);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "Sheet Path:";
-            // 
             // btnStartStop
             // 
-            this.btnStartStop.Location = new System.Drawing.Point(744, 518);
+            this.btnStartStop.Location = new System.Drawing.Point(748, 454);
             this.btnStartStop.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnStartStop.Name = "btnStartStop";
             this.btnStartStop.Size = new System.Drawing.Size(234, 43);
@@ -241,7 +239,7 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.txtResult);
-            this.groupBox3.Location = new System.Drawing.Point(20, 588);
+            this.groupBox3.Location = new System.Drawing.Point(25, 507);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -267,7 +265,7 @@
             this.loadingCircle1.Active = false;
             this.loadingCircle1.Color = System.Drawing.Color.DarkGray;
             this.loadingCircle1.InnerCircleRadius = 5;
-            this.loadingCircle1.Location = new System.Drawing.Point(688, 518);
+            this.loadingCircle1.Location = new System.Drawing.Point(692, 454);
             this.loadingCircle1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.loadingCircle1.Name = "loadingCircle1";
             this.loadingCircle1.OuterCircleRadius = 11;
@@ -281,20 +279,18 @@
             // rbTakeScreenshot
             // 
             this.rbTakeScreenshot.AutoSize = true;
-            this.rbTakeScreenshot.Checked = true;
-            this.rbTakeScreenshot.Location = new System.Drawing.Point(420, 552);
+            this.rbTakeScreenshot.Location = new System.Drawing.Point(304, 463);
             this.rbTakeScreenshot.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbTakeScreenshot.Name = "rbTakeScreenshot";
             this.rbTakeScreenshot.Size = new System.Drawing.Size(155, 24);
             this.rbTakeScreenshot.TabIndex = 23;
-            this.rbTakeScreenshot.TabStop = true;
             this.rbTakeScreenshot.Text = "Take Screenshot";
             this.rbTakeScreenshot.UseVisualStyleBackColor = true;
             // 
             // rbCityPlan
             // 
             this.rbCityPlan.AutoSize = true;
-            this.rbCityPlan.Location = new System.Drawing.Point(420, 517);
+            this.rbCityPlan.Location = new System.Drawing.Point(171, 463);
             this.rbCityPlan.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbCityPlan.Name = "rbCityPlan";
             this.rbCityPlan.Size = new System.Drawing.Size(91, 24);
@@ -305,45 +301,21 @@
             // rbRedland
             // 
             this.rbRedland.AutoSize = true;
-            this.rbRedland.Location = new System.Drawing.Point(284, 517);
+            this.rbRedland.Checked = true;
+            this.rbRedland.Location = new System.Drawing.Point(47, 463);
             this.rbRedland.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbRedland.Name = "rbRedland";
             this.rbRedland.Size = new System.Drawing.Size(94, 24);
             this.rbRedland.TabIndex = 25;
+            this.rbRedland.TabStop = true;
             this.rbRedland.Text = "Redland";
             this.rbRedland.UseVisualStyleBackColor = true;
-            // 
-            // cityPlan1
-            // 
-            this.cityPlan1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cityPlan1.Location = new System.Drawing.Point(4, 5);
-            this.cityPlan1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cityPlan1.Name = "cityPlan1";
-            this.cityPlan1.Size = new System.Drawing.Size(882, 180);
-            this.cityPlan1.Street = "Osterley Road";
-            this.cityPlan1.StreetNo = "45";
-            this.cityPlan1.Suburb = "YERONGA";
-            this.cityPlan1.TabIndex = 0;
-            // 
-            // redland1
-            // 
-            this.redland1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.redland1.HouseNo = "";
-            redland2.HouseNo = "";
-            redland2.StreetName = "";
-            redland2.UnitNo = null;
-            this.redland1.Location = new System.Drawing.Point(4, 5);
-            this.redland1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.redland1.Name = "redland1";
-            this.redland1.Size = new System.Drawing.Size(882, 180);
-            this.redland1.StreetName = "";
-            this.redland1.TabIndex = 0;
             // 
             // Cml
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1017, 738);
+            this.ClientSize = new System.Drawing.Size(1017, 638);
             this.Controls.Add(this.rbRedland);
             this.Controls.Add(this.rbCityPlan);
             this.Controls.Add(this.rbTakeScreenshot);
@@ -376,8 +348,6 @@
         private System.Windows.Forms.TextBox txtUrl;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox txtOutputSheetPath;
-        private System.Windows.Forms.Label label4;
         private GetBusiness.LoadingCircle loadingCircle1;
         private System.Windows.Forms.Button btnStartStop;
         private System.ComponentModel.BackgroundWorker bgwProcess;

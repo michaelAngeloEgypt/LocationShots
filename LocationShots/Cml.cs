@@ -22,20 +22,12 @@ namespace LocationShots
         class UI
         {
             public Cml o;
-
-                public Lookups.Browser Browser { get { return o.rbChrome.Checked ? Lookups.Browser.Chrome : Lookups.Browser.Firefox; } }
-
+            public Lookups.Browser Browser { get { return o.rbChrome.Checked ? Lookups.Browser.Chrome : Lookups.Browser.Firefox; } }
             public string Url { get { return o.txtUrl.Text; } set { o.txtUrl.Text = value; } }
             public Config.ConfInputs.CityPlan cityPlanInputs => (o.tpCityPlan.Controls[0] as Sites.CityPlan).Inputs;
             public Config.ConfInputs.Redland redlandInputs => (o.tpRedland.Controls[0] as Sites.Redland).Inputs;
-
-            
-            //public string Suburb { get { return o.tpCityPlan.Suburb; } set { o.txtOutputFolder.Text = value; } }
-            //public string OutputFolder { get { return o.txtOutputFolder.Text; } set { o.txtOutputFolder.Text = value; } }
-
-            //public string OutputFolder { get { return o.txtOutputFolder.Text; } set { o.txtOutputFolder.Text = value; } }
-            //public string OutputSheetPath { get { return o.txtOutputSheetPath.Text; } set { o.txtOutputSheetPath.Text = value; } }
-
+            //
+            public string OutputFolder { get { return o.txtOutputFolder.Text; } set { o.txtOutputFolder.Text = value; } }
             public string Result { get { return o.txtResult.Text; } set { o.txtResult.Text = value; } }
 
             public void SignalError(string msg)
@@ -71,10 +63,10 @@ namespace LocationShots
                     RedlandInputs = redlandInputs,
                     Browser = Browser,
                 };
-                //conf.Outputs = new Config.ConfOutputs()
-                //{
-                //    OutputFolder = OutputFolder
-                //};
+                conf.Outputs = new Config.ConfOutputs()
+                {
+                    OutputFolder = OutputFolder
+                };
                 return conf;
             }
         }
@@ -91,7 +83,7 @@ namespace LocationShots
 
 
             myUI.o = this;
-            //this.TopMost = true;
+            this.TopMost = true;
         }
 
         private bool LoadSettings(out string exeVersion)
@@ -122,10 +114,10 @@ namespace LocationShots
                 //    missingKeys.Add(ConfigKeys.Inputs.Password);
                 //------------------------------------------------------------------------------------------
                 //------------------------------------------------------------------------------------------
-                //if (config.AppSettings.Settings.AllKeys.Contains(ConfigKeys.Outputs.OutputFolder))
-                //    myUI.OutputFolder = ConfigurationManager.AppSettings[ConfigKeys.Outputs.OutputFolder];
-                //else
-                //    missingKeys.Add(ConfigKeys.Outputs.OutputFolder);
+                if (config.AppSettings.Settings.AllKeys.Contains(ConfigKeys.Outputs.OutputFolder))
+                    myUI.OutputFolder = ConfigurationManager.AppSettings[ConfigKeys.Outputs.OutputFolder];
+                else
+                    missingKeys.Add(ConfigKeys.Outputs.OutputFolder);
                 //------------------------------------------------------------------------------------------
 
                 if (missingKeys.Count > 0)
@@ -160,10 +152,10 @@ namespace LocationShots
                 //    config.AppSettings.Settings[ConfigKeys.Inputs.Password].Value = myUI.Password;
                 //------------------------------------------------------------------------------------------
                 //------------------------------------------------------------------------------------------
-                //if (!config.AppSettings.Settings.AllKeys.Contains(ConfigKeys.Outputs.OutputFolder))
-                //    config.AppSettings.Settings.Add(ConfigKeys.Outputs.OutputFolder, myUI.OutputFolder);
-                //else
-                //    config.AppSettings.Settings[ConfigKeys.Outputs.OutputFolder].Value = myUI.OutputFolder;
+                if (!config.AppSettings.Settings.AllKeys.Contains(ConfigKeys.Outputs.OutputFolder))
+                    config.AppSettings.Settings.Add(ConfigKeys.Outputs.OutputFolder, myUI.OutputFolder);
+                else
+                    config.AppSettings.Settings[ConfigKeys.Outputs.OutputFolder].Value = myUI.OutputFolder;
                 //------------------------------------------------------------------------------------------
 
                 config.Save(ConfigurationSaveMode.Modified);
@@ -267,9 +259,9 @@ namespace LocationShots
         {
             err = "";
 
-            //if (String.IsNullOrEmpty(err) &&
-            //        (String.IsNullOrWhiteSpace(myUI.Url) || String.IsNullOrWhiteSpace(myUI.Username) || String.IsNullOrWhiteSpace(myUI.Password) || String.IsNullOrWhiteSpace(myUI.OutputFolder)))
-            //    err = "Please fill all the inputs";
+            if (String.IsNullOrEmpty(err) &&
+                    (String.IsNullOrWhiteSpace(myUI.Url) || String.IsNullOrWhiteSpace(myUI.OutputFolder)))   //|| String.IsNullOrWhiteSpace(myUI.Username) || String.IsNullOrWhiteSpace(myUI.Password) || 
+                err = "Please fill all the inputs";
 
             if (String.IsNullOrEmpty(err) && !HtmlAgility.UrlIsValid(myUI.Url))
                 err = "The Url is invalid or down, please enter a valid Url";
@@ -289,7 +281,7 @@ namespace LocationShots
                 Engine.Variables.ExecutionTime.Start();
                 Stopwatch timer = Stopwatch.StartNew();
                 XLogger.Info("BEGIN:\t Task Execution");
-           
+
                 //Engine.Variables.OutputSheetPath = Path.Combine(Engine.EngineConfig.Outputs.OutputFolder, Engine.Variables.OutputSheetPath);
                 //UpdateOutputSheetPath(Engine.Variables.OutputSheetPath);
                 Engine.EngineConfig = myUI.BuildConfig();
@@ -404,7 +396,6 @@ namespace LocationShots
             this.Text = "LocationShots||" + Engine.EngineConfig.ExeVersion;
         }
 
-        /*
         private void btnOutputFolder_Click(object sender, EventArgs e)
         {
             try
@@ -412,7 +403,7 @@ namespace LocationShots
                 var dlgOpenFolder = new VistaFolderBrowserDialog()
                 {
                     RootFolder = Environment.SpecialFolder.MyComputer,
-                    Description = "Please input the folder where the results workbook will be placed",
+                    Description = "Please input the folder where the generated artifacts will be placed",
                     UseDescriptionForTitle = true,
                 };
 
@@ -429,15 +420,9 @@ namespace LocationShots
                 XLogger.Error(x);
             }
         }
-        */
         private void rbBrowser_CheckedChanged(object sender, EventArgs e)
         {
             Engine.EngineConfig.Inputs.Browser = myUI.Browser;
-        }
-
-        private void btnTakeScreenshot_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
