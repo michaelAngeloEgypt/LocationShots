@@ -1,6 +1,8 @@
 ﻿using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
 
 namespace LocationShots.BLL
@@ -9,9 +11,9 @@ namespace LocationShots.BLL
     {
         public static class Redland
         {
-            internal static List<string> SearchLocation(string unitNo, string houseNo, string streetName)
+            internal static List<SearchResult> SearchLocation(string unitNo, string houseNo, string streetName)
             {
-                var res = new List<string>();
+                var res = new List<SearchResult>();
                 try
                 {
                     //ClickByJavascript(IDs.Redland.JsButtons["Home.Search"]);
@@ -25,7 +27,7 @@ namespace LocationShots.BLL
 
                     //only for Standard search
                     //ExecuteJavascript("document.getElementById('iframeSearchResults').src='searchpropertysimple.aspx'");
-                    
+
                     //EditTextField(IDs.Redland.TextFields["Search.HouseNo"], houseNo);
                     EditTextField(IDs.Redland.TextFields["Search.StreetName"], streetName);
 
@@ -35,15 +37,12 @@ namespace LocationShots.BLL
                     if (!CurrentDriver.PageSource.Contains("DataGrid1"))
                         return res;
 
-                    var results = GetTableColumnTags(IDs.Redland.Tables["Search.Results"], 0);
-                    var fixedResults = new List<String>();
-                    foreach (var raw in results.Where(r => r.Contains("Query=LANDNO")))
-                    {
-                        var fixedRes = String.Concat(IDs.Redland.Urls["SearchResultPrefix"],
-                            raw.Between("LANDNO=", "'"));
-                        fixedResults.Add(fixedRes);
-                    }
-                    return fixedResults.Distinct().ToList();
+                    var results = GetTableRowTags(IDs.Redland.Tables["Search.Results"]);
+                    var validResults = results.AsEnumerable().Where(r => !r.ItemArray.ElementAtOrDefault(0).ToString().Contains("span"));  //.Cast<String>().Any(td => td.Contains("Query=LANDNO")));
+                    foreach (var row in validResults)
+                        res.Add(new SearchResult(row, ExtractUrl));
+
+                    return res.Distinct().ToList();
                 }
                 catch (Exception x)
                 {
@@ -51,10 +50,21 @@ namespace LocationShots.BLL
                     return res;
                 }
             }
-            internal static void ExamineSearchResult(string resultUrl)
+            public static string ExtractUrl(string srcHtml)
             {
-                CurrentDriver.Navigate().GoToUrl(resultUrl);
-                Selenium.LoadSite(resultUrl, IDs.Redland.Buttons["Home.Search"]);
+                var fixedRes = String.Concat
+                    (IDs.Redland.Urls["SearchResultPrefix"], srcHtml.Between("LANDNO=", "'"));
+                return fixedRes;
+            }
+            internal static void ExamineSearchResult(SearchResult result)
+            {
+                var resultFolder = Path.Combine(Engine.EngineConfig.Outputs.OutputFolder, result.ResultName.Replace(",", " -"));
+                if (Directory.Exists(resultFolder))
+                    Directory.Delete(resultFolder);
+                Directory.CreateDirectory(resultFolder);
+
+                CurrentDriver.Navigate().GoToUrl(result.ResultUrl);
+                Selenium.LoadSite(result.ResultUrl, IDs.Redland.Buttons["Home.Search"]);
                 //
                 ClickField(IDs.Redland.RadioButtons["LayerGroup.Land"]);
                 Selenium.ConfirmChartsLoaded();
@@ -64,6 +74,10 @@ namespace LocationShots.BLL
                 Selenium.ConfirmChartsLoaded();
                 ClickField(IDs.Redland.Buttons["LayerGroup.CloseLayers"]);
                 Selenium.ConfirmChartsLoaded();
+
+                string filePath = Path.Combine(resultFolder, "screenshot.png");
+                filePath.DeleteFile();
+                Selenium.TakeScreenshot(filePath);
 
                 /*
                 ClickField(IDs.Redland.CheckBoxes["Layers.CityAndSurrounds"]);

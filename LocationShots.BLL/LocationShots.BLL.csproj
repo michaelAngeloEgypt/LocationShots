@@ -95,6 +95,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\SearchResult.cs" />
     <Compile Include="BLL\SingleExecutionCounts.cs" />
     <Compile Include="BLL\SingleExecution.cs" />
     <Compile Include="BLL\ExecutionStatus.cs" />

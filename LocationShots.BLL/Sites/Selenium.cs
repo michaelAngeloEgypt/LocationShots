@@ -7,6 +7,7 @@ using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -630,6 +631,32 @@ namespace LocationShots.BLL
             {
                 rowTD = row.FindElements(By.TagName("td"));
                 res.Add(rowTD[colIndex].GetAttribute("innerHTML"));
+            }
+
+            return res;
+        }
+
+        public static DataTable GetTableRowTags(By id)
+        {
+            var res = new DataTable();
+            IWebElement tableElement = CurrentDriver.FindElement(id);
+            IList<IWebElement> tableRows = tableElement.FindElements(By.TagName("tr"));
+            var header = tableRows.FirstOrDefault();
+            var cols = header.FindElements(By.TagName("td")).Count;
+            for (int i = 0; i < cols; i++)
+                res.Columns.Add();
+
+            foreach (IWebElement row in tableRows.Skip(1))
+            {
+                var tr = res.NewRow();
+                var rowTDs = row.FindElements(By.TagName("td"));
+                for (int i = 0; i < cols; i++)
+                {
+                    var myTD = rowTDs.ElementAtOrDefault(i);
+                    if (myTD == null) continue;
+                    tr[i] = myTD.GetAttribute("innerHTML");
+                }
+                res.Rows.Add(tr);
             }
 
             return res;
