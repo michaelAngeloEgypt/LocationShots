@@ -50,6 +50,7 @@ namespace LocationShots.BLL
                 { "Home.Search", By.Id("imgFind")},
                 { "Search.Property", By.XPath("//button[text()='Property']")},
                 { "SearchFrame.Find", By.CssSelector("input#btnFind")},
+                { "Home.Report", By.CssSelector("img#imgReportOnSelected")},
                 //
                 { "LayerGroup.CloseLayers", By.CssSelector("img#closeCrossTOC")}
             };

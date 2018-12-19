@@ -160,7 +160,7 @@ namespace LocationShots.BLL
                 var searchResults = Selenium.Redland.SearchLocation(EngineConfig.Inputs.RedlandInputs.UnitNo, EngineConfig.Inputs.RedlandInputs.HouseNo, EngineConfig.Inputs.RedlandInputs.StreetName);
 
                 
-                for (int i = 0; i < searchResults.Take(1).Count(); i++)
+                for (int i = 0; i < searchResults.Count(); i++)     //Take(1)
                 {
                     var searchResult = searchResults[i];
                     currentStep = $"Fetching search result {i+1} of {searchResults.Count}";

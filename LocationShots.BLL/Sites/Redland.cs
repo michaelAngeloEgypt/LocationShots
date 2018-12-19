@@ -75,9 +75,10 @@ namespace LocationShots.BLL
                 ClickField(IDs.Redland.Buttons["LayerGroup.CloseLayers"]);
                 Selenium.ConfirmChartsLoaded();
 
-                string filePath = Path.Combine(resultFolder, "screenshot.png");
+                string filePath = Path.Combine(resultFolder, "Aerial.png");
                 filePath.DeleteFile();
                 Selenium.TakeScreenshot(filePath);
+
 
                 /*
                 ClickField(IDs.Redland.CheckBoxes["Layers.CityAndSurrounds"]);
