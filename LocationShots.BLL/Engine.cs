@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 
 namespace LocationShots.BLL
 {
@@ -100,44 +101,6 @@ namespace LocationShots.BLL
             //return DoTaskRedland_standard();
             return DoTaskRedland_direct();
         }
-        public static bool DoTaskScreenshot()
-        {
-            try
-            {
-                currentStep = "Starting browser";
-                CallUpdateStatus(currentStep);
-                Selenium.SetCurrentDriver(EngineConfig.Inputs.Browser);
-                Selenium.HideDriverWindow();
-
-                currentStep = "Loading Homepage";
-                CallUpdateStatus(currentStep);
-                Selenium.LoadSite("https://www.yellowpages.com.eg/en", Identifiers.Buttons["YP.Search"]);
-
-
-                currentStep = "Taking Screenshot";
-                CallUpdateStatus(currentStep);
-                string filePath = Path.Combine(Environment.CurrentDirectory, "screenshot.png");
-                filePath.DeleteFile();
-                Selenium.TakeScreenshot(filePath);
-
-                Variables.ExecutionTime.Stop();
-                CallMarkCompleted(string.Concat(MSG.OperationPassed, Variables.ExecutionTime.Elapsed.ToStandardElapsedFormat()));
-                return true;
-            }
-            catch (Exception x)
-            {
-                if (!x.Data.Contains("currentStep")) x.Data.Add("currentStep", currentStep);
-                Variables.ExecutionTime.Stop();
-                throw;
-            }
-            finally
-            {
-                //Selenium.EndSession();
-                //if (!File.Exists(Variables.OutputSheetPath))
-                //    WriteOutputs(Variables.OutputSheetPath);
-            }
-
-        }
         private static bool DoTaskRedland_direct()
         {
             try
@@ -159,7 +122,12 @@ namespace LocationShots.BLL
                 CallUpdateStatus(currentStep);
                 var searchResults = Selenium.Redland.SearchLocation(EngineConfig.Inputs.RedlandInputs.UnitNo, EngineConfig.Inputs.RedlandInputs.HouseNo, EngineConfig.Inputs.RedlandInputs.StreetName);
 
-                
+                currentStep = "Preparing results folders";
+                CallUpdateStatus(currentStep);
+                Engine.EngineConfig.Outputs.OutputFolder.CleanDirectory();
+                Thread.Sleep(1000);
+                PrepareFolders(searchResults);
+
                 for (int i = 0; i < searchResults.Count(); i++)     //Take(1)
                 {
                     var searchResult = searchResults[i];
@@ -168,7 +136,7 @@ namespace LocationShots.BLL
                     Selenium.Redland.ExamineSearchResult(searchResult);
                     currentStep = $"result {i + 1} of {searchResults.Count}";
                     CallUpdateStatus($"{currentStep} - Waiting for charts to load");
-                    if (!Selenium.ConfirmChartsLoaded())
+                    if (!Selenium.ConfirmReady())
                         throw new ApplicationException($"{currentStep} - Charts were not loaded. A timeout may have occured");
 
                 }
@@ -190,6 +158,17 @@ namespace LocationShots.BLL
                 //    WriteOutputs(Variables.OutputSheetPath);
             }
         }
+
+        private static void PrepareFolders(List<SearchResult> searchResults)
+        {
+            foreach (var item in searchResults)
+            {
+                var resultFolder = Path.Combine(Engine.EngineConfig.Outputs.OutputFolder, item.ResultName.Replace(",", " -"));
+                Directory.CreateDirectory(resultFolder);
+                item.ResultFolder = resultFolder;
+            }
+        }
+
         private static bool DoTaskRedland_standard()
         {
             try
@@ -325,7 +304,7 @@ namespace LocationShots.BLL
                 Selenium.EditTextField(Identifiers.TextFields["Ticker"], defaultTestConfig.Ticker);
                 Selenium.PressEnterInTextField(Identifiers.TextFields["Ticker"]);
 
-                if (!Selenium.ConfirmChartsLoaded())
+                if (!Selenium.ConfirmReady())
                     throw new ApplicationException($"{currentStep}: Charts were not loaded. A timeout may have occured");
 
                 if (!Selenium.ConfirmValidConfiguration())
@@ -369,7 +348,7 @@ namespace LocationShots.BLL
                         throw new ApplicationException("Test configuration is invalid, therefore no data was loaded and the simulation stopped.");
                     }
 
-                    if (!Selenium.ConfirmChartsLoaded())
+                    if (!Selenium.ConfirmReady())
                         throw new ApplicationException($"{currentStep}: Charts were not loaded. A timeout may have occured");
 
                     timespan = swCurrent.Elapsed;
@@ -436,7 +415,7 @@ namespace LocationShots.BLL
                 if (Engine.Variables.CancellationPending)
                 { HaltExecution(); return true; }
 
-                if (Selenium.ConfirmChartsLoaded())
+                if (Selenium.ConfirmReady())
                 {
                     swEarningsHandling.Stop();
                     TimeSpan timespan = swEarningsHandling.Elapsed;

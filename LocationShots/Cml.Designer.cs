@@ -47,7 +47,6 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txtResult = new System.Windows.Forms.RichTextBox();
             this.loadingCircle1 = new GetBusiness.LoadingCircle();
-            this.rbTakeScreenshot = new System.Windows.Forms.RadioButton();
             this.rbCityPlan = new System.Windows.Forms.RadioButton();
             this.rbRedland = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
@@ -65,11 +64,9 @@
             this.groupBox1.Controls.Add(this.rbChrome);
             this.groupBox1.Controls.Add(this.txtUrl);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Location = new System.Drawing.Point(20, 18);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox1.Location = new System.Drawing.Point(13, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox1.Size = new System.Drawing.Size(958, 320);
+            this.groupBox1.Size = new System.Drawing.Size(639, 208);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Inputs";
@@ -78,21 +75,19 @@
             // 
             this.tcSites.Controls.Add(this.tpCityPlan);
             this.tcSites.Controls.Add(this.tpRedland);
-            this.tcSites.Location = new System.Drawing.Point(22, 88);
-            this.tcSites.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tcSites.Location = new System.Drawing.Point(15, 57);
             this.tcSites.Name = "tcSites";
             this.tcSites.SelectedIndex = 0;
-            this.tcSites.Size = new System.Drawing.Size(898, 223);
+            this.tcSites.Size = new System.Drawing.Size(599, 145);
             this.tcSites.TabIndex = 17;
             // 
             // tpCityPlan
             // 
             this.tpCityPlan.Controls.Add(this.cityPlan1);
-            this.tpCityPlan.Location = new System.Drawing.Point(4, 29);
-            this.tpCityPlan.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tpCityPlan.Location = new System.Drawing.Point(4, 22);
             this.tpCityPlan.Name = "tpCityPlan";
-            this.tpCityPlan.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tpCityPlan.Size = new System.Drawing.Size(890, 190);
+            this.tpCityPlan.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tpCityPlan.Size = new System.Drawing.Size(591, 119);
             this.tpCityPlan.TabIndex = 0;
             this.tpCityPlan.Text = "CityPlan";
             this.tpCityPlan.UseVisualStyleBackColor = true;
@@ -100,10 +95,9 @@
             // cityPlan1
             // 
             this.cityPlan1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cityPlan1.Location = new System.Drawing.Point(4, 5);
-            this.cityPlan1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cityPlan1.Location = new System.Drawing.Point(3, 3);
             this.cityPlan1.Name = "cityPlan1";
-            this.cityPlan1.Size = new System.Drawing.Size(882, 180);
+            this.cityPlan1.Size = new System.Drawing.Size(585, 113);
             this.cityPlan1.Street = "Osterley Road";
             this.cityPlan1.StreetNo = "45";
             this.cityPlan1.Suburb = "YERONGA";
@@ -112,11 +106,10 @@
             // tpRedland
             // 
             this.tpRedland.Controls.Add(this.redland1);
-            this.tpRedland.Location = new System.Drawing.Point(4, 29);
-            this.tpRedland.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tpRedland.Location = new System.Drawing.Point(4, 22);
             this.tpRedland.Name = "tpRedland";
-            this.tpRedland.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tpRedland.Size = new System.Drawing.Size(890, 190);
+            this.tpRedland.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tpRedland.Size = new System.Drawing.Size(591, 119);
             this.tpRedland.TabIndex = 1;
             this.tpRedland.Text = "Redland";
             // 
@@ -124,19 +117,19 @@
             // 
             this.redland1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.redland1.HouseNo = "";
-            this.redland1.Location = new System.Drawing.Point(4, 5);
-            this.redland1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.redland1.Location = new System.Drawing.Point(3, 3);
             this.redland1.Name = "redland1";
-            this.redland1.Size = new System.Drawing.Size(882, 180);
+            this.redland1.Size = new System.Drawing.Size(585, 113);
             this.redland1.StreetName = "";
             this.redland1.TabIndex = 0;
             // 
             // rbFirefox
             // 
             this.rbFirefox.AutoSize = true;
-            this.rbFirefox.Location = new System.Drawing.Point(832, 15);
+            this.rbFirefox.Location = new System.Drawing.Point(555, 10);
+            this.rbFirefox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.rbFirefox.Name = "rbFirefox";
-            this.rbFirefox.Size = new System.Drawing.Size(82, 24);
+            this.rbFirefox.Size = new System.Drawing.Size(56, 17);
             this.rbFirefox.TabIndex = 10;
             this.rbFirefox.Text = "Firefox";
             this.rbFirefox.UseVisualStyleBackColor = true;
@@ -146,9 +139,10 @@
             // 
             this.rbChrome.AutoSize = true;
             this.rbChrome.Checked = true;
-            this.rbChrome.Location = new System.Drawing.Point(726, 15);
+            this.rbChrome.Location = new System.Drawing.Point(484, 10);
+            this.rbChrome.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.rbChrome.Name = "rbChrome";
-            this.rbChrome.Size = new System.Drawing.Size(90, 24);
+            this.rbChrome.Size = new System.Drawing.Size(61, 17);
             this.rbChrome.TabIndex = 9;
             this.rbChrome.TabStop = true;
             this.rbChrome.Text = "Chrome";
@@ -157,20 +151,18 @@
             // 
             // txtUrl
             // 
-            this.txtUrl.Location = new System.Drawing.Point(124, 49);
-            this.txtUrl.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtUrl.Location = new System.Drawing.Point(83, 32);
             this.txtUrl.Name = "txtUrl";
-            this.txtUrl.Size = new System.Drawing.Size(790, 26);
+            this.txtUrl.Size = new System.Drawing.Size(528, 20);
             this.txtUrl.TabIndex = 8;
             this.txtUrl.Text = "http://cityplan2014maps.brisbane.qld.gov.au/CityPlan/";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(18, 54);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(12, 35);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(33, 20);
+            this.label3.Size = new System.Drawing.Size(23, 13);
             this.label3.TabIndex = 7;
             this.label3.Text = "Url:";
             // 
@@ -179,21 +171,18 @@
             this.groupBox2.Controls.Add(this.btnOutputFolder);
             this.groupBox2.Controls.Add(this.txtOutputFolder);
             this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Location = new System.Drawing.Point(24, 348);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox2.Location = new System.Drawing.Point(16, 226);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox2.Size = new System.Drawing.Size(958, 96);
+            this.groupBox2.Size = new System.Drawing.Size(639, 62);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Output";
             // 
             // btnOutputFolder
             // 
-            this.btnOutputFolder.Location = new System.Drawing.Point(837, 43);
-            this.btnOutputFolder.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnOutputFolder.Location = new System.Drawing.Point(558, 28);
             this.btnOutputFolder.Name = "btnOutputFolder";
-            this.btnOutputFolder.Size = new System.Drawing.Size(80, 31);
+            this.btnOutputFolder.Size = new System.Drawing.Size(53, 20);
             this.btnOutputFolder.TabIndex = 12;
             this.btnOutputFolder.Text = "Browse";
             this.btnOutputFolder.UseVisualStyleBackColor = true;
@@ -201,29 +190,26 @@
             // 
             // txtOutputFolder
             // 
-            this.txtOutputFolder.Location = new System.Drawing.Point(128, 43);
-            this.txtOutputFolder.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtOutputFolder.Location = new System.Drawing.Point(85, 28);
             this.txtOutputFolder.Name = "txtOutputFolder";
             this.txtOutputFolder.ReadOnly = true;
-            this.txtOutputFolder.Size = new System.Drawing.Size(685, 26);
+            this.txtOutputFolder.Size = new System.Drawing.Size(458, 20);
             this.txtOutputFolder.TabIndex = 11;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(18, 48);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(12, 31);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(111, 20);
+            this.label5.Size = new System.Drawing.Size(74, 13);
             this.label5.TabIndex = 10;
             this.label5.Text = "Output Folder:";
             // 
             // btnStartStop
             // 
-            this.btnStartStop.Location = new System.Drawing.Point(748, 454);
-            this.btnStartStop.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnStartStop.Location = new System.Drawing.Point(499, 295);
             this.btnStartStop.Name = "btnStartStop";
-            this.btnStartStop.Size = new System.Drawing.Size(234, 43);
+            this.btnStartStop.Size = new System.Drawing.Size(156, 28);
             this.btnStartStop.TabIndex = 10;
             this.btnStartStop.Text = "START";
             this.btnStartStop.UseVisualStyleBackColor = true;
@@ -239,11 +225,9 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.txtResult);
-            this.groupBox3.Location = new System.Drawing.Point(25, 507);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox3.Location = new System.Drawing.Point(17, 330);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox3.Size = new System.Drawing.Size(957, 122);
+            this.groupBox3.Size = new System.Drawing.Size(638, 79);
             this.groupBox3.TabIndex = 22;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Results";
@@ -252,11 +236,10 @@
             // 
             this.txtResult.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtResult.Location = new System.Drawing.Point(4, 24);
-            this.txtResult.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtResult.Location = new System.Drawing.Point(3, 16);
             this.txtResult.Name = "txtResult";
             this.txtResult.ReadOnly = true;
-            this.txtResult.Size = new System.Drawing.Size(949, 93);
+            this.txtResult.Size = new System.Drawing.Size(632, 60);
             this.txtResult.TabIndex = 0;
             this.txtResult.Text = "";
             // 
@@ -265,35 +248,22 @@
             this.loadingCircle1.Active = false;
             this.loadingCircle1.Color = System.Drawing.Color.DarkGray;
             this.loadingCircle1.InnerCircleRadius = 5;
-            this.loadingCircle1.Location = new System.Drawing.Point(692, 454);
-            this.loadingCircle1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.loadingCircle1.Location = new System.Drawing.Point(461, 295);
             this.loadingCircle1.Name = "loadingCircle1";
             this.loadingCircle1.OuterCircleRadius = 11;
             this.loadingCircle1.RotationSpeed = 100;
-            this.loadingCircle1.Size = new System.Drawing.Size(46, 43);
+            this.loadingCircle1.Size = new System.Drawing.Size(31, 28);
             this.loadingCircle1.SpokeCount = 12;
             this.loadingCircle1.SpokeThickness = 2;
             this.loadingCircle1.TabIndex = 11;
             this.loadingCircle1.Text = "loadingCircle1";
             // 
-            // rbTakeScreenshot
-            // 
-            this.rbTakeScreenshot.AutoSize = true;
-            this.rbTakeScreenshot.Location = new System.Drawing.Point(304, 463);
-            this.rbTakeScreenshot.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.rbTakeScreenshot.Name = "rbTakeScreenshot";
-            this.rbTakeScreenshot.Size = new System.Drawing.Size(155, 24);
-            this.rbTakeScreenshot.TabIndex = 23;
-            this.rbTakeScreenshot.Text = "Take Screenshot";
-            this.rbTakeScreenshot.UseVisualStyleBackColor = true;
-            // 
             // rbCityPlan
             // 
             this.rbCityPlan.AutoSize = true;
-            this.rbCityPlan.Location = new System.Drawing.Point(171, 463);
-            this.rbCityPlan.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.rbCityPlan.Location = new System.Drawing.Point(114, 301);
             this.rbCityPlan.Name = "rbCityPlan";
-            this.rbCityPlan.Size = new System.Drawing.Size(91, 24);
+            this.rbCityPlan.Size = new System.Drawing.Size(63, 17);
             this.rbCityPlan.TabIndex = 24;
             this.rbCityPlan.Text = "CityPlan";
             this.rbCityPlan.UseVisualStyleBackColor = true;
@@ -302,10 +272,9 @@
             // 
             this.rbRedland.AutoSize = true;
             this.rbRedland.Checked = true;
-            this.rbRedland.Location = new System.Drawing.Point(47, 463);
-            this.rbRedland.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.rbRedland.Location = new System.Drawing.Point(31, 301);
             this.rbRedland.Name = "rbRedland";
-            this.rbRedland.Size = new System.Drawing.Size(94, 24);
+            this.rbRedland.Size = new System.Drawing.Size(65, 17);
             this.rbRedland.TabIndex = 25;
             this.rbRedland.TabStop = true;
             this.rbRedland.Text = "Redland";
@@ -313,18 +282,16 @@
             // 
             // Cml
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1017, 638);
+            this.ClientSize = new System.Drawing.Size(678, 415);
             this.Controls.Add(this.rbRedland);
             this.Controls.Add(this.rbCityPlan);
-            this.Controls.Add(this.rbTakeScreenshot);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.loadingCircle1);
             this.Controls.Add(this.btnStartStop);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Cml";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Cml";
@@ -358,7 +325,6 @@
         private System.Windows.Forms.TextBox txtOutputFolder;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnOutputFolder;
-        private System.Windows.Forms.RadioButton rbTakeScreenshot;
         private System.Windows.Forms.RadioButton rbCityPlan;
         private System.Windows.Forms.RadioButton rbRedland;
         private System.Windows.Forms.TabControl tcSites;

@@ -327,7 +327,7 @@ namespace LocationShots.BLL
             IWebElement field = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.Id(Lookups.EarningsHandlingsIDs[earningsHandling])));
             field.Click();
         }
-        public static bool ConfirmChartsLoaded()
+        public static bool ConfirmReady()
         {
             try
             {

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Threading;
 
 namespace LocationShots.BLL
 {
@@ -58,27 +59,28 @@ namespace LocationShots.BLL
             }
             internal static void ExamineSearchResult(SearchResult result)
             {
-                var resultFolder = Path.Combine(Engine.EngineConfig.Outputs.OutputFolder, result.ResultName.Replace(",", " -"));
-                if (Directory.Exists(resultFolder))
-                    Directory.Delete(resultFolder);
-                Directory.CreateDirectory(resultFolder);
-
                 CurrentDriver.Navigate().GoToUrl(result.ResultUrl);
                 Selenium.LoadSite(result.ResultUrl, IDs.Redland.Buttons["Home.Search"]);
                 //
                 ClickField(IDs.Redland.RadioButtons["LayerGroup.Land"]);
-                Selenium.ConfirmChartsLoaded();
+                Selenium.ConfirmReady();
                 ClickField(IDs.Redland.CheckBoxes["Layers.Aerial"]);
-                Selenium.ConfirmChartsLoaded();
+                Selenium.ConfirmReady();
                 ClickField(IDs.Redland.CheckBoxes["LayerGroup.CityPlanV1"]);
-                Selenium.ConfirmChartsLoaded();
+                Selenium.ConfirmReady();
                 ClickField(IDs.Redland.Buttons["LayerGroup.CloseLayers"]);
-                Selenium.ConfirmChartsLoaded();
+                Selenium.ConfirmReady();
 
-                string filePath = Path.Combine(resultFolder, "Aerial.png");
+                //step1: aerial view
+                string filePath = Path.Combine(result.ResultFolder, "Aerial.png");
                 filePath.DeleteFile();
                 Selenium.TakeScreenshot(filePath);
+                Selenium.ConfirmReady();
 
+                //step2: table
+                ClickField(IDs.Redland.Buttons["Home.Report"]);
+                filePath = Path.Combine(result.ResultFolder, "table.png");
+                Selenium.TakeScreenshot(filePath);
 
                 /*
                 ClickField(IDs.Redland.CheckBoxes["Layers.CityAndSurrounds"]);

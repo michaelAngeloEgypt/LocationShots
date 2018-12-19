@@ -11,6 +11,7 @@ namespace LocationShots.BLL
     {
         public string ResultName { get; set; }
         public string ResultUrl { get; set; }
+        public string ResultFolder { get; set; }
 
         public SearchResult(DataRow dataRow)
         {
@@ -37,6 +38,10 @@ namespace LocationShots.BLL
         public override int GetHashCode()
         {
             return -13;
+        }
+        public override string ToString()
+        {
+            return ResultName;
         }
     }
 }

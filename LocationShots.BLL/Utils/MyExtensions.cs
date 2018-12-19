@@ -420,6 +420,40 @@ public static class MyExtensions
     #region File operations
     //
     /// <summary>
+    /// <see cref="http://stackoverflow.com/questions/1288718/how-to-delete-all-files-and-folders-in-a-directory"/>
+    /// </summary>
+    /// <param name="victim"></param>
+    public static void CleanDirectory(this string victim, DateTime? beforeDate = null)
+    {
+        if (!Directory.Exists(victim))
+            return;
+
+        System.IO.DirectoryInfo di = new DirectoryInfo(victim);
+
+        if (beforeDate.HasValue)
+        {
+            foreach (FileInfo file in di.GetFiles())
+            {
+                if (file.CreationTime < beforeDate)
+                    file.Delete();
+            }
+
+            foreach (DirectoryInfo dir in di.GetDirectories())
+            {
+                if (dir.CreationTime < beforeDate)
+                    dir.Delete(true);
+            }
+        }
+        else
+        {
+            foreach (FileInfo file in di.GetFiles())
+                file.Delete();
+
+            foreach (DirectoryInfo dir in di.GetDirectories())
+                dir.Delete(true);
+        }
+    }
+    /// <summary>
     /// Gets the search results.
     /// http://stackoverflow.com/questions/571964/automatic-cookie-handling-c-net-httpwebrequesthttpwebresponse
     /// http://stackoverflow.com/questions/9603093/407-proxy-authentication-required-in-c-sharp

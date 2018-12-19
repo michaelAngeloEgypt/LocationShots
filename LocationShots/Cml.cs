@@ -296,11 +296,6 @@ namespace LocationShots
                     if (!Engine.DoTaskRedland())
                         throw new ApplicationException("Some error occurred");
                 }
-                else if (rbTakeScreenshot.Checked)
-                {
-                    if (!Engine.DoTaskScreenshot())
-                        throw new ApplicationException("Some error occurred");
-                }
 
                 //MarkCompleted("done.please check results");
                 var elapsed = timer.Elapsed.ToStandardElapsedFormat();
