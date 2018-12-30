@@ -552,7 +552,8 @@ namespace LocationShots.BLL
             }
             catch (Exception x)
             {
-                XLogger.Error(x);
+                x.Data.Add("js", js);
+                throw;
             }
         }
         public static void EditTextField(By id, string value)
@@ -728,6 +729,16 @@ namespace LocationShots.BLL
                 var element = driver.FindElement(locator);
                 return (element != null && element.Displayed && element.Enabled) ? element : null;
             };
+        }
+
+        public static void TestRedland()
+        {
+            //var size = CurrentDriver.FindElement(By.Id("iframeDisclaimerContent")).Size;
+            //iframeCommon
+            var size = CurrentDriver.FindElement(By.Id("iframeCommon")).Size;
+            CurrentDriver.SwitchTo().Frame("iframeCommon");
+            CurrentDriver.SwitchTo().Frame("iframeDisclaimerContent");
+
         }
     }
 

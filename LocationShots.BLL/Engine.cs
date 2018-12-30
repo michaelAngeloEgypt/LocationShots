@@ -111,11 +111,11 @@ namespace LocationShots.BLL
 
                 currentStep = "Loading Home Page";
                 CallUpdateStatus(currentStep);
-                Selenium.LoadSite(IDs.Redland.Urls["HomePage"], IDs.Redland.Buttons["Home.Agree"]);
+                Selenium.LoadSite(IDs.Redland.Urls["HomePage"], IDs.Redland.Buttons["Home.Search"]);
 
                 currentStep = "Skipping Disclaimer";
                 CallUpdateStatus(currentStep);
-                Selenium.ClickField(IDs.Redland.Buttons["Home.Agree"]);
+                Selenium.Redland.SkipDisclaimer();
 
                 currentStep = "Switching to Search Page";
                 CallUpdateStatus(currentStep);

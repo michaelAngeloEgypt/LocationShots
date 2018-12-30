@@ -67,6 +67,7 @@ namespace LocationShots.BLL
             Redland.JsButtons = new Dictionary<string, string>()
             {
                 { "Home.Search", "imgFind_onclick(this);"},
+                { "Home.Agree", "this.form.hidDisclaimer.value=1;"},
             };
             Redland.TextFields = new Dictionary<string, By>()
             {

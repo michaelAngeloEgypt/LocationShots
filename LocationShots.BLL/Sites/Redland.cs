@@ -101,6 +101,26 @@ namespace LocationShots.BLL
 
 
             }
+            internal static void SkipDisclaimer()
+            {
+                CurrentDriver.SwitchTo().Frame("iframeCommon");
+                CurrentDriver.SwitchTo().Frame("iframeDisclaimerContent");
+                //var inner = CurrentDriver.PageSource;
+                CurrentDriver.SwitchTo().ParentFrame();
+                //var outer = CurrentDriver.PageSource;
+                //Selenium.ClickField(IDs.Redland.Buttons["Home.Agree"]);
+                //Selenium.ClickByJavascript(IDs.Redland.JsButtons["Home.Agree"]);
+                CurrentDriver.FindElements(By.XPath("//input")).LastOrDefault().Click();
+            }
+
+            internal static void DoTest()
+            {
+                //var size = CurrentDriver.FindElement(By.Id("iframeDisclaimerContent")).Size;
+                //iframeCommon
+                var size = CurrentDriver.FindElement(By.Id("iframeCommon")).Size;
+                CurrentDriver.SwitchTo().Frame("iframeCommon");
+                CurrentDriver.SwitchTo().Frame("iframeDisclaimerContent");
+            }
         }
     }
 }
