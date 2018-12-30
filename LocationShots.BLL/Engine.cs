@@ -34,7 +34,6 @@ namespace LocationShots.BLL
         public static event MarkCompletedEventHandler MarkCompletedEvent;
         #endregion DLG
 
-
         public static void Reset()
         {
             //BusinessEntity.ResetIndex();
@@ -112,7 +111,11 @@ namespace LocationShots.BLL
 
                 currentStep = "Loading Home Page";
                 CallUpdateStatus(currentStep);
-                Selenium.LoadSite(IDs.Redland.Urls["HomePage"], IDs.Redland.Buttons["Home.Search"]);
+                Selenium.LoadSite(IDs.Redland.Urls["HomePage"], IDs.Redland.Buttons["Home.Agree"]);
+
+                currentStep = "Skipping Disclaimer";
+                CallUpdateStatus(currentStep);
+                Selenium.ClickField(IDs.Redland.Buttons["Home.Agree"]);
 
                 currentStep = "Switching to Search Page";
                 CallUpdateStatus(currentStep);
@@ -158,17 +161,6 @@ namespace LocationShots.BLL
                 //    WriteOutputs(Variables.OutputSheetPath);
             }
         }
-
-        private static void PrepareFolders(List<SearchResult> searchResults)
-        {
-            foreach (var item in searchResults)
-            {
-                var resultFolder = Path.Combine(Engine.EngineConfig.Outputs.OutputFolder, item.ResultName.Replace(",", " -"));
-                Directory.CreateDirectory(resultFolder);
-                item.ResultFolder = resultFolder;
-            }
-        }
-
         private static bool DoTaskRedland_standard()
         {
             try
@@ -204,8 +196,7 @@ namespace LocationShots.BLL
             }
         }
 
-
-
+        #region CML
         public static bool DoTaskCml_OLD()
         {
             string currentStep = "";
@@ -233,11 +224,6 @@ namespace LocationShots.BLL
                     CallUpdateStatus($"> Selecting ticker: {ticker}");
                     Selenium.EnterTicker(ticker);
 
-                    foreach (var strategy in Lookups.Strategies)
-                    {
-                        if (HandleStrategy(ticker, strategy))
-                            return true;
-                    }
                 }
 
                 Variables.ExecutionTime.Stop();
@@ -263,7 +249,6 @@ namespace LocationShots.BLL
                 WriteOutputs(Variables.OutputSheetPath);
             }
         }
-
         private static bool FindAssociatedPreviousExec(out string previousExec)
         {
             previousExec = "";
@@ -366,79 +351,17 @@ namespace LocationShots.BLL
                 throw;
             }
         }
-        private static bool HandleStrategy(string ticker, string strategy)
+        #endregion CML
+
+        private static void PrepareFolders(List<SearchResult> searchResults)
         {
-            try
+            foreach (var item in searchResults)
             {
-                if (Engine.Variables.CancellationPending)
-                { HaltExecution(); return true; }
-
-                CallUpdateStatus($">> Selecting strategy: {strategy}");
-                Selenium.SelectStrategy(strategy);
-
-                foreach (var longOrShort in Lookups.LongOrShort)
-                {
-                    if (HandleLongOrShort(ticker, strategy, longOrShort))
-                        return true;
-                }
-
-                return false;
-            }
-            catch (Exception x)
-            {
-                if (!x.Data.Contains("ticker")) x.Data.Add("ticker", ticker);
-                if (!x.Data.Contains("strategy")) x.Data.Add("strategy", strategy);
-                throw;
+                var resultFolder = Path.Combine(Engine.EngineConfig.Outputs.OutputFolder, item.ResultName.Replace(",", " -"));
+                Directory.CreateDirectory(resultFolder);
+                item.ResultFolder = resultFolder;
             }
         }
-        private static bool HandleLongOrShort(string ticker, string strategy, string longOrShort)
-        {
-            if (Engine.Variables.CancellationPending)
-            { HaltExecution(); return true; }
-
-            CallUpdateStatus($">>> Selecting long/short: {longOrShort}");
-            Selenium.SelectLongOrShort(longOrShort);
-
-            Stopwatch swEarningsHandling = new Stopwatch();
-            foreach (var earningsHandling in Lookups.EarningsHandling.Except(new List<string>() { "Custom Earnings" }))
-            {
-                if (Engine.Variables.CancellationPending)
-                { HaltExecution(); return true; }
-
-                string currentPath = $"[{ticker} > {strategy} > {longOrShort} > {earningsHandling}]";
-                CallUpdateStatus($"{currentPath} - BEGIN");
-                swEarningsHandling.Start();
-                //CallUpdateStatus($">>>> Selecting Earnings Handling: {earningsHandling}");
-                Selenium.SelectEarningsHandling(earningsHandling);
-                CallUpdateStatus($"{currentPath} - Waiting for charts to load");
-
-                if (Engine.Variables.CancellationPending)
-                { HaltExecution(); return true; }
-
-                if (Selenium.ConfirmReady())
-                {
-                    swEarningsHandling.Stop();
-                    TimeSpan timespan = swEarningsHandling.Elapsed;
-                    string total = timespan.ToStandardElapsedFormat();
-                    CallUpdateStatus($"{currentPath} - TOTAL = " + total);
-                    SingleExecutionFull exec = new SingleExecutionFull()
-                    {
-                        Ticker = ticker,
-                        Strategy = strategy,
-                        LongOrShort = longOrShort,
-                        EarningsHandling = earningsHandling,
-                        TOTAL = total
-                    };
-                    Lookups.Executions.Add(exec);
-
-                    Selenium.ReadSingleExecutionCounts(exec);
-                    continue;
-                }
-            }
-
-            return false;
-        }
-
         private static void HaltExecution()
         {
             Variables.ExecutionTime.Stop();

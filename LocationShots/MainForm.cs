@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace LocationShots
 {
-    public partial class Cml : Form
+    public partial class MainForm : Form
     {
         delegate void SetTextCallback(string text);
         delegate void SetCompletedCallback(string finalMessage);
@@ -21,7 +21,7 @@ namespace LocationShots
         private UI myUI = new UI();
         class UI
         {
-            public Cml o;
+            public MainForm o;
             public Lookups.Browser Browser { get { return o.rbChrome.Checked ? Lookups.Browser.Chrome : Lookups.Browser.Firefox; } }
             public string Url { get { return o.txtUrl.Text; } set { o.txtUrl.Text = value; } }
             public Config.ConfInputs.CityPlan cityPlanInputs => (o.tpCityPlan.Controls[0] as Sites.CityPlan).Inputs;
@@ -71,7 +71,7 @@ namespace LocationShots
             }
         }
 
-        public Cml()
+        public MainForm()
         {
             InitializeComponent();
 

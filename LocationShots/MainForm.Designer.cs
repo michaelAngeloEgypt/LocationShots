@@ -1,6 +1,6 @@
 ﻿namespace LocationShots
 {
-    partial class Cml
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -86,7 +86,7 @@
             this.tpCityPlan.Controls.Add(this.cityPlan1);
             this.tpCityPlan.Location = new System.Drawing.Point(4, 22);
             this.tpCityPlan.Name = "tpCityPlan";
-            this.tpCityPlan.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tpCityPlan.Padding = new System.Windows.Forms.Padding(3);
             this.tpCityPlan.Size = new System.Drawing.Size(591, 119);
             this.tpCityPlan.TabIndex = 0;
             this.tpCityPlan.Text = "CityPlan";
@@ -108,7 +108,7 @@
             this.tpRedland.Controls.Add(this.redland1);
             this.tpRedland.Location = new System.Drawing.Point(4, 22);
             this.tpRedland.Name = "tpRedland";
-            this.tpRedland.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tpRedland.Padding = new System.Windows.Forms.Padding(3);
             this.tpRedland.Size = new System.Drawing.Size(591, 119);
             this.tpRedland.TabIndex = 1;
             this.tpRedland.Text = "Redland";
@@ -127,7 +127,7 @@
             // 
             this.rbFirefox.AutoSize = true;
             this.rbFirefox.Location = new System.Drawing.Point(555, 10);
-            this.rbFirefox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbFirefox.Margin = new System.Windows.Forms.Padding(2);
             this.rbFirefox.Name = "rbFirefox";
             this.rbFirefox.Size = new System.Drawing.Size(56, 17);
             this.rbFirefox.TabIndex = 10;
@@ -140,7 +140,7 @@
             this.rbChrome.AutoSize = true;
             this.rbChrome.Checked = true;
             this.rbChrome.Location = new System.Drawing.Point(484, 10);
-            this.rbChrome.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbChrome.Margin = new System.Windows.Forms.Padding(2);
             this.rbChrome.Name = "rbChrome";
             this.rbChrome.Size = new System.Drawing.Size(61, 17);
             this.rbChrome.TabIndex = 9;
@@ -280,7 +280,7 @@
             this.rbRedland.Text = "Redland";
             this.rbRedland.UseVisualStyleBackColor = true;
             // 
-            // Cml
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -292,9 +292,9 @@
             this.Controls.Add(this.btnStartStop);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Name = "Cml";
+            this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Cml";
+            this.Text = "LocationShots";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Cml_FormClosing);
             this.Shown += new System.EventHandler(this.Cml_Shown);
             this.groupBox1.ResumeLayout(false);

@@ -20,12 +20,21 @@ namespace LocationShots.BLL
         private static void initRedland()
         {
             Redland = new SiteIDs();
+            /*
             Redland.Urls = new Dictionary<string, string>()
             {
                 { "HomePage", "http://gis.redland.qld.gov.au/pdonlinemap/"},
                 { "SearchFrame" , "http://gis.redland.qld.gov.au/pdonlinemap/searchpropertysimple.aspx" },
                 { "SearchResultPrefix" , "http://gis.redland.qld.gov.au/pdonlinemap/default.aspx?Basemap=image_base&UseBasemap=False&ServiceShow=land%2ccity_plan&ServiceVis=land%2ccity_plan&Service=land&Layers=101011001011&ActiveLayer=Current+Land&Query=LANDNO%3d"}
             };
+            */
+            Redland.Urls = new Dictionary<string, string>()
+            {
+                { "HomePage", "http://gis.redland.qld.gov.au/redemap/"},
+                { "SearchFrame" , "http://gis.redland.qld.gov.au/redemap/searchPropertySimple.aspx" },
+                { "SearchResultPrefix" , "http://gis.redland.qld.gov.au/redemap/default.aspx?Basemap=image_base&UseBasemap=False&ServiceShow=land%2ccity_plan&ServiceVis=land%2ccity_plan&Service=land&Layers=101011001011&ActiveLayer=Current+Land&Query=LANDNO%3d"}
+            };
+
             Redland.CheckBoxes = new Dictionary<string, By>()
             {
                 { "Layers.Aerial", By.Id("chkBasemapVis") },
@@ -46,6 +55,7 @@ namespace LocationShots.BLL
             };
             Redland.Buttons = new Dictionary<string, By>()
             {
+                { "Home.Agree", By.CssSelector("input#butOK")},
                 { "Home.Logo", By.CssSelector("img#imgLogo")},
                 { "Home.Search", By.Id("imgFind")},
                 { "Search.Property", By.XPath("//button[text()='Property']")},

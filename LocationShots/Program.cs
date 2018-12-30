@@ -18,7 +18,7 @@ namespace LocationShots
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new MainForm());
             //Application.Run(new LinkedIn());
-            Application.Run(new Cml());
+            Application.Run(new MainForm());
         }
     }
 }
