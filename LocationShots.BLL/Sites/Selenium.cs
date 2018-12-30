@@ -828,6 +828,20 @@ namespace LocationShots.BLL
             }
             return driver.FindElement(by);
         }
+
+        public static void WaitForImage(this IWebDriver driver, By locator, int timeoutInSeconds)
+        {
+            IWebElement image = driver.FindElement(locator);
+
+            if (timeoutInSeconds > 0)
+            {
+                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
+
+                wait.Until(drv => (bool)((IJavaScriptExecutor)drv).ExecuteScript
+   ("return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0",
+     image));
+            }
+        }
         #endregion Generic
 
 

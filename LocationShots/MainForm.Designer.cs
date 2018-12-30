@@ -31,7 +31,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tcSites = new System.Windows.Forms.TabControl();
             this.tpRedland = new System.Windows.Forms.TabPage();
-            this.redland1 = new LocationShots.Sites.Redland();
             this.rbFirefox = new System.Windows.Forms.RadioButton();
             this.rbChrome = new System.Windows.Forms.RadioButton();
             this.txtUrl = new System.Windows.Forms.TextBox();
@@ -44,9 +43,10 @@
             this.bgwProcess = new System.ComponentModel.BackgroundWorker();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txtResult = new System.Windows.Forms.RichTextBox();
-            this.loadingCircle1 = new GetBusiness.LoadingCircle();
             this.rbCityPlan = new System.Windows.Forms.RadioButton();
             this.rbRedland = new System.Windows.Forms.RadioButton();
+            this.loadingCircle1 = new GetBusiness.LoadingCircle();
+            this.redland1 = new LocationShots.Sites.Redland();
             this.groupBox1.SuspendLayout();
             this.tcSites.SuspendLayout();
             this.tpRedland.SuspendLayout();
@@ -91,17 +91,6 @@
             this.tpRedland.TabIndex = 1;
             this.tpRedland.Text = "Redland";
             // 
-            // redland1
-            // 
-            this.redland1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.redland1.HouseNo = "";
-            this.redland1.Location = new System.Drawing.Point(4, 5);
-            this.redland1.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
-            this.redland1.Name = "redland1";
-            this.redland1.Size = new System.Drawing.Size(882, 180);
-            this.redland1.StreetName = "";
-            this.redland1.TabIndex = 0;
-            // 
             // rbFirefox
             // 
             this.rbFirefox.AutoSize = true;
@@ -131,6 +120,7 @@
             this.txtUrl.Location = new System.Drawing.Point(124, 49);
             this.txtUrl.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtUrl.Name = "txtUrl";
+            this.txtUrl.ReadOnly = true;
             this.txtUrl.Size = new System.Drawing.Size(790, 26);
             this.txtUrl.TabIndex = 8;
             this.txtUrl.Text = "http://gis.redland.qld.gov.au/redemap/";
@@ -231,22 +221,6 @@
             this.txtResult.TabIndex = 0;
             this.txtResult.Text = "";
             // 
-            // loadingCircle1
-            // 
-            this.loadingCircle1.Active = false;
-            this.loadingCircle1.Color = System.Drawing.Color.DarkGray;
-            this.loadingCircle1.InnerCircleRadius = 5;
-            this.loadingCircle1.Location = new System.Drawing.Point(692, 454);
-            this.loadingCircle1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.loadingCircle1.Name = "loadingCircle1";
-            this.loadingCircle1.OuterCircleRadius = 11;
-            this.loadingCircle1.RotationSpeed = 100;
-            this.loadingCircle1.Size = new System.Drawing.Size(46, 43);
-            this.loadingCircle1.SpokeCount = 12;
-            this.loadingCircle1.SpokeThickness = 2;
-            this.loadingCircle1.TabIndex = 11;
-            this.loadingCircle1.Text = "loadingCircle1";
-            // 
             // rbCityPlan
             // 
             this.rbCityPlan.AutoSize = true;
@@ -272,6 +246,33 @@
             this.rbRedland.Text = "Redland";
             this.rbRedland.UseVisualStyleBackColor = true;
             this.rbRedland.Visible = false;
+            // 
+            // loadingCircle1
+            // 
+            this.loadingCircle1.Active = false;
+            this.loadingCircle1.Color = System.Drawing.Color.DarkGray;
+            this.loadingCircle1.InnerCircleRadius = 5;
+            this.loadingCircle1.Location = new System.Drawing.Point(692, 454);
+            this.loadingCircle1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.loadingCircle1.Name = "loadingCircle1";
+            this.loadingCircle1.OuterCircleRadius = 11;
+            this.loadingCircle1.RotationSpeed = 100;
+            this.loadingCircle1.Size = new System.Drawing.Size(46, 43);
+            this.loadingCircle1.SpokeCount = 12;
+            this.loadingCircle1.SpokeThickness = 2;
+            this.loadingCircle1.TabIndex = 11;
+            this.loadingCircle1.Text = "loadingCircle1";
+            // 
+            // redland1
+            // 
+            this.redland1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.redland1.HouseNo = "";
+            this.redland1.Location = new System.Drawing.Point(4, 5);
+            this.redland1.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.redland1.Name = "redland1";
+            this.redland1.Size = new System.Drawing.Size(882, 180);
+            this.redland1.StreetName = "";
+            this.redland1.TabIndex = 0;
             // 
             // MainForm
             // 
