@@ -29,7 +29,7 @@ namespace LocationShots.BLL
                     //only for Standard search
                     //ExecuteJavascript("document.getElementById('iframeSearchResults').src='searchpropertysimple.aspx'");
 
-                    //EditTextField(IDs.Redland.TextFields["Search.HouseNo"], houseNo);
+                    EditTextField(IDs.Redland.TextFields["Search.HouseNo"], houseNo);
                     EditTextField(IDs.Redland.TextFields["Search.StreetName"], streetName);
 
                     IWebElement userField = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(IDs.Redland.Buttons["SearchFrame.Find"]));
@@ -61,7 +61,9 @@ namespace LocationShots.BLL
             {
                 CurrentDriver.Navigate().GoToUrl(result.ResultUrl);
                 Selenium.LoadSite(result.ResultUrl, IDs.Redland.Buttons["Home.Search"]);
+                Selenium.ConfirmReady();
                 //
+                /*
                 ClickField(IDs.Redland.RadioButtons["LayerGroup.Land"]);
                 Selenium.ConfirmReady();
                 ClickField(IDs.Redland.CheckBoxes["Layers.Aerial"]);
@@ -70,17 +72,42 @@ namespace LocationShots.BLL
                 Selenium.ConfirmReady();
                 ClickField(IDs.Redland.Buttons["LayerGroup.CloseLayers"]);
                 Selenium.ConfirmReady();
+                */
 
                 //step1: aerial view
-                string filePath = Path.Combine(result.ResultFolder, "Aerial.png");
-                filePath.DeleteFile();
-                Selenium.TakeScreenshot(filePath);
+                ClickField(IDs.Redland.CheckBoxes["TOC.Aerial"]);
+                Selenium.ConfirmReady();
+                ClickField(IDs.Redland.Buttons["Home.ToggleTOC"]);
+                CurrentDriver.WaitForImage(IDs.Redland.Images["Home.LocationImage1"], 5000);
+                CurrentDriver.WaitForImage(IDs.Redland.Images["Home.LocationImage2"], 5000);
+                CurrentDriver.WaitForImage(IDs.Redland.Images["Home.LocationImage3"], 5000);
+                var aerial = Path.Combine(result.ResultFolder, "Aerial.png");
+                Selenium.TakeScreenshot(aerial);
                 Selenium.ConfirmReady();
 
-                //step2: table
+
+                //step2: Easements view
+                ClickField(IDs.Redland.Buttons["Home.ToggleTOC"]);
+                Selenium.ConfirmReady();
+                ClickField(IDs.Redland.CheckBoxes["TOC.Land.Easements"]);
+                ClickField(IDs.Redland.CheckBoxes["TOC.Aerial"]);
+                Selenium.ConfirmReady();
+                ClickField(IDs.Redland.Buttons["Home.ToggleTOC"]);
+                Selenium.ConfirmReady();
+                var easements = Path.Combine(result.ResultFolder, "Easements.png");
+                Selenium.TakeScreenshot(easements);
+                Selenium.ConfirmReady();
+
+
+                //step4: table
                 ClickField(IDs.Redland.Buttons["Home.Report"]);
-                filePath = Path.Combine(result.ResultFolder, "table.png");
-                Selenium.TakeScreenshot(filePath);
+                var table = Path.Combine(result.ResultFolder, "table.png");
+                Selenium.TakeScreenshot(table);
+                Selenium.ConfirmReady();
+                //CurrentDriver.SwitchTo().Frame("iframeCommon");
+                ClickField(IDs.Redland.Buttons["Home.CloseReport"]);
+                //CurrentDriver.SwitchTo().ParentFrame();
+
 
                 /*
                 ClickField(IDs.Redland.CheckBoxes["Layers.CityAndSurrounds"]);
@@ -100,6 +127,26 @@ namespace LocationShots.BLL
                 */
 
 
+            }
+            internal static void SkipDisclaimer()
+            {
+                CurrentDriver.SwitchTo().Frame("iframeCommon");
+                CurrentDriver.SwitchTo().Frame("iframeDisclaimerContent");
+                //var inner = CurrentDriver.PageSource;
+                CurrentDriver.SwitchTo().ParentFrame();
+                //var outer = CurrentDriver.PageSource;
+                //Selenium.ClickField(IDs.Redland.Buttons["Home.Agree"]);
+                //Selenium.ClickByJavascript(IDs.Redland.JsButtons["Home.Agree"]);
+                CurrentDriver.FindElements(By.XPath("//input")).LastOrDefault().Click();
+            }
+
+            internal static void DoTest()
+            {
+                //var size = CurrentDriver.FindElement(By.Id("iframeDisclaimerContent")).Size;
+                //iframeCommon
+                var size = CurrentDriver.FindElement(By.Id("iframeCommon")).Size;
+                CurrentDriver.SwitchTo().Frame("iframeCommon");
+                CurrentDriver.SwitchTo().Frame("iframeDisclaimerContent");
             }
         }
     }

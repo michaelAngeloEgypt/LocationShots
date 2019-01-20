@@ -24,7 +24,7 @@ namespace LocationShots
             public MainForm o;
             public Lookups.Browser Browser { get { return o.rbChrome.Checked ? Lookups.Browser.Chrome : Lookups.Browser.Firefox; } }
             public string Url { get { return o.txtUrl.Text; } set { o.txtUrl.Text = value; } }
-            public Config.ConfInputs.CityPlan cityPlanInputs => (o.tpCityPlan.Controls[0] as Sites.CityPlan).Inputs;
+            //public Config.ConfInputs.CityPlan cityPlanInputs => (o.tpCityPlan.Controls[0] as Sites.CityPlan).Inputs;
             public Config.ConfInputs.Redland redlandInputs => (o.tpRedland.Controls[0] as Sites.Redland).Inputs;
             //
             public string OutputFolder { get { return o.txtOutputFolder.Text; } set { o.txtOutputFolder.Text = value; } }
@@ -59,7 +59,7 @@ namespace LocationShots
                     Url = Url,
                     //Username = Username,
                     //Password = Password,
-                    CityPlanInputs = cityPlanInputs,
+                    //CityPlanInputs = cityPlanInputs,
                     RedlandInputs = redlandInputs,
                     Browser = Browser,
                 };

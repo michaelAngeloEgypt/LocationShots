@@ -552,7 +552,8 @@ namespace LocationShots.BLL
             }
             catch (Exception x)
             {
-                XLogger.Error(x);
+                x.Data.Add("js", js);
+                throw;
             }
         }
         public static void EditTextField(By id, string value)
@@ -729,6 +730,16 @@ namespace LocationShots.BLL
                 return (element != null && element.Displayed && element.Enabled) ? element : null;
             };
         }
+
+        public static void TestRedland()
+        {
+            //var size = CurrentDriver.FindElement(By.Id("iframeDisclaimerContent")).Size;
+            //iframeCommon
+            var size = CurrentDriver.FindElement(By.Id("iframeCommon")).Size;
+            CurrentDriver.SwitchTo().Frame("iframeCommon");
+            CurrentDriver.SwitchTo().Frame("iframeDisclaimerContent");
+
+        }
     }
 
 
@@ -816,6 +827,20 @@ namespace LocationShots.BLL
                 return wait.Until(drv => drv.FindElement(by));
             }
             return driver.FindElement(by);
+        }
+
+        public static void WaitForImage(this IWebDriver driver, By locator, int timeoutInSeconds)
+        {
+            IWebElement image = driver.FindElement(locator);
+
+            if (timeoutInSeconds > 0)
+            {
+                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
+
+                wait.Until(drv => (bool)((IJavaScriptExecutor)drv).ExecuteScript
+   ("return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0",
+     image));
+            }
         }
         #endregion Generic
 

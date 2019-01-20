@@ -1,6 +1,6 @@
-﻿using System;
+﻿using OpenQA.Selenium;
+using System;
 using System.Collections.Generic;
-using OpenQA.Selenium;
 
 
 namespace LocationShots.BLL
@@ -37,6 +37,10 @@ namespace LocationShots.BLL
 
             Redland.CheckBoxes = new Dictionary<string, By>()
             {
+                { "TOC.Land.Easements", By.Id("chkLayerVis_5") },
+                { "TOC.Aerial", By.Id("chkBasemapVis") },
+
+                /*
                 { "Layers.Aerial", By.Id("chkBasemapVis") },
                 { "Layers.CityAndSurrounds", By.Id("chkLayerVis_20") },
                 { "Layers.PriorityDevelopment", By.Id("chkLayerVis_18") },
@@ -47,11 +51,14 @@ namespace LocationShots.BLL
                 { "Layers.LandLayers", By.Id("chkServiceVis_land") },
                 //
                 { "LayerGroup.CityPlanV1", By.Id("chkServiceVis_city_plan") },
+                */
             };
             Redland.RadioButtons = new Dictionary<string, By>()
             {
+                /*
                 { "LayerGroup.Land", By.Id("rbn_land") },
                 { "LayerGroup.CityPlanV1", By.Id("rbn_city_plan") },
+                */
             };
             Redland.Buttons = new Dictionary<string, By>()
             {
@@ -61,12 +68,17 @@ namespace LocationShots.BLL
                 { "Search.Property", By.XPath("//button[text()='Property']")},
                 { "SearchFrame.Find", By.CssSelector("input#btnFind")},
                 { "Home.Report", By.CssSelector("img#imgReportOnSelected")},
+                { "Home.ToggleTOC", By.CssSelector("img#imgShowHideTOC")},
+                { "Home.CloseReport", By.CssSelector("img#imgClose")},
                 //
                 { "LayerGroup.CloseLayers", By.CssSelector("img#closeCrossTOC")}
             };
             Redland.JsButtons = new Dictionary<string, string>()
             {
                 { "Home.Search", "imgFind_onclick(this);"},
+                { "Home.Agree", "this.form.hidDisclaimer.value=1;"},
+                //{ "TOC.ToggleTOC", "toggleTOC();"}
+                //{ "Home.CloseReport", "hideCommonDiv();" },
             };
             Redland.TextFields = new Dictionary<string, By>()
             {
@@ -83,6 +95,12 @@ namespace LocationShots.BLL
             {
                 { "Search.Results", By.CssSelector("table#DataGrid1")}
             };
+            Redland.Images = new Dictionary<string, By>()
+            {
+                { "Home.LocationImage1" , By.Id("image_base_img")},
+                { "Home.LocationImage2" , By.Id("land_img")},
+                { "Home.LocationImage3" , By.Id("selection_img")},
+            };
         }
     }
 
@@ -97,6 +115,7 @@ namespace LocationShots.BLL
         public Dictionary<String, By> Combos { get; set; }
         public Dictionary<String, By> TextFields { get; set; }
         public Dictionary<String, By> Tables { get; set; }
+        public Dictionary<String, By> Images { get; set; }
 
 
         public SiteIDs()
@@ -108,6 +127,7 @@ namespace LocationShots.BLL
             Combos = new Dictionary<string, By>();
             TextFields = new Dictionary<string, By>();
             Tables = new Dictionary<string, By>();
+            Images = new Dictionary<string, By>();
         }
 
     }
