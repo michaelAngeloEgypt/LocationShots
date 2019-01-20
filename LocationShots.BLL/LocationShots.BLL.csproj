@@ -44,6 +44,9 @@
     <Reference Include="LinqToExcel, Version=1.11.0.0, Culture=neutral, PublicKeyToken=9c8ea65a58f03f1f, processorArchitecture=MSIL">
       <HintPath>..\packages\LinqToExcel.1.11.0\lib\LinqToExcel.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -111,6 +114,7 @@
     <Compile Include="Reference\MSG.cs" />
     <Compile Include="Sites\CityPlan.cs" />
     <Compile Include="Sites\Redland.cs" />
+    <Compile Include="Tests.cs" />
     <Compile Include="Utils\AutomationUtils.cs" />
     <Compile Include="Utils\HtmlAgility.cs" />
     <Compile Include="Utils\MyExtensions.cs" />
