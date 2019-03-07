@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LocationShots.BLL.Utils;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -12,7 +13,15 @@ namespace LocationShots
     {
         public static void Main(String[] args)
         {
-            //TestTime();
+            try
+            {
+                //TestTime();
+                TestMergeImage();
+            }
+            catch (Exception x)
+            {
+                XLogger.Error(x);
+            }
 
         }
 
@@ -33,9 +42,12 @@ namespace LocationShots
 
         private static void TestMergeImage()
         {
+            var testWordPath = @"C:\IO\Mick\8-10 Ailsa Street - Redland Bay\result.docx";
+            var imageToInsert = @"C:\IO\Mick\8-10 Ailsa Street - Redland Bay\Aerial.png";
 
 
-
+            WordInteropUtils.CreateDocument(testWordPath);
+            WordInteropUtils.InsertImageInWord(testWordPath, imageToInsert);
         }
 
     }

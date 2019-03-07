@@ -119,6 +119,7 @@
     <Compile Include="Utils\HtmlAgility.cs" />
     <Compile Include="Utils\MyExtensions.cs" />
     <Compile Include="Sites\Selenium.cs" />
+    <Compile Include="Utils\WordInteropUtils.cs" />
     <Compile Include="XLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
