@@ -34,6 +34,8 @@ namespace LocationShots.BLL.Utils
             wordApp.Visible = true;
             Word._Document wordDoc = wordApp.Documents.Open(wordPath, ReadOnly: false, Visible: true);
 
+
+            /* -- insert at Bookmark
             int count = wordDoc.Bookmarks.Count;
             for (int i = 1; i < count + 1; i++)
             {
@@ -42,6 +44,13 @@ namespace LocationShots.BLL.Utils
                 object missing = Type.Missing;
                 wordDoc.InlineShapes.AddPicture(imagePath, ref missing, ref saveWithDocument, ref oRange);
             }
+            */
+
+            object oEndOfDoc = "\\endofdoc";
+            object saveWithDocument = true;
+            object missing = System.Reflection.Missing.Value;
+            object wrdRng = wordDoc.Bookmarks.get_Item(ref oEndOfDoc).Range;
+            wordDoc.InlineShapes.AddPicture(imagePath, ref missing, ref saveWithDocument, ref wrdRng);
 
             wordDoc.Save();
             wordApp.Quit();

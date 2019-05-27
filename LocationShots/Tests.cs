@@ -16,13 +16,17 @@ namespace LocationShots
             try
             {
                 //TestTime();
-                TestMergeImage();
+                TestMergeImage_Interop();
             }
             catch (Exception x)
             {
                 XLogger.Error(x);
             }
-
+            Dictionary<String, List<string>> toto = new Dictionary<string, List<string>>()
+            {
+                { "soso", new List<string>() },
+                { "toto", new List<string>() },
+            };
         }
 
         private static void TestTime()
@@ -40,14 +44,21 @@ namespace LocationShots
 
         }
 
-        private static void TestMergeImage()
+        private static void TestMergeImage_Interop()
         {
-            var testWordPath = @"C:\IO\Mick\8-10 Ailsa Street - Redland Bay\result.docx";
-            var imageToInsert = @"C:\IO\Mick\8-10 Ailsa Street - Redland Bay\Aerial.png";
+            try
+            {
+                var testWordPath = @"C:\IO\Mick\8-10 Ailsa Street - Redland Bay\result.docx";
+                var imageToInsert = @"C:\IO\Mick\8-10 Ailsa Street - Redland Bay\Aerial.png";
 
 
-            WordInteropUtils.CreateDocument(testWordPath);
-            WordInteropUtils.InsertImageInWord(testWordPath, imageToInsert);
+                WordInteropUtils.CreateDocument(testWordPath);
+                WordInteropUtils.InsertImageInWord(testWordPath, imageToInsert);
+            }
+            catch (Exception x)
+            {
+                XLogger.Error(x);
+            }
         }
 
     }

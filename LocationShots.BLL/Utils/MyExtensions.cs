@@ -450,7 +450,11 @@ public static class MyExtensions
                 file.Delete();
 
             foreach (DirectoryInfo dir in di.GetDirectories())
-                dir.Delete(true);
+            {
+                dir.FullName.CleanDirectory(beforeDate);
+                if (dir.CreationTime < beforeDate)
+                    dir.Delete(true);
+            }
         }
     }
     /// <summary>

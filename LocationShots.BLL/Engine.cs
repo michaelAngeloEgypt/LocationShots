@@ -1,4 +1,5 @@
 ﻿using Ganss.Excel;
+using LocationShots.BLL.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -141,7 +142,7 @@ namespace LocationShots.BLL
                     CallUpdateStatus($"{currentStep} - Waiting for charts to load");
                     if (!Selenium.ConfirmReady())
                         throw new ApplicationException($"{currentStep} - Charts were not loaded. A timeout may have occured");
-
+                    SaveResultPics(searchResult);
                 }
 
                 Variables.ExecutionTime.Stop();
@@ -161,6 +162,18 @@ namespace LocationShots.BLL
                 //    WriteOutputs(Variables.OutputSheetPath);
             }
         }
+
+        private static void SaveResultPics(SearchResult searchResult)
+        {
+            var resultFile = Path.Combine(searchResult.ResultFolder,$"{searchResult.ResultName}.docx");
+            WordInteropUtils.CreateDocument(resultFile);
+            var images = Directory.GetFiles(searchResult.ResultFolder,"*.png");
+            foreach (var image in images)
+            {
+                WordInteropUtils.InsertImageInWord(resultFile, image);
+            }
+        }
+
         private static bool DoTaskRedland_standard()
         {
             try
