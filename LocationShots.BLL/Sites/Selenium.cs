@@ -1,16 +1,21 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using HAP = HtmlAgilityPack;
 
 namespace LocationShots.BLL
@@ -120,14 +125,32 @@ namespace LocationShots.BLL
                 //ChromeDriverService service = ChromeDriverService.CreateDefaultService("drivers");
                 ChromeDriverService service = ChromeDriverService.CreateDefaultService(Environment.CurrentDirectory);
                 service.SuppressInitialDiagnosticInformation = false;
+                service.HideCommandPromptWindow = true;
                 //options.AddArgument("--start-maximized");
                 options.AddArgument("--start-minimized");
                 options.AddArgument("no-sandbox");
+                //options.AddArgument("--headless");
                 options.AddArgument("--disable-notifications");
-                options.Proxy = null;
+
+                //options.AddUserProfilePreference("download.default_directory", Config.ScraperDownloadFolder);
+                options.AddUserProfilePreference("download.prompt_for_download", false);
+                options.AddUserProfilePreference("disable-popup-blocking", "true");
+                options.AddUserProfilePreference("block_third_party_cookies", true);
+                options.AddArgument("ignore-certificate-errors");
+
+
+                /*
+                var proxy = new Proxy();
+                proxy.Kind = ProxyKind.AutoDetect;
+                options.Proxy = proxy;
+                */
+
+                //options.AddAdditionalCapability("useAutomationExtension", false);
+                //options.AddArguments("--enable-logging");
+                //options.AddArguments("--v=1");
 
                 IWebDriver driver = new ChromeDriver(service, options);
-
+                //Task.Run(() => AllowHeadlessDownload(service, Config.ScraperDownloadFolder));
                 return driver;
             }
             catch (Exception x)
@@ -327,40 +350,6 @@ namespace LocationShots.BLL
             IWebElement field = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.Id(Lookups.EarningsHandlingsIDs[earningsHandling])));
             field.Click();
         }
-        public static bool ConfirmReady()
-        {
-            try
-            {
-                CurrentDriver.WaitForLoad2();
-                //IWebElement field = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector(".highcharts-credits")));
-                //return field.Text.Equals("Highcharts.com");
-                return true;
-
-                #region trials
-                /*
-                //sometimes we only have 4 boxes
-                IWebElement field = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("result_4")));
-                
-                //not a good idea, chart control loads before all the result boxes appear
-                IWebElement field = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector(".highcharts-credits")));
-                return field.Text.Equals("Highcharts.com");
-
-                //not working
-                IWebElement field = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector(".highcharts-legend")));
-                IWebElement field = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.CssSelector(".highcharts-navigator")));
-
-                //fails miserably
-                CurrentDriver.WaitForLoad();
-                CurrentDriver.WaitForPageLoad();
-                */
-                #endregion  trials
-            }
-            catch (Exception x)
-            {
-                XLogger.Error(x);
-                return false;
-            }
-        }
         public static bool ConfirmValidConfiguration()
         {
             try
@@ -487,6 +476,64 @@ namespace LocationShots.BLL
         #endregion API
 
         #region Generic
+        /// <summary>
+        /// <see cref="https://stackoverflow.com/a/53524476/193974"/>
+        /// </summary>
+        /// <param name="driverService"></param>
+        /// <returns></returns>
+        static async Task AllowHeadlessDownload(ChromeDriverService driverService, string downloadPath)
+        {
+            var jsonContent = new JObject(
+                new JProperty("cmd", "Page.setDownloadBehavior"),
+                new JProperty("params",
+                new JObject(new JObject(
+                    new JProperty("behavior", "allow"),
+                    new JProperty("downloadPath", downloadPath)))));
+            var content = new StringContent(jsonContent.ToString(), Encoding.UTF8, "application/json");
+            var sessionIdProperty = typeof(ChromeDriver).GetProperty("SessionId");
+            var sessionId = sessionIdProperty.GetValue(CurrentDriver, null) as SessionId;
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = driverService.ServiceUrl;
+                var result = await client.PostAsync("session/" + sessionId.ToString() + "/chromium/send_command", content);
+                var resultContent = await result.Content.ReadAsStringAsync();
+            }
+        }
+        public static bool ConfirmReady()
+        {
+            try
+            {
+                CurrentDriver.WaitForLoad2();
+                //IWebElement field = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector(".highcharts-credits")));
+                //return field.Text.Equals("Highcharts.com");
+                return true;
+
+                #region trials
+                /*
+                //sometimes we only have 4 boxes
+                IWebElement field = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("result_4")));
+                
+                //not a good idea, chart control loads before all the result boxes appear
+                IWebElement field = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector(".highcharts-credits")));
+                return field.Text.Equals("Highcharts.com");
+
+                //not working
+                IWebElement field = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector(".highcharts-legend")));
+                IWebElement field = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.CssSelector(".highcharts-navigator")));
+
+                //fails miserably
+                CurrentDriver.WaitForLoad();
+                CurrentDriver.WaitForPageLoad();
+                */
+                #endregion  trials
+            }
+            catch (Exception x)
+            {
+                XLogger.Error(x);
+                return false;
+            }
+        }
         public static void ExecuteJavascript(string js)
         {
             try
@@ -541,6 +588,33 @@ namespace LocationShots.BLL
                 x.Data.Add("id", id.ToString());
                 throw;
             }
+        }
+        public static bool ElementIsPresent(this IWebDriver driver, By by)
+        {
+            try
+            {
+                return driver.FindElement(by).Displayed;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+        }
+        public static void ClickFieldIfUnchecked(By id)
+        {
+            var attribute = GetElementAttributeValue(id, "checked");
+            bool res = false;
+            bool.TryParse(attribute, out res);
+            if (string.IsNullOrEmpty(attribute) || !res)
+                ClickField(id);
+        }
+        public static void ClickFieldIfChecked(By id)
+        {
+            var attribute = GetElementAttributeValue(id, "checked");
+            bool res = false;
+            bool.TryParse(attribute, out res);
+            if (!string.IsNullOrEmpty(attribute) && res)
+                ClickField(id);
         }
         public static void ClickByJavascript(string js)
         {
@@ -636,7 +710,20 @@ namespace LocationShots.BLL
 
             return res;
         }
-
+        public static string GetElementAttributeValue(By id, string attribute)
+        {
+            try
+            {
+                var field = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(id));
+                return field.GetAttribute(attribute);
+            }
+            catch (Exception x)
+            {
+                x.Data.Add(nameof(id), id.ToString());
+                x.Data.Add(nameof(attribute), attribute);
+                throw;
+            }
+        }
         public static DataTable GetTableRowTags(By id)
         {
             var res = new DataTable();

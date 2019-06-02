@@ -132,7 +132,7 @@ namespace LocationShots.BLL
                 Thread.Sleep(1000);
                 PrepareFolders(searchResults);
 
-                for (int i = 0; i < searchResults.Count(); i++)     //Take(1)
+                for (int i = 0; i < 1; i++)     //Take(1) //searchResults.Count()
                 {
                     var searchResult = searchResults[i];
                     currentStep = $"Fetching search result {i+1} of {searchResults.Count}";

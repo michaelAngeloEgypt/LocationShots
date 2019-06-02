@@ -38,7 +38,8 @@ namespace LocationShots.BLL
             Redland.CheckBoxes = new Dictionary<string, By>()
             {
                 { "TOC.Land.Easements", By.Id("chkLayerVis_5") },
-                { "TOC.Aerial", By.Id("chkBasemapVis") },
+                { "TOC.Aerial.Root", By.Id("chkBasemapVis") },
+                { "TOC.CityPlanV2.Root", By.Id("chkServiceVis_city_plan") },
 
                 /*
                 { "Layers.Aerial", By.Id("chkBasemapVis") },
@@ -50,15 +51,13 @@ namespace LocationShots.BLL
                 { "Layers.HouseUnitNumbers", By.Id("chkLayerVis_1") },
                 { "Layers.LandLayers", By.Id("chkServiceVis_land") },
                 //
-                { "LayerGroup.CityPlanV1", By.Id("chkServiceVis_city_plan") },
                 */
             };
             Redland.RadioButtons = new Dictionary<string, By>()
             {
-                /*
-                { "LayerGroup.Land", By.Id("rbn_land") },
-                { "LayerGroup.CityPlanV1", By.Id("rbn_city_plan") },
-                */
+                { "TOC.Land.Root", By.Id("rbn_land")},
+                { "TOC.CityPlanV2.Root", By.Id("rbn_city_plan")}
+
             };
             Redland.Buttons = new Dictionary<string, By>()
             {

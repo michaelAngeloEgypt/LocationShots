@@ -57,36 +57,38 @@ namespace LocationShots.BLL
                     (IDs.Redland.Urls["SearchResultPrefix"], srcHtml.Between("LANDNO=", "'"));
                 return fixedRes;
             }
-            internal static void ExamineSearchResult(SearchResult result)
+            internal static void ConfirmImagesLoaded()
             {
-                CurrentDriver.Navigate().GoToUrl(result.ResultUrl);
-                Selenium.LoadSite(result.ResultUrl, IDs.Redland.Buttons["Home.Search"]);
-                Selenium.ConfirmReady();
-                //
+                //not always available
                 /*
-                ClickField(IDs.Redland.RadioButtons["LayerGroup.Land"]);
-                Selenium.ConfirmReady();
-                ClickField(IDs.Redland.CheckBoxes["Layers.Aerial"]);
-                Selenium.ConfirmReady();
-                ClickField(IDs.Redland.CheckBoxes["LayerGroup.CityPlanV1"]);
-                Selenium.ConfirmReady();
-                ClickField(IDs.Redland.Buttons["LayerGroup.CloseLayers"]);
-                Selenium.ConfirmReady();
-                */
-
-                //step1: aerial view
-                ClickField(IDs.Redland.CheckBoxes["TOC.Aerial"]);
-                Selenium.ConfirmReady();
-                ClickField(IDs.Redland.Buttons["Home.ToggleTOC"]);
                 CurrentDriver.WaitForImage(IDs.Redland.Images["Home.LocationImage1"], 5000);
                 CurrentDriver.WaitForImage(IDs.Redland.Images["Home.LocationImage2"], 5000);
                 CurrentDriver.WaitForImage(IDs.Redland.Images["Home.LocationImage3"], 5000);
-                var aerial = Path.Combine(result.ResultFolder, "Aerial.png");
-                Selenium.TakeScreenshot(aerial);
+                */
+
+                var field = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id("divImages")));
+            }
+            internal static void ExamineSearchResult(SearchResult result)
+            {
+                //step0: setup
+                CurrentDriver.Navigate().GoToUrl(result.ResultUrl);
+                Selenium.LoadSite(result.ResultUrl, IDs.Redland.Buttons["Home.Search"]);
                 Selenium.ConfirmReady();
+                ConfirmImagesLoaded();
+                //ClickField(IDs.Redland.Buttons["Home.ToggleTOC"]);        //make it only if not visible
+                //
+                //step1: aerial view
+                var aerial = Path.Combine(result.ResultFolder,"Aerial.png");
+                ClickField(IDs.Redland.RadioButtons["TOC.Land.Root"]);
+                ClickFieldIfUnchecked(IDs.Redland.CheckBoxes["TOC.Aerial.Root"]);
+                ClickFieldIfChecked(IDs.Redland.CheckBoxes["TOC.CityPlanV2.Root"]);
+                ClickField(IDs.Redland.Buttons["Home.ToggleTOC"]);
+                Selenium.ConfirmReady();
+                Selenium.TakeScreenshot(aerial);
 
 
                 //step2: Easements view
+                var easements = Path.Combine(result.ResultFolder, "Easements.png");
                 ClickField(IDs.Redland.Buttons["Home.ToggleTOC"]);
                 Selenium.ConfirmReady();
                 ClickField(IDs.Redland.CheckBoxes["TOC.Land.Easements"]);
@@ -94,7 +96,6 @@ namespace LocationShots.BLL
                 Selenium.ConfirmReady();
                 ClickField(IDs.Redland.Buttons["Home.ToggleTOC"]);
                 Selenium.ConfirmReady();
-                var easements = Path.Combine(result.ResultFolder, "Easements.png");
                 Selenium.TakeScreenshot(easements);
                 Selenium.ConfirmReady();
 
