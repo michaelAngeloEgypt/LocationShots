@@ -37,21 +37,80 @@ namespace LocationShots.BLL
 
             Redland.CheckBoxes = new Dictionary<string, By>()
             {
+                { "Layers.LandLayers", By.Id("chkServiceVis_land") },
+                //----------------------------------------------------------
+                //Water
+                //Reservoirs
+                //Water Treatment Plants
+                //Water Pumpstations
+                //Water Valves
+                //Water Hydrants
+                //Other Water Fittings
+                //Water Mains - Operating
+                //Water Mains - Decommisioned
+                //District Metered Areas
+                //Wastewater
+                //Wasterwater Treatment Plants
+                //Wastewater Pumpstations
+                //Pits
+                //WW Pit Dimensions
+                //WW Maintenance Pits
+                //Pipes
+                //WW Non Pressure Pipes
+                //WW Pressure Pipes
+                //House Connections
+                //WW Connection Labels
+                //WW Connections Set backs
+                //WW House Connections
+                //Wastewater Catchments
+                //Stormwater
+                //Roof Water
+                //Roof Water Pits
+                //Roof Water Pipes
+                //Roof Water House Connections
+                //Stormwater
+                //Stormwater Pits
+                //Stormwater Endstructures
+                //Stormwater Open Drains
+                //Stormwater Pipes
+                //???
+                //Dam Walls
+                //Watercourses
+
+                //----------------------------------------------------------
+                //House - Unit Numbers
+                { "Layers.HouseUnitNumbers", By.Id("chkLayerVis_1") },
+                //Lot Numbers
+                //Road Names
+                //Plan Boundaries
+                //Easements
                 { "TOC.Land.Easements", By.Id("chkLayerVis_5") },
-                { "TOC.Aerial.Root", By.Id("chkBasemapVis") },
+                //Convenants
+                //Current Land
+                { "Layers.CurrentLand", By.Id("chkLayerVis_9") },
+                //Council Land
+                //State Reserves and Trustees
+                //Administrative Boundaries
+                //Council Electoral Divisions
+                { "Layers.CouncilElectoral", By.Id("chkLayerVis_13") },
+                //State Electorates
+                //Federal Electorates
+                //Suburbs
+                { "Layers.Suburbs", By.Id("chkLayerVis_16") },
+                //Parishes
+                //Priority Development Areas
+                { "Layers.PriorityDevelopment", By.Id("chkLayerVis_18") },
+                //SEQ Regional Plan 2017
+                //Redland City and Surrounds
+                { "Layers.CityAndSurrounds", By.Id("chkLayerVis_20") },
+                 //City Plan Version 2
                 { "TOC.CityPlanV2.Root", By.Id("chkServiceVis_city_plan") },
 
-                /*
-                { "Layers.Aerial", By.Id("chkBasemapVis") },
-                { "Layers.CityAndSurrounds", By.Id("chkLayerVis_20") },
-                { "Layers.PriorityDevelopment", By.Id("chkLayerVis_18") },
-                { "Layers.Suburbs", By.Id("chkLayerVis_16") },
-                { "Layers.CouncilElectoral", By.Id("chkLayerVis_13") },
-                { "Layers.CurrentLand", By.Id("chkLayerVis_9") },
-                { "Layers.HouseUnitNumbers", By.Id("chkLayerVis_1") },
-                { "Layers.LandLayers", By.Id("chkServiceVis_land") },
-                //
-                */
+
+                //----------------------------------------------------------
+                //Aerial Image Base Map
+                { "TOC.Aerial.Root", By.Id("chkBasemapVis") },
+
             };
             Redland.RadioButtons = new Dictionary<string, By>()
             {
@@ -96,6 +155,7 @@ namespace LocationShots.BLL
             };
             Redland.Images = new Dictionary<string, By>()
             {
+                { "Home.Images" , By.Id("divImages")},
                 { "Home.LocationImage1" , By.Id("image_base_img")},
                 { "Home.LocationImage2" , By.Id("land_img")},
                 { "Home.LocationImage3" , By.Id("selection_img")},

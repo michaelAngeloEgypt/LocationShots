@@ -66,7 +66,7 @@ namespace LocationShots.BLL
                 CurrentDriver.WaitForImage(IDs.Redland.Images["Home.LocationImage3"], 5000);
                 */
 
-                var field = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id("divImages")));
+                var field = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(IDs.Redland.Images["Home.Images"]));
             }
             internal static void ExamineSearchResult(SearchResult result)
             {
@@ -78,13 +78,7 @@ namespace LocationShots.BLL
                 //ClickField(IDs.Redland.Buttons["Home.ToggleTOC"]);        //make it only if not visible
                 //
                 //step1: aerial view
-                var aerial = Path.Combine(result.ResultFolder,"Aerial.png");
-                ClickField(IDs.Redland.RadioButtons["TOC.Land.Root"]);
-                ClickFieldIfUnchecked(IDs.Redland.CheckBoxes["TOC.Aerial.Root"]);
-                ClickFieldIfChecked(IDs.Redland.CheckBoxes["TOC.CityPlanV2.Root"]);
-                ClickField(IDs.Redland.Buttons["Home.ToggleTOC"]);
-                Selenium.ConfirmReady();
-                Selenium.TakeScreenshot(aerial);
+                AerialView(result);
 
 
                 //step2: Easements view
@@ -129,6 +123,18 @@ namespace LocationShots.BLL
 
 
             }
+
+            private static void AerialView(SearchResult result)
+            {
+                var aerial = Path.Combine(result.ResultFolder, "Aerial.png");
+                ClickField(IDs.Redland.RadioButtons["TOC.Land.Root"]);
+                ClickFieldIfUnchecked(IDs.Redland.CheckBoxes["TOC.Aerial.Root"]);
+                ClickFieldIfChecked(IDs.Redland.CheckBoxes["TOC.CityPlanV2.Root"]);
+                ClickField(IDs.Redland.Buttons["Home.ToggleTOC"]);
+                Selenium.ConfirmReady();
+                Selenium.TakeScreenshot(aerial);
+            }
+
             internal static void SkipDisclaimer()
             {
                 CurrentDriver.SwitchTo().Frame("iframeCommon");
