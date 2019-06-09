@@ -1,7 +1,9 @@
-﻿using LocationShots.BLL.Utils;
+﻿using LocationShots.BLL;
+using LocationShots.BLL.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -16,7 +18,8 @@ namespace LocationShots
             try
             {
                 //TestTime();
-                TestMergeImage_Interop();
+                //TestMergeImage_Interop();
+                TestReadTOC();
             }
             catch (Exception x)
             {
@@ -43,7 +46,6 @@ namespace LocationShots
             var proposed2 = timespan.ToStandardElapsedFormat();
 
         }
-
         private static void TestMergeImage_Interop()
         {
             try
@@ -54,6 +56,19 @@ namespace LocationShots
 
                 WordInteropUtils.CreateDocument(testWordPath);
                 WordInteropUtils.InsertImageInWord(testWordPath, imageToInsert);
+            }
+            catch (Exception x)
+            {
+                XLogger.Error(x);
+            }
+        }
+        private static void TestReadTOC()
+        {
+            try
+            {
+                var TOCPath = Path.GetFullPath(@"TOCs\Redemap.xlsx");
+                var screenshots = Engine.ReadTOC(TOCPath);
+
             }
             catch (Exception x)
             {

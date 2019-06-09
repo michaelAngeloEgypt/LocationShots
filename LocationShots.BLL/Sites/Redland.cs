@@ -123,7 +123,6 @@ namespace LocationShots.BLL
 
 
             }
-
             private static void AerialView(SearchResult result)
             {
                 var aerial = Path.Combine(result.ResultFolder, "Aerial.png");
@@ -134,7 +133,6 @@ namespace LocationShots.BLL
                 Selenium.ConfirmReady();
                 Selenium.TakeScreenshot(aerial);
             }
-
             internal static void SkipDisclaimer()
             {
                 CurrentDriver.SwitchTo().Frame("iframeCommon");
@@ -146,7 +144,6 @@ namespace LocationShots.BLL
                 //Selenium.ClickByJavascript(IDs.Redland.JsButtons["Home.Agree"]);
                 CurrentDriver.FindElements(By.XPath("//input")).LastOrDefault().Click();
             }
-
             internal static void DoTest()
             {
                 //var size = CurrentDriver.FindElement(By.Id("iframeDisclaimerContent")).Size;

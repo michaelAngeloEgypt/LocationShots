@@ -9,7 +9,7 @@ using System.Threading;
 
 namespace LocationShots.BLL
 {
-    public static class Engine
+    public  static partial class Engine
     {
         #region PROP
         //public static IWebDriver CurrentDriver { get; private set; }
