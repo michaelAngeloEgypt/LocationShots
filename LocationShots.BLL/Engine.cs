@@ -1,5 +1,6 @@
 ﻿using Ganss.Excel;
 using LocationShots.BLL.Utils;
+using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -105,6 +106,12 @@ namespace LocationShots.BLL
         {
             try
             {
+                currentStep = "Reading configuration";
+                CallUpdateStatus(currentStep);
+                var TOCPath = Path.GetFullPath(@"TOCs\Redemap.xlsx");
+                Variables.ScreenshotsSettings.Clear();
+                Variables.ScreenshotsSettings.AddRange(ReadTOC(TOCPath));
+
                 currentStep = "Starting browser";
                 CallUpdateStatus(currentStep);
                 Selenium.SetCurrentDriver(EngineConfig.Inputs.Browser);
@@ -137,7 +144,7 @@ namespace LocationShots.BLL
                     var searchResult = searchResults[i];
                     currentStep = $"Fetching search result {i+1} of {searchResults.Count}";
                     CallUpdateStatus(currentStep);
-                    Selenium.Redland.ExamineSearchResult(searchResult);
+                    Selenium.Redland.ExamineSearchResult(searchResult, Variables.ScreenshotsSettings);
                     currentStep = $"result {i + 1} of {searchResults.Count}";
                     CallUpdateStatus($"{currentStep} - Waiting for charts to load");
                     if (!Selenium.ConfirmReady())
@@ -366,6 +373,38 @@ namespace LocationShots.BLL
         }
         #endregion CML
 
+        public static List<TOCScreenshot> ReadTOC(string TOCPath)
+        {
+            if (string.IsNullOrWhiteSpace(TOCPath) || !File.Exists(TOCPath))
+                throw new ArgumentException("Blank or non-existant path given", nameof(TOCPath));
+
+            try
+            {
+                var res = new List<TOCScreenshot>();
+                XSSFWorkbook tocWorkbook;
+                var sheetNames = new List<string>();
+                using (FileStream file = new FileStream(TOCPath, FileMode.Open, FileAccess.Read))
+                {
+                    tocWorkbook = new XSSFWorkbook(file);
+                    for (int i = 1; i < tocWorkbook.NumberOfSheets; i++)
+                        sheetNames.Add(tocWorkbook.GetSheetName(i));
+                }
+                var tocChoices = new ExcelMapper(@TOCPath) { TrackObjects = false };
+                foreach (var sheetName in sheetNames)
+                {
+                    var screenshot = new TOCScreenshot() { Filename = $"{sheetName}.png" };
+                    screenshot.Choices = tocChoices.Fetch<TOCChoices>(sheetName).ToList();
+                    res.Add(screenshot);
+                }
+
+                return res;
+            }
+            catch (Exception x)
+            {
+                x.Data.Add(nameof(TOCPath), TOCPath);
+                throw;
+            }
+        }
         private static void PrepareFolders(List<SearchResult> searchResults)
         {
             foreach (var item in searchResults)

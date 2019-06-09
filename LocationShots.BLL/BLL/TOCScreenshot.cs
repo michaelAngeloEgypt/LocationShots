@@ -1,16 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LocationShots.BLL
 {
     public class TOCScreenshot
     {
         public string Filename { get; set; }
-        public List<TOCChoices> Choices {get; set;}
-
+        public List<TOCChoices> Choices { get; set; }
+        public List<TOCChoices> FilteredChoices
+        {
+            get
+            {
+                if (Choices == null || Choices.Count == 0) return new List<TOCChoices>();
+                else return Choices.Where(c => c.Ticked == true.ToString()).ToList();
+            }
+        }
         public TOCScreenshot()
         {
             Choices = new List<TOCChoices>();

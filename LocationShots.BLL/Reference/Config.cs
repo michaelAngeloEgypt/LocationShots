@@ -6,7 +6,7 @@ namespace LocationShots.BLL
     {
         public ConfInputs Inputs { get; set; }
         public ConfOutputs Outputs { get; set; }
-        public String ExeVersion { get; set; }
+        public string ExeVersion { get; set; }
 
 
         public class ConfInputs
@@ -38,7 +38,6 @@ namespace LocationShots.BLL
         {
             public string OutputFolder { get; set; }
         }
-
     }
 }
 

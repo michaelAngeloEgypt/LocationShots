@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 
 namespace LocationShots.BLL
@@ -68,7 +69,62 @@ namespace LocationShots.BLL
 
                 var field = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(IDs.Redland.Images["Home.Images"]));
             }
-            internal static void ExamineSearchResult(SearchResult result)
+            internal static void ExamineSearchResult(SearchResult result, List<TOCScreenshot> screenshotsSettings)
+            {
+                //step0: setup
+                CurrentDriver.Navigate().GoToUrl(result.ResultUrl);
+                Selenium.LoadSite(result.ResultUrl, IDs.Redland.Buttons["Home.Search"]);
+                Selenium.ConfirmReady();
+                ConfirmImagesLoaded();
+                //ClickField(IDs.Redland.Buttons["Home.ToggleTOC"]);        //make it only if not visible
+                //
+
+                foreach (var screenshotSettings in screenshotsSettings)
+                {
+                    foreach (var choice in screenshotSettings.FilteredChoices)
+                    {
+                        Assembly domainAssembly = Assembly.GetExecutingAssembly();
+                        Type customerType = domainAssembly.GetType("OpenQA.Selenium.By");
+                        MethodInfo staticMethodInfo = customerType.GetMethod(choice.By);
+                        By ByObject = staticMethodInfo.Invoke(null, new object[] { choice.Value }) as By;
+                        ClickFieldIfUnchecked(ByObject);
+                    }
+                    Selenium.ConfirmReady();
+                    ConfirmImagesLoaded();
+                    Selenium.TakeScreenshot(screenshotSettings.Filename);
+                }
+            }
+            private static void AerialView(SearchResult result)
+            {
+                var aerial = Path.Combine(result.ResultFolder, "Aerial.png");
+                ClickField(IDs.Redland.RadioButtons["TOC.Land.Root"]);
+                ClickFieldIfUnchecked(IDs.Redland.CheckBoxes["TOC.Aerial.Root"]);
+                ClickFieldIfChecked(IDs.Redland.CheckBoxes["TOC.CityPlanV2.Root"]);
+                ClickField(IDs.Redland.Buttons["Home.ToggleTOC"]);
+                Selenium.ConfirmReady();
+                Selenium.TakeScreenshot(aerial);
+            }
+            internal static void SkipDisclaimer()
+            {
+                CurrentDriver.SwitchTo().Frame("iframeCommon");
+                CurrentDriver.SwitchTo().Frame("iframeDisclaimerContent");
+                //var inner = CurrentDriver.PageSource;
+                CurrentDriver.SwitchTo().ParentFrame();
+                //var outer = CurrentDriver.PageSource;
+                //Selenium.ClickField(IDs.Redland.Buttons["Home.Agree"]);
+                //Selenium.ClickByJavascript(IDs.Redland.JsButtons["Home.Agree"]);
+                CurrentDriver.FindElements(By.XPath("//input")).LastOrDefault().Click();
+            }
+            internal static void DoTest()
+            {
+                //var size = CurrentDriver.FindElement(By.Id("iframeDisclaimerContent")).Size;
+                //iframeCommon
+                var size = CurrentDriver.FindElement(By.Id("iframeCommon")).Size;
+                CurrentDriver.SwitchTo().Frame("iframeCommon");
+                CurrentDriver.SwitchTo().Frame("iframeDisclaimerContent");
+            }
+
+            internal static void ExamineSearchResult_Old(SearchResult result)
             {
                 //step0: setup
                 CurrentDriver.Navigate().GoToUrl(result.ResultUrl);
@@ -122,35 +178,6 @@ namespace LocationShots.BLL
                 */
 
 
-            }
-            private static void AerialView(SearchResult result)
-            {
-                var aerial = Path.Combine(result.ResultFolder, "Aerial.png");
-                ClickField(IDs.Redland.RadioButtons["TOC.Land.Root"]);
-                ClickFieldIfUnchecked(IDs.Redland.CheckBoxes["TOC.Aerial.Root"]);
-                ClickFieldIfChecked(IDs.Redland.CheckBoxes["TOC.CityPlanV2.Root"]);
-                ClickField(IDs.Redland.Buttons["Home.ToggleTOC"]);
-                Selenium.ConfirmReady();
-                Selenium.TakeScreenshot(aerial);
-            }
-            internal static void SkipDisclaimer()
-            {
-                CurrentDriver.SwitchTo().Frame("iframeCommon");
-                CurrentDriver.SwitchTo().Frame("iframeDisclaimerContent");
-                //var inner = CurrentDriver.PageSource;
-                CurrentDriver.SwitchTo().ParentFrame();
-                //var outer = CurrentDriver.PageSource;
-                //Selenium.ClickField(IDs.Redland.Buttons["Home.Agree"]);
-                //Selenium.ClickByJavascript(IDs.Redland.JsButtons["Home.Agree"]);
-                CurrentDriver.FindElements(By.XPath("//input")).LastOrDefault().Click();
-            }
-            internal static void DoTest()
-            {
-                //var size = CurrentDriver.FindElement(By.Id("iframeDisclaimerContent")).Size;
-                //iframeCommon
-                var size = CurrentDriver.FindElement(By.Id("iframeCommon")).Size;
-                CurrentDriver.SwitchTo().Frame("iframeCommon");
-                CurrentDriver.SwitchTo().Frame("iframeDisclaimerContent");
             }
         }
     }
