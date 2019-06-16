@@ -13,6 +13,15 @@ namespace LocationShots.BLL
     {
         public static class Redland
         {
+            #region DLG
+            public delegate void EventHandler(string mes);
+            public static event EventHandler UpdateStatusEvent;
+            #endregion DLG
+
+            #region FLd
+            private static string currentStep;
+            #endregion FLD
+
             internal static List<SearchResult> SearchLocation(string unitNo, string houseNo, string streetName)
             {
                 var res = new List<SearchResult>();
@@ -71,28 +80,46 @@ namespace LocationShots.BLL
             }
             internal static void ExamineSearchResult(SearchResult result, List<TOCScreenshot> screenshotsSettings)
             {
-                //step0: setup
-                CurrentDriver.Navigate().GoToUrl(result.ResultUrl);
-                Selenium.LoadSite(result.ResultUrl, IDs.Redland.Buttons["Home.Search"]);
-                Selenium.ConfirmReady();
-                ConfirmImagesLoaded();
-                //ClickField(IDs.Redland.Buttons["Home.ToggleTOC"]);        //make it only if not visible
-                //
-
-                foreach (var screenshotSettings in screenshotsSettings)
+                TOCScreenshot screenshotSettings = null;
+                TOCChoices choice = null;
+                try
                 {
-                    foreach (var choice in screenshotSettings.FilteredChoices)
-                    {
-                        Assembly domainAssembly = Assembly.GetExecutingAssembly();
-                        Type customerType = domainAssembly.GetType("OpenQA.Selenium.By");
-                        MethodInfo staticMethodInfo = customerType.GetMethod(choice.By);
-                        By ByObject = staticMethodInfo.Invoke(null, new object[] { choice.Value }) as By;
-                        ClickFieldIfUnchecked(ByObject);
-                    }
+                    //step0: setup
+                    CurrentDriver.Navigate().GoToUrl(result.ResultUrl);
+                    Selenium.LoadSite(result.ResultUrl, IDs.Redland.Buttons["Home.Search"]);
                     Selenium.ConfirmReady();
                     ConfirmImagesLoaded();
-                    Selenium.TakeScreenshot(screenshotSettings.Filename);
+                    //ClickField(IDs.Redland.Buttons["Home.ToggleTOC"]);        //make it only if not visible
+                    //
+
+                    for (int i = 0; i < screenshotsSettings.Count; i++)
+                    {
+                        currentStep = $"Fetching search result {i + 1} of {screenshotsSettings.Count}";
+                        CallUpdateStatus(currentStep);
+                        screenshotSettings = screenshotsSettings[i];
+                        for (int j = 0; j < screenshotSettings.FilteredChoices.Count; j++)
+                        {
+                            choice = screenshotSettings.FilteredChoices[j];
+                            Assembly domainAssembly = Assembly.GetExecutingAssembly();
+                            Type customerType = domainAssembly.GetType("OpenQA.Selenium.By");
+                            MethodInfo staticMethodInfo = customerType.GetMethod(choice.By);
+                            By ByObject = staticMethodInfo.Invoke(null, new object[] { choice.Value }) as By;
+                            ClickFieldIfUnchecked(ByObject);
+                        }
+                        Selenium.ConfirmReady();
+                        ConfirmImagesLoaded();
+                        Selenium.TakeScreenshot(screenshotSettings.Filename);
+                    }
                 }
+                catch (Exception x)
+                {
+                    if (screenshotSettings != null)
+                        x.Data.Add(nameof(screenshotSettings), screenshotSettings.ToString());
+                    if (choice != null)
+                        x.Data.Add(nameof(choice),choice.ToString());
+                    throw;
+                }
+
             }
             private static void AerialView(SearchResult result)
             {
@@ -122,6 +149,11 @@ namespace LocationShots.BLL
                 var size = CurrentDriver.FindElement(By.Id("iframeCommon")).Size;
                 CurrentDriver.SwitchTo().Frame("iframeCommon");
                 CurrentDriver.SwitchTo().Frame("iframeDisclaimerContent");
+            }
+
+            private static void CallUpdateStatus(string msg)
+            {
+                UpdateStatusEvent?.Invoke(msg);
             }
 
             internal static void ExamineSearchResult_Old(SearchResult result)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.VisualBasic;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace LocationShots.BLL
@@ -19,6 +20,15 @@ namespace LocationShots.BLL
         {
             Choices = new List<TOCChoices>();
         }
+        public override string ToString()
+        {
+            var promptWidth = nameof(FilteredChoices).Length + 3;
+            string res = 
+$@"{Strings.StrDup(1,'\t')}(
+{Strings.StrDup(2, '\t')}{nameof(Filename) + ":".PadRight(promptWidth)}{Filename}
+{Strings.StrDup(1, '\t')})";
+            return res;
+        }
     }
     public class TOCChoices
     {
@@ -29,5 +39,16 @@ namespace LocationShots.BLL
         public string Level2 { get; set; }
         public string Level3 { get; set; }
         public string Ticked { get; set; }
+
+        public override string ToString()
+        {
+            var promptWidth = nameof(Ticked).Length + 3;
+            string res =
+$@"{Strings.StrDup(1, '\t')}(
+{Strings.StrDup(2, '\t')}{nameof(By) + ":".PadRight(promptWidth)}{By}
+{Strings.StrDup(2, '\t')}{nameof(Value) + ":".PadRight(promptWidth)}{Value}
+{Strings.StrDup(1, '\t')})";
+            return res;
+        }
     }
 }

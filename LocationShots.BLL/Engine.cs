@@ -43,7 +43,12 @@ namespace LocationShots.BLL
             Status = new ExecutionStatus();
             Variables.Reset();
             Selenium.Reset();
+
+            Selenium.Redland.UpdateStatusEvent -= CallUpdateStatus;
+            Selenium.Redland.UpdateStatusEvent += CallUpdateStatus;
         }
+
+
         public static bool DoTaskCml()
         {
             try
