@@ -7,18 +7,18 @@ namespace LocationShots.BLL
     public class TOCScreenshot
     {
         public string Filename { get; set; }
-        public List<TOCChoices> Choices { get; set; }
-        public List<TOCChoices> FilteredChoices
+        public List<TOCChoice> Choices { get; set; }
+        public List<TOCChoice> FilteredChoices
         {
             get
             {
-                if (Choices == null || Choices.Count == 0) return new List<TOCChoices>();
+                if (Choices == null || Choices.Count == 0) return new List<TOCChoice>();
                 else return Choices.Where(c => c.Ticked == true.ToString()).ToList();
             }
         }
         public TOCScreenshot()
         {
-            Choices = new List<TOCChoices>();
+            Choices = new List<TOCChoice>();
         }
         public override string ToString()
         {
@@ -30,7 +30,7 @@ $@"{Strings.StrDup(1,'\t')}(
             return res;
         }
     }
-    public class TOCChoices
+    public class TOCChoice
     {
         public string By { get; set; }
         public string Value { get; set; }

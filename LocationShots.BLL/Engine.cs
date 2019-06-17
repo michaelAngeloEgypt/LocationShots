@@ -398,7 +398,7 @@ namespace LocationShots.BLL
                 foreach (var sheetName in sheetNames)
                 {
                     var screenshot = new TOCScreenshot() { Filename = $"{sheetName}.png" };
-                    screenshot.Choices = tocChoices.Fetch<TOCChoices>(sheetName).ToList();
+                    screenshot.Choices = tocChoices.Fetch<TOCChoice>(sheetName).ToList();
                     res.Add(screenshot);
                 }
 

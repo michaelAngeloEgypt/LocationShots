@@ -81,7 +81,7 @@ namespace LocationShots.BLL
             internal static void ExamineSearchResult(SearchResult result, List<TOCScreenshot> screenshotsSettings)
             {
                 TOCScreenshot screenshotSettings = null;
-                TOCChoices choice = null;
+                TOCChoice choice = null;
                 try
                 {
                     //step0: setup
@@ -97,18 +97,26 @@ namespace LocationShots.BLL
                         currentStep = $"Fetching search result {i + 1} of {screenshotsSettings.Count}";
                         CallUpdateStatus(currentStep);
                         screenshotSettings = screenshotsSettings[i];
-                        for (int j = 0; j < screenshotSettings.FilteredChoices.Count; j++)
+                        for (int j = 0; j < screenshotSettings.Choices.Count; j++)
                         {
-                            choice = screenshotSettings.FilteredChoices[j];
-                            Assembly domainAssembly = Assembly.GetExecutingAssembly();
-                            Type customerType = domainAssembly.GetType("OpenQA.Selenium.By");
-                            MethodInfo staticMethodInfo = customerType.GetMethod(choice.By);
-                            By ByObject = staticMethodInfo.Invoke(null, new object[] { choice.Value }) as By;
-                            ClickFieldIfUnchecked(ByObject);
+                            choice = screenshotSettings.Choices[j];
+                            if (string.IsNullOrWhiteSpace(choice.By) || string.IsNullOrWhiteSpace(choice.Value))
+                                continue;
+
+                            var byObject = GetBy(choice);
+                            if (byObject != null)
+                            {
+                                if (!string.IsNullOrWhiteSpace(choice.Ticked) && Convert.ToBoolean(choice.Ticked))
+                                    ClickFieldIfUnchecked(byObject);
+                                else
+                                    ClickFieldIfChecked(byObject);
+                            }
                         }
                         Selenium.ConfirmReady();
                         ConfirmImagesLoaded();
                         Selenium.TakeScreenshot(screenshotSettings.Filename);
+                        //0:This is not working?!
+                        //0:Not all iterations produce word documents
                     }
                 }
                 catch (Exception x)
@@ -116,7 +124,7 @@ namespace LocationShots.BLL
                     if (screenshotSettings != null)
                         x.Data.Add(nameof(screenshotSettings), screenshotSettings.ToString());
                     if (choice != null)
-                        x.Data.Add(nameof(choice),choice.ToString());
+                        x.Data.Add(nameof(choice), choice.ToString());
                     throw;
                 }
 
@@ -210,6 +218,21 @@ namespace LocationShots.BLL
                 */
 
 
+            }
+
+
+            internal static By GetBy(TOCChoice choices)
+            {
+                switch (choices.By)
+                {
+                    case "Id":
+                        return By.Id(choices.Value);
+                    case "XPath":
+                        return By.XPath(choices.Value);
+                    case "CssSelector":
+                        return By.CssSelector(choices.Value);
+                }
+                return null;
             }
         }
     }
