@@ -677,7 +677,6 @@ namespace LocationShots.BLL
         {
             Screenshot ss = ((ITakesScreenshot)CurrentDriver).GetScreenshot();
 
-            //Use it as you want now
             string screenshot = ss.AsBase64EncodedString;
             byte[] screenshotAsByteArray = ss.AsByteArray;
             ss.SaveAsFile(filePath, ScreenshotImageFormat.Png); //use any of the built in image formating

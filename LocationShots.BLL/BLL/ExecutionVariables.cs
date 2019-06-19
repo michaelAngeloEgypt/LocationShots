@@ -18,6 +18,7 @@ namespace LocationShots.BLL
         public string ExecutionTimestamp { get { return BeginTimestamp.ToString("yyyyMMddHHmmss"); } }
         public string FilenameTimestamp { get { return $"{BeginTimestamp.ToString("yyyyMMdd")}_{BeginTimestamp.ToString("HHmmss")}"; } }
         public List<TOCScreenshot> ScreenshotsSettings { get; set; }
+        public int TOCSlidingDelay { get; set; }
 
         public ExecutionVariables()
         {
@@ -30,6 +31,8 @@ namespace LocationShots.BLL
             //ExecutionTimestamp = "";
             //OutputSheetPath = "";
             ScreenshotsSettings = new List<TOCScreenshot>();
+
+            TOCSlidingDelay = 5000;
         }
 
     }

@@ -79,7 +79,7 @@ namespace LocationShots.BLL
                 var field = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(IDs.Redland.Images["Home.Images"]));
                 return field != null;
             }
-            internal static void ExamineSearchResult(SearchResult result, List<TOCScreenshot> screenshotsSettings)
+            internal static void ExamineSearchResult(SearchResult result, List<TOCScreenshot> screenshotsSettings, string resultPrefix)
             {
                 TOCScreenshot screenshotSettings = null;
                 TOCChoice choice = null;
@@ -87,15 +87,15 @@ namespace LocationShots.BLL
                 {
                     //step0: setup
                     CurrentDriver.Navigate().GoToUrl(result.ResultUrl);
-                    Selenium.LoadSite(result.ResultUrl, IDs.Redland.Buttons["Home.Search"]);
-                    Selenium.ConfirmReady();
-                    ConfirmImagesLoaded();
-                    //ClickField(IDs.Redland.Buttons["Home.ToggleTOC"]);        //make it only if not visible
+                    LoadSite(result.ResultUrl, IDs.Redland.Buttons["Home.Search"]);
+                    ConfirmReady();
+                    //#0:Hide Show TOC if it is hidden
+                    //ClickField(IDs.Redland.Buttons["Home.ToggleTOC"]);
                     //
 
                     for (int i = 0; i < screenshotsSettings.Count; i++)
                     {
-                        var prefix = $"Result {i + 1} of {screenshotsSettings.Count}: ";
+                        var prefix = $"{resultPrefix}screenshot {i + 1} of {screenshotsSettings.Count}: ";
                         screenshotSettings = screenshotsSettings[i];
                         currentStep = $"{prefix}{screenshotSettings.Filename}";
                         CallUpdateStatus(currentStep);
@@ -124,14 +124,18 @@ namespace LocationShots.BLL
                                 }
                             }
                         }
-                        Selenium.ConfirmReady();
+                        ClickField(IDs.Redland.Buttons["Home.ToggleTOC"]);
+                        ConfirmReady();
                         currentStep = $"{prefix} Waiting for charts to load";
                         CallUpdateStatus(currentStep);
-                        if (!Selenium.ConfirmReady() && !ConfirmImagesLoaded())
+                        if (!ConfirmImagesLoaded())
                             throw new ApplicationException($"{currentStep} - Charts were not loaded. A timeout may have occured");
-                        
-                        TakeScreenshot(screenshotSettings.Filename);
-                        //#0:This is not working?!
+
+                        currentStep = $"{prefix} saving screenshot";
+                        Thread.Sleep(Engine.Variables.TOCSlidingDelay);
+                        CallUpdateStatus(currentStep);
+                        var imagePath = Path.Combine(result.ResultFolder, screenshotSettings.Filename);
+                        TakeScreenshot(imagePath);
                     }
                 }
                 catch (Exception x)
@@ -151,8 +155,8 @@ namespace LocationShots.BLL
                 ClickFieldIfUnchecked(IDs.Redland.CheckBoxes["TOC.Aerial.Root"]);
                 ClickFieldIfChecked(IDs.Redland.CheckBoxes["TOC.CityPlanV2.Root"]);
                 ClickField(IDs.Redland.Buttons["Home.ToggleTOC"]);
-                Selenium.ConfirmReady();
-                Selenium.TakeScreenshot(aerial);
+                ConfirmReady();
+                TakeScreenshot(aerial);
             }
             internal static void SkipDisclaimer()
             {
@@ -183,8 +187,8 @@ namespace LocationShots.BLL
             {
                 //step0: setup
                 CurrentDriver.Navigate().GoToUrl(result.ResultUrl);
-                Selenium.LoadSite(result.ResultUrl, IDs.Redland.Buttons["Home.Search"]);
-                Selenium.ConfirmReady();
+                LoadSite(result.ResultUrl, IDs.Redland.Buttons["Home.Search"]);
+                ConfirmReady();
                 ConfirmImagesLoaded();
                 //ClickField(IDs.Redland.Buttons["Home.ToggleTOC"]);        //make it only if not visible
                 //
@@ -195,21 +199,21 @@ namespace LocationShots.BLL
                 //step2: Easements view
                 var easements = Path.Combine(result.ResultFolder, "Easements.png");
                 ClickField(IDs.Redland.Buttons["Home.ToggleTOC"]);
-                Selenium.ConfirmReady();
+                ConfirmReady();
                 ClickField(IDs.Redland.CheckBoxes["TOC.Land.Easements"]);
                 ClickField(IDs.Redland.CheckBoxes["TOC.Aerial"]);
-                Selenium.ConfirmReady();
+                ConfirmReady();
                 ClickField(IDs.Redland.Buttons["Home.ToggleTOC"]);
-                Selenium.ConfirmReady();
-                Selenium.TakeScreenshot(easements);
-                Selenium.ConfirmReady();
+                ConfirmReady();
+                TakeScreenshot(easements);
+                ConfirmReady();
 
 
                 //step4: table
                 ClickField(IDs.Redland.Buttons["Home.Report"]);
                 var table = Path.Combine(result.ResultFolder, "table.png");
-                Selenium.TakeScreenshot(table);
-                Selenium.ConfirmReady();
+                TakeScreenshot(table);
+                ConfirmReady();
                 //CurrentDriver.SwitchTo().Frame("iframeCommon");
                 ClickField(IDs.Redland.Buttons["Home.CloseReport"]);
                 //CurrentDriver.SwitchTo().ParentFrame();

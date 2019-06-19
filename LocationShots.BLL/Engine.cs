@@ -152,11 +152,11 @@ namespace LocationShots.BLL
                 {
                     var prefix = $"result {i+1} of {total}: ";
                     var searchResult = searchResults[i];
-                    currentStep = $"{prefix}:Start";
+                    currentStep = $"{prefix}{searchResult.ResultName}: Start";
                     CallUpdateStatus(currentStep);
-                    Selenium.Redland.ExamineSearchResult(searchResult, Variables.ScreenshotsSettings);
+                    Selenium.Redland.ExamineSearchResult(searchResult, Variables.ScreenshotsSettings, prefix);
                     SaveResultPics(searchResult);
-                    currentStep = $"{prefix}:End";
+                    currentStep = $"{prefix}{searchResult.ResultName}: End";
                     CallUpdateStatus(currentStep);
                 }
 

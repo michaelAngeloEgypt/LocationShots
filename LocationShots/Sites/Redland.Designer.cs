@@ -41,7 +41,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(54, 54);
+            this.label2.Location = new System.Drawing.Point(30, 31);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 13);
             this.label2.TabIndex = 27;
@@ -50,7 +50,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(54, 80);
+            this.label1.Location = new System.Drawing.Point(30, 57);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(66, 13);
             this.label1.TabIndex = 31;
@@ -59,7 +59,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(54, 54);
+            this.label6.Location = new System.Drawing.Point(30, 31);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(41, 13);
             this.label6.TabIndex = 28;
@@ -67,7 +67,7 @@
             // 
             // txtHouseNo
             // 
-            this.txtHouseNo.Location = new System.Drawing.Point(127, 51);
+            this.txtHouseNo.Location = new System.Drawing.Point(103, 28);
             this.txtHouseNo.Name = "txtHouseNo";
             this.txtHouseNo.Size = new System.Drawing.Size(102, 20);
             this.txtHouseNo.TabIndex = 25;
@@ -75,7 +75,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(54, 80);
+            this.label7.Location = new System.Drawing.Point(30, 57);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(35, 13);
             this.label7.TabIndex = 32;
@@ -83,14 +83,14 @@
             // 
             // txtStreetName
             // 
-            this.txtStreetName.Location = new System.Drawing.Point(127, 77);
+            this.txtStreetName.Location = new System.Drawing.Point(103, 54);
             this.txtStreetName.Name = "txtStreetName";
             this.txtStreetName.Size = new System.Drawing.Size(102, 20);
-            this.txtStreetName.TabIndex = 29;
+            this.txtStreetName.TabIndex = 26;
             // 
             // txtSuburb
             // 
-            this.txtSuburb.Location = new System.Drawing.Point(127, 51);
+            this.txtSuburb.Location = new System.Drawing.Point(103, 28);
             this.txtSuburb.Name = "txtSuburb";
             this.txtSuburb.Size = new System.Drawing.Size(102, 20);
             this.txtSuburb.TabIndex = 26;
@@ -98,7 +98,7 @@
             // 
             // txtStreet
             // 
-            this.txtStreet.Location = new System.Drawing.Point(127, 77);
+            this.txtStreet.Location = new System.Drawing.Point(103, 54);
             this.txtStreet.Name = "txtStreet";
             this.txtStreet.Size = new System.Drawing.Size(102, 20);
             this.txtStreet.TabIndex = 30;
@@ -117,7 +117,7 @@
             this.Controls.Add(this.txtSuburb);
             this.Controls.Add(this.txtStreet);
             this.Name = "Redland";
-            this.Size = new System.Drawing.Size(695, 278);
+            this.Size = new System.Drawing.Size(292, 119);
             this.ResumeLayout(false);
             this.PerformLayout();
 
