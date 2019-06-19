@@ -111,6 +111,7 @@ namespace LocationShots.BLL
                                 var text = choice.ChoiceText;
                                 if (!string.IsNullOrWhiteSpace(choice.Ticked) && Convert.ToBoolean(choice.Ticked))
                                 {
+                                    //#0:Why is "Road Names" not clicked here?
                                     ClickFieldIfUnchecked(byObject);
                                     currentStep = $"{prefix}Click if unchecked: {text}";
                                     CallUpdateStatus(currentStep);
@@ -118,6 +119,7 @@ namespace LocationShots.BLL
                                 }
                                 else
                                 { 
+                                    //#0:Why is "Lot Numbers" not clicked here?
                                     ClickFieldIfChecked(byObject);
                                     currentStep = $"{prefix}Click if checked: {text}";
                                     CallUpdateStatus(currentStep);
