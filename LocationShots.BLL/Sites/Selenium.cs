@@ -36,6 +36,7 @@ namespace LocationShots.BLL
                     switch (browser)
                     {
                         case Lookups.Browser.Chrome:
+                            //#2:Kill chromedriver.exe
                             driver = Chrome();
                             break;
                         case Lookups.Browser.Firefox:

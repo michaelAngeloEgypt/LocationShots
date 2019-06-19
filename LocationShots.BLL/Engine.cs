@@ -26,10 +26,12 @@ namespace LocationShots.BLL
         static Engine()
         {
             EngineConfig = new Config();
+            Status = new ExecutionStatus();
+            Variables = new ExecutionVariables();
         }
 
         #region DLG
-        public delegate void EventHandler(String mes);
+        public delegate void EventHandler(string mes);
         public static event EventHandler UpdateStatusEvent;
 
         public delegate void MarkCompletedEventHandler(string finalMessage);
@@ -144,17 +146,18 @@ namespace LocationShots.BLL
                 Thread.Sleep(1000);
                 PrepareFolders(searchResults);
 
-                for (int i = 0; i < 1; i++)     //Take(1) //searchResults.Count()
+                var total = searchResults.Count;
+                total = 1;
+                for (int i = 0; i < total; i++)    
                 {
+                    var prefix = $"result {i+1} of {total}: ";
                     var searchResult = searchResults[i];
-                    currentStep = $"Fetching search result {i+1} of {searchResults.Count}";
+                    currentStep = $"{prefix}:Start";
                     CallUpdateStatus(currentStep);
                     Selenium.Redland.ExamineSearchResult(searchResult, Variables.ScreenshotsSettings);
-                    currentStep = $"result {i + 1} of {searchResults.Count}";
-                    CallUpdateStatus($"{currentStep} - Waiting for charts to load");
-                    if (!Selenium.ConfirmReady())
-                        throw new ApplicationException($"{currentStep} - Charts were not loaded. A timeout may have occured");
                     SaveResultPics(searchResult);
+                    currentStep = $"{prefix}:End";
+                    CallUpdateStatus(currentStep);
                 }
 
                 Variables.ExecutionTime.Stop();

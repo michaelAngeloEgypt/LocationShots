@@ -67,7 +67,7 @@ namespace LocationShots.BLL
                     (IDs.Redland.Urls["SearchResultPrefix"], srcHtml.Between("LANDNO=", "'"));
                 return fixedRes;
             }
-            internal static void ConfirmImagesLoaded()
+            internal static bool ConfirmImagesLoaded()
             {
                 //not always available
                 /*
@@ -77,6 +77,7 @@ namespace LocationShots.BLL
                 */
 
                 var field = Waiter.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(IDs.Redland.Images["Home.Images"]));
+                return field != null;
             }
             internal static void ExamineSearchResult(SearchResult result, List<TOCScreenshot> screenshotsSettings)
             {
@@ -94,9 +95,10 @@ namespace LocationShots.BLL
 
                     for (int i = 0; i < screenshotsSettings.Count; i++)
                     {
-                        currentStep = $"Fetching search result {i + 1} of {screenshotsSettings.Count}";
-                        CallUpdateStatus(currentStep);
+                        var prefix = $"Result {i + 1} of {screenshotsSettings.Count}: ";
                         screenshotSettings = screenshotsSettings[i];
+                        currentStep = $"{prefix}{screenshotSettings.Filename}";
+                        CallUpdateStatus(currentStep);
                         for (int j = 0; j < screenshotSettings.Choices.Count; j++)
                         {
                             choice = screenshotSettings.Choices[j];
@@ -106,17 +108,30 @@ namespace LocationShots.BLL
                             var byObject = GetBy(choice);
                             if (byObject != null)
                             {
+                                var text = choice.ChoiceText;
                                 if (!string.IsNullOrWhiteSpace(choice.Ticked) && Convert.ToBoolean(choice.Ticked))
+                                {
                                     ClickFieldIfUnchecked(byObject);
+                                    currentStep = $"{prefix}Click if unchecked: {text}";
+                                    CallUpdateStatus(currentStep);
+
+                                }
                                 else
+                                { 
                                     ClickFieldIfChecked(byObject);
+                                    currentStep = $"{prefix}Click if checked: {text}";
+                                    CallUpdateStatus(currentStep);
+                                }
                             }
                         }
                         Selenium.ConfirmReady();
-                        ConfirmImagesLoaded();
-                        Selenium.TakeScreenshot(screenshotSettings.Filename);
-                        //0:This is not working?!
-                        //0:Not all iterations produce word documents
+                        currentStep = $"{prefix} Waiting for charts to load";
+                        CallUpdateStatus(currentStep);
+                        if (!Selenium.ConfirmReady() && !ConfirmImagesLoaded())
+                            throw new ApplicationException($"{currentStep} - Charts were not loaded. A timeout may have occured");
+                        
+                        TakeScreenshot(screenshotSettings.Filename);
+                        //#0:This is not working?!
                     }
                 }
                 catch (Exception x)

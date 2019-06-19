@@ -39,7 +39,18 @@ $@"{Strings.StrDup(1,'\t')}(
         public string Level2 { get; set; }
         public string Level3 { get; set; }
         public string Ticked { get; set; }
+        public string ChoiceText
+        {
+            get
+            {
+                string res = $"{Level0 ?? ""}";
+                res = string.IsNullOrWhiteSpace(res)? $"{Level1 ?? ""}":res;
+                res = string.IsNullOrWhiteSpace(res)? $"{Level2 ?? ""}":res;
+                res = string.IsNullOrWhiteSpace(res)? $"{Level3 ?? ""}":res;
 
+                return res;
+            }
+        }
         public override string ToString()
         {
             var promptWidth = nameof(Ticked).Length + 3;
