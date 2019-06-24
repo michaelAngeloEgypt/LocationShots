@@ -95,12 +95,17 @@ namespace LocationShots.BLL
 
                     for (int i = 0; i < screenshotsSettings.Count; i++)
                     {
+                        ShowTOCIfNotVisible();
                         var prefix = $"{resultPrefix}screenshot {i + 1} of {screenshotsSettings.Count}: ";
+                        currentStep = $"{prefix}Show TOC if hidden";
+                        CallUpdateStatus(currentStep);
+
                         screenshotSettings = screenshotsSettings[i];
                         currentStep = $"{prefix}{screenshotSettings.Filename}";
                         CallUpdateStatus(currentStep);
                         for (int j = 0; j < screenshotSettings.Choices.Count; j++)
                         {
+                            //#0:skip a whole branch of the TOC if its root is no
                             choice = screenshotSettings.Choices[j];
                             if (string.IsNullOrWhiteSpace(choice.By) || string.IsNullOrWhiteSpace(choice.Value))
                                 continue;
@@ -115,10 +120,10 @@ namespace LocationShots.BLL
                                     ClickFieldIfUnchecked(byObject);
                                     currentStep = $"{prefix}Click if unchecked: {text}";
                                     CallUpdateStatus(currentStep);
-
                                 }
                                 else
-                                { 
+                                {
+                                    //#0:Hangs on this for screenshot1: result 1 of 1: screenshot 1 of 2: Click if checked: Coastal Management District
                                     //#0:Why is "Lot Numbers" not clicked here?
                                     ClickFieldIfChecked(byObject);
                                     currentStep = $"{prefix}Click if checked: {text}";
@@ -148,7 +153,11 @@ namespace LocationShots.BLL
                         x.Data.Add(nameof(choice), choice.ToString());
                     throw;
                 }
-
+            }
+            private static void ShowTOCIfNotVisible()
+            {
+                if (!CurrentDriver.ElementIsPresent(IDs.Redland.Generic["Home.TOC-Visible"]))
+                    ClickField(IDs.Redland.Buttons["Home.ToggleTOC"]);
             }
             private static void AerialView(SearchResult result)
             {
@@ -240,8 +249,6 @@ namespace LocationShots.BLL
 
 
             }
-
-
             internal static By GetBy(TOCChoice choices)
             {
                 switch (choices.By)

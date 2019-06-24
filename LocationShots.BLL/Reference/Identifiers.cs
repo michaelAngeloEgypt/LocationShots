@@ -160,6 +160,10 @@ namespace LocationShots.BLL
                 { "Home.LocationImage2" , By.Id("land_img")},
                 { "Home.LocationImage3" , By.Id("selection_img")},
             };
+            Redland.Generic = new Dictionary<string, By>()
+            {
+                { "Home.TOC-Visible" , By.XPath("//div[@id='divTOC'][contains(@style,'left: 0px')]")},
+            };
         }
     }
 
@@ -175,6 +179,7 @@ namespace LocationShots.BLL
         public Dictionary<String, By> TextFields { get; set; }
         public Dictionary<String, By> Tables { get; set; }
         public Dictionary<String, By> Images { get; set; }
+        public Dictionary<String, By> Generic { get; set; }
 
 
         public SiteIDs()
@@ -187,6 +192,7 @@ namespace LocationShots.BLL
             TextFields = new Dictionary<string, By>();
             Tables = new Dictionary<string, By>();
             Images = new Dictionary<string, By>();
+            Generic = new Dictionary<string, By>();
         }
 
     }
