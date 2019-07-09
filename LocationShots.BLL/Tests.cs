@@ -15,8 +15,50 @@ namespace LocationShots.BLL
 {
     public partial class Engine
     {
+
         public static class Tests
         {
+            //#0: Read the Manage Map Content screen
+            //#0: Use XPath to locate the elements instead of Id
+            public static void CheckIfElementIsVisible() //won't be necessary if you just use the ManageMapContent approach - because the Ids are the same!
+            {
+                currentStep = "Reading configuration";
+                CallUpdateStatus(currentStep);
+                var TOCPath = Path.GetFullPath(@"TOCs\Redemap.xlsx");
+                Variables.ScreenshotsSettings.Clear();
+                Variables.ScreenshotsSettings.AddRange(ReadTOC(TOCPath));
+
+                currentStep = "Starting browser";
+                CallUpdateStatus(currentStep);
+                Selenium.SetCurrentDriver(EngineConfig.Inputs.Browser);
+                Selenium.HideDriverWindow();
+
+                currentStep = "Loading Home Page";
+                CallUpdateStatus(currentStep);
+                Selenium.LoadSite(IDs.Redland.Urls["HomePage"], IDs.Redland.Buttons["Home.Search"]);
+
+                currentStep = "Skipping Disclaimer";
+                CallUpdateStatus(currentStep);
+                Selenium.Redland.SkipDisclaimer();
+
+                currentStep = "Switching to Search Page";
+                CallUpdateStatus(currentStep);
+                Selenium.LoadSite(IDs.Redland.Urls["SearchFrame"], IDs.Redland.Buttons["SearchFrame.Find"]);
+
+                currentStep = "Applying Search in Redland";
+                CallUpdateStatus(currentStep);
+                var searchResults = Selenium.Redland.SearchLocation(EngineConfig.Inputs.RedlandInputs.UnitNo, EngineConfig.Inputs.RedlandInputs.HouseNo, EngineConfig.Inputs.RedlandInputs.StreetName);
+
+                currentStep = "Preparing results folders";
+                CallUpdateStatus(currentStep);
+                Engine.EngineConfig.Outputs.OutputFolder.CleanDirectory();
+                Thread.Sleep(1000);
+                PrepareFolders(searchResults);
+
+                var searchResult = searchResults[0];
+                var firstScreenshot = Variables.ScreenshotsSettings[0];
+
+            }
             public static void readChoiceText()
             {
                 var TOCPath = Path.GetFullPath(@"TOCs\Redemap.xlsx");

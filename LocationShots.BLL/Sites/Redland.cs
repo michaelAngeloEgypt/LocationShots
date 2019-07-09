@@ -110,6 +110,8 @@ namespace LocationShots.BLL
                             if (string.IsNullOrWhiteSpace(choice.By) || string.IsNullOrWhiteSpace(choice.Value))
                                 continue;
 
+                            if (choice.ChoiceText == "Coastal Management District")
+                                1.ToString();
                             var byObject = GetBy(choice);
                             if (byObject != null)
                             {

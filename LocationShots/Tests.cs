@@ -17,7 +17,7 @@ namespace LocationShots
         {
             try
             {
-                Engine.Tests.readChoiceText();
+                //Engine.Tests.readChoiceText();
             }
             catch (Exception x)
             {

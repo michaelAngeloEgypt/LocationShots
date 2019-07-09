@@ -53,9 +53,18 @@ $@"{Strings.StrDup(1,'\t')}(
         }
         public override string ToString()
         {
+            var Text = Level3;
+            if (string.IsNullOrWhiteSpace(Text))
+                Text = Level2;
+            if (string.IsNullOrWhiteSpace(Text))
+                Text = Level1;
+            if (string.IsNullOrWhiteSpace(Text))
+                Text = Level0;
+
             var promptWidth = nameof(Ticked).Length + 3;
             string res =
 $@"{Strings.StrDup(1, '\t')}(
+{Strings.StrDup(2, '\t')}{nameof(Text) + ":".PadRight(promptWidth)}{Text}
 {Strings.StrDup(2, '\t')}{nameof(By) + ":".PadRight(promptWidth)}{By}
 {Strings.StrDup(2, '\t')}{nameof(Value) + ":".PadRight(promptWidth)}{Value}
 {Strings.StrDup(1, '\t')})";
